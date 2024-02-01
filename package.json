@@ -9,8 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/comfortaa": "^0.2.3",
+    "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-runtime": "~3.1.1",
     "expo": "~50.0.5",
+    "expo-font": "~11.10.2",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
