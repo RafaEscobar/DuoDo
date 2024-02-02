@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
-// import { Inter_900Black } from '@expo-google-fonts/inter';
 import { Comfortaa_700Bold } from "@expo-google-fonts/comfortaa";
 import { Poppins_400Regular } from "@expo-google-fonts/poppins";
+import { GluestackUIProvider, Box, Spinner, Text } from "@gluestack-ui/themed";
+import { config } from "@gluestack-ui/config";
 
 import tw, { style } from "twrnc";
 
@@ -26,11 +27,17 @@ export default function App() {
           fontSize: 40,
         }}
       >
-        Hola Git
+        Hola Mundo!
       </Text>
       <Text style={[styles.text, { fontFamily: "Poppins_400Regular" }]}>
         Whereas recognition of the inherent dignity
       </Text>
+      <GluestackUIProvider config={config}>
+        <Box width="100%" justifyContent="center" borderRadius="$lg" alignItems="center"  bg="$primary500" p="$5" r>
+          <Text style={[styles.text, { fontFamily: "Comfortaa_700Bold" }]}>Open up App.js to start working on your app!</Text>
+        </Box>
+        <Spinner size="small" />
+      </GluestackUIProvider>
       <StatusBar style="auto" />
     </View>
   );
