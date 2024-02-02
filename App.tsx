@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
-// import { Inter_900Black } from '@expo-google-fonts/inter';
 import { Comfortaa_700Bold } from "@expo-google-fonts/comfortaa";
 import { Poppins_400Regular } from "@expo-google-fonts/poppins";
 
-import tw, { style } from "twrnc";
+import tw from "twrnc";
+import React from "react";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
