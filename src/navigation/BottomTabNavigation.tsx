@@ -1,9 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Dashboard } from '../screens/dashboard/Dashboard';
-import { Profile } from '../screens/profile/Profile';
-import { Calendar } from '../screens/calendar/Calendar';
-import { Create } from '../screens/create/create';
+import { Calendar, Create, Dashboard, Profile } from '../screens';
 
 const Tab = createBottomTabNavigator();
 
