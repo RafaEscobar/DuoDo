@@ -12,7 +12,7 @@ export const StackNavigation = () => {
     <Stack.Navigator>
       <Stack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={Login}/>
-      <Stack.Screen name="Register" component={SignUp}/>
+      <Stack.Screen name="SignUp" component={SignUp}/>
     </Stack.Navigator>
   );
 }
