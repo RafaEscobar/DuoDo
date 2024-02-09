@@ -12,10 +12,10 @@ export const BottomTabNavigator = () => {
         name="Inicio"
         component={Dashboard}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: () => (
             <Image
-              source="./assets/images/home.png"
-              style={{ tintColor: color, width: 30, height: 30 }}
+              source="https://kaihatsu-code.com/assets/home.png"
+              style={{  width: 40, height: 40 }}
             />
           ),
           tabBarLabel: () => null,
@@ -25,10 +25,10 @@ export const BottomTabNavigator = () => {
         name="Calendario"
         component={Calendar}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: () => (
             <Image
-              source="./assets/images/calendario.png"
-              style={{ tintColor: color, width: 30, height: 30 }}
+              source="https://kaihatsu-code.com/assets/calendar.png"
+              style={{ width: 40, height: 40 }}
             />
           ),
           tabBarLabel: () => null,
@@ -38,10 +38,10 @@ export const BottomTabNavigator = () => {
         name="Creación"
         component={Create}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: () => (
             <Image
-              source="./assets/images/tareas.png"
-              style={{ tintColor: color, width: 30, height: 30 }}
+              source="https://kaihatsu-code.com/assets/task.png"
+              style={{ width: 40, height: 40 }}
             />
           ),
           tabBarLabel: () => null,
@@ -51,10 +51,10 @@ export const BottomTabNavigator = () => {
         name="Info"
         component={Profile}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: () => (
             <Image
-              source="./assets/images/menu.png"
-              style={{ tintColor: color, width: 30, height: 30 }}
+              source="https://kaihatsu-code.com/assets/menu.png"
+              style={{ width: 40, height: 40 }}
             />
           ),
           tabBarLabel: () => null,

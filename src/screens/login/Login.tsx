@@ -100,7 +100,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => { navigate('Login') }} style={[styles.button]}>
+        onPress={() => { navigate('BottomTabNavigator') }} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
