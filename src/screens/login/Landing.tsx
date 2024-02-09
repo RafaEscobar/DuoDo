@@ -28,21 +28,23 @@ export const  Landing = ({ navigation: { navigate }, route }: any) => {
   return (
     <View style={[styles.container, themeContainerStyle]}>
       <Image
-        style={{ width: 200, height: 200, alignSelf: "center" }}
-        source="./assets/images/duodo.png"
+        style={{ width: 370, height: 210, alignSelf: "center", borderRadius: 20}}
+        source="https://kaihatsu-code.com/assets/logo_solid.png"
       />
-      <Text style={[styles.fonText, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
-      <Text style={[styles.fonText, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Chats</Text>
-      <Text style={[styles.fonText, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Workspace</Text>
-      <Text style={[styles.fonText, themeTextStyle, { fontFamily: "Poppins_700Bold", }]}>Teams</Text>
+      <View style={tw`mt-8`}>
+        <Text style={[tw`text-6xl pl-8 py-3`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
+        <Text style={[tw`text-6xl pl-8 py-3`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Chats</Text>
+        <Text style={[tw`text-6xl pl-8 py-3`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Workspace</Text>
+        <Text style={[tw`text-6xl pl-8 py-3`, themeTextStyle, { fontFamily: "Poppins_700Bold", }]}>Teams</Text>
+      </View>
       <Button
-        onPress={() => { navigate('Login') }} style={[styles.button]}>
-        <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Empezar ahora</Text>
+        onPress={() => { navigate('Login') }} style={[tw`flex justify-center items-center mt-30`]}>
+        <Text style={[tw`text-center text-3xl bg-indigo-500 p-4 rounded-3xl w-80 text-white`, { fontFamily: "Poppins_700Bold" }]}>Empezar ahora</Text>
       </Button>
       <View style={styles.contex}>
-        <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
+        <Text style={[tw`text-lg`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
         <TouchableOpacity>
-          <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigate('SignUp')} >
+          <Text style={[tw`text-lg`, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigate('SignUp')} >
             Registrate
           </Text>
         </TouchableOpacity>
@@ -56,7 +58,7 @@ export const  Landing = ({ navigation: { navigate }, route }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 40,
   },
   lightContainer: {
     backgroundColor: '#d0d0c0',
@@ -70,7 +72,6 @@ const styles = StyleSheet.create({
   darkThemeText: {
     color: '#ffffff',
   },
-  fonText: tw`text-6xl pl-8 py-3`,
   contex: {
     display: "flex",
     flexDirection: "row",
@@ -81,9 +82,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     gap: 5
   },
-  textFont: tw`text-lg`,
-  button: tw`flex justify-center items-center mt-38`,
-  buttTex: tw`text-center text-3xl bg-indigo-500 p-4 rounded-3xl w-80 text-white`,
 });
 
 
