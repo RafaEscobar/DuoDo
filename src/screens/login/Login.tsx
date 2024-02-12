@@ -9,6 +9,7 @@ import { Button } from "@gluestack-ui/themed";
 import { TouchableOpacity } from 'react-native';
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { AntDesign } from '@expo/vector-icons';
+import { LoginModule } from '../../modules/api/LoginModule';
 
 
 
@@ -42,7 +43,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
   };
 
   const validatePassword = () => {
-    if (password.length < 8) {
+    if (password.length <= 6) {
       setPasswordError('La contraseña debe tener al menos 8 caracteres');
     } else {
       setPasswordError('');
@@ -87,7 +88,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
           </FormControlLabel>
           <Input>
             <InputField
-              onChangeText={setPassword}
+              onChangeText= {setPassword}
               onEndEditing={validatePassword}
               value={password}
               placeholder="*********"
@@ -100,7 +101,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => { navigate('BottomTabNavigator') }} style={[styles.button]}>
+        onPress={() => { navigate('BottomTabNavigator'); LoginModule({email, password} ) }} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
