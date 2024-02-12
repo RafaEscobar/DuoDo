@@ -1,24 +1,19 @@
-import { Text, View } from 'react-native'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState } from 'react';
 
-const AuthContext = createContext({} as any);
+const AuthContext = createContext({});
 
-export const AuthProvider = ({children}:any) => {
+const AuthProvider = ({ children }:any) => {
+  const [token, setToken] = useState(null);
 
-    const [token, setToken] = useState(null);
-    const login = async(token: any) => {
-        console.log(token)
-        // setToken(token)
-    };
-    const logout = () => {
-        setToken(null)
-    };
+  const setAuthToken = (newToken:any) => {
+    setToken(newToken);
+  };
 
-    return (
-        <AuthContext.Provider value={{ token, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={{ token, setAuthToken }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-export default AuthContext;
+export { AuthContext, AuthProvider };

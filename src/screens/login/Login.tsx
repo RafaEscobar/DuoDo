@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View, useColorScheme, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
@@ -10,10 +10,21 @@ import { TouchableOpacity } from 'react-native';
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { AntDesign } from '@expo/vector-icons';
 import { LoginModule } from '../../modules/api/LoginModule';
-
-
+import { AuthContext } from '../../context/AuthContext';
 
 export const Login = ({ navigation: { navigate }, route }: any) => {
+  const { setAuthToken }:any = useContext(AuthContext);
+
+  const handleLogin = async(email:any, password:any) => {
+    try {
+      const token = await LoginModule({email, password});
+      setAuthToken(token);
+      navigate('BottomTabNavigator');
+    } catch (error) {
+      console.log('Error: ', error);
+    }
+  }
+
   const colorScheme = useColorScheme();
 
   const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
@@ -101,7 +112,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => { navigate('BottomTabNavigator'); LoginModule({email, password} ) }} style={[styles.button]}>
+        onPress={() => handleLogin(email, password)} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
