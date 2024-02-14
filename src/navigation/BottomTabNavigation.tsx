@@ -45,6 +45,7 @@ export const BottomTabNavigator = () => {
             />
           ),
           tabBarLabel: () => null,
+          headerShown: false,
         }}
       />
       <Tab.Screen
