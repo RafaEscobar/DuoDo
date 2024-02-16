@@ -3,6 +3,9 @@ import { Text, Dimensions, StyleSheet, View, Image, SafeAreaView, Animated, Flat
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
+import CircularProgress from 'react-native-circular-progress-indicator';
+import tw from 'twrnc';
+
 
 const slide1 = [
   {
@@ -16,7 +19,12 @@ const slide1 = [
     image: 'https://kaihatsu-code.com/assets/logo_solid.png'
   },
   {
-    title: 'Integrar con el porcentaje de avance',
+    title: 'Integrar la app',
+    subtitle: 'Desarrollador Web',
+    image: 'https://kaihatsu-code.com/assets/logo_solid.png'
+  },
+  {
+    title: 'Integrar la app',
     subtitle: 'Desarrollador Web',
     image: 'https://kaihatsu-code.com/assets/logo_solid.png'
   }
@@ -78,17 +86,21 @@ export const SwiperComponent = () => {
                   marginHorizontal: ESPACIO,
                   padding: ESPACIO,
                   borderRadius: 34,
-                  backgroundColor: 'orange',
+                  backgroundColor: '#fc9745' ,
                   paddingLeft: 30,
                   transform: [{ translateY }],
                 }}
               >
-                <Text style={{ fontSize: 24, fontFamily:"Poppins_700Bold" }}>{item.title}</Text>
-                <Text style={{ fontSize: 16, color: 'white', fontFamily:"Poppins_700Bold" }}>{item.subtitle}</Text>
-                <Image
-                  source={{ uri: item.image }}
-                  style={styles.posterImage}
-                />
+                <Text style={{ fontSize: 24, fontFamily: "Poppins_700Bold" }}>{item.title}</Text>
+                <Text style={{ fontSize: 16, color: 'white', fontFamily: "Poppins_700Bold" }}>{item.subtitle}</Text>
+                <View>
+                  <CircularProgress
+                    value={80}
+                    valueSuffix='%'
+                    activeStrokeColor={'#2465FD'}
+                    activeStrokeSecondaryColor={'#2ecc71'}
+                  />
+                </View>
               </Animated.View>
               <StatusBar style="auto" />
             </View>
