@@ -4,9 +4,7 @@ import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
-import SwiperComponent from '../../component/SwiperComponent';
-
-
+import { SwiperComponent } from '../../component/SwiperComponent';
 
 export const Create = () => {
 
@@ -33,7 +31,7 @@ export const Create = () => {
                 </View>
                 <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>En progreso</Text>
             </View>
-            <View style={tw`px-8`}>
+            <View>
                 <SwiperComponent />
             </View>
         </View>
