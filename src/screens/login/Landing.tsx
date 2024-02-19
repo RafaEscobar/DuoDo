@@ -38,7 +38,7 @@ export const  Landing = ({ navigation: { navigate }, route }: any) => {
         <Text style={[tw`text-6xl pl-8 py-3`, themeTextStyle, { fontFamily: "Poppins_700Bold", }]}>Teams</Text>
       </View>
       <Button
-        onPress={() => { navigate('Login') }} style={[tw`flex justify-center items-center mt-30`]}>
+        onPress={() => { navigate('Login') }} style={[tw`flex justify-center items-center `]}>
         <Text style={[tw`text-center text-3xl bg-indigo-500 p-4 rounded-3xl w-80 text-white`, { fontFamily: "Poppins_700Bold" }]}>Empezar ahora</Text>
       </Button>
       <View style={styles.contex}>
