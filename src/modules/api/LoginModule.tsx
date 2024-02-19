@@ -1,7 +1,7 @@
-import { AUTH_URL_BASE } from '@env';
+import { BASE_URL_AUTH } from '@env';
 
 export const LoginModule = async ({ email, password }:any) => {
-    const url = `${AUTH_URL_BASE}/login`;
+    const url = `${BASE_URL_AUTH}/login`;
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -9,7 +9,6 @@ export const LoginModule = async ({ email, password }:any) => {
         },
         body: JSON.stringify({ email, password })
     });
-
     const res = await response.json();
     console.log(res.token);
     return res.token;
