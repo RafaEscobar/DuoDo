@@ -3,30 +3,35 @@ import { Text, Dimensions, StyleSheet, View, Image, SafeAreaView, Animated, Flat
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
-import CircularProgress from 'react-native-circular-progress-indicator';
+import * as Progress from 'react-native-progress';
 import tw from 'twrnc';
 
 
 const slide1 = [
   {
     title: 'Terminar el slide',
-    subtitle: 'Desarrollador Web',
+    team: 'Desarrollador Web',
+    avatar: 'http://github.com/AlexisSM377.png',
     image: 'https://kaihatsu-code.com/assets/logo_solid.png'
+
   },
   {
     title: 'Integrar con la app',
-    subtitle: 'Desarrollador Web',
+    team: 'Desarrollador Web',
+    avatar: 'https://kaihatsu-code.com/assets/logo_solid.png',
+    image: 'http://github.com/AlexisSM377.png'
+  },
+  {
+    title: 'Integrar la app',
+    team: 'Desarrollador Web',
+    avatar: 'http://github.com/AlexisSM377.png',
     image: 'https://kaihatsu-code.com/assets/logo_solid.png'
   },
   {
     title: 'Integrar la app',
-    subtitle: 'Desarrollador Web',
-    image: 'https://kaihatsu-code.com/assets/logo_solid.png'
-  },
-  {
-    title: 'Integrar la app',
-    subtitle: 'Desarrollador Web',
-    image: 'https://kaihatsu-code.com/assets/logo_solid.png'
+    team: 'Desarrollador Web',
+    avatar: 'https://kaihatsu-code.com/assets/logo_solid.png',
+    image: 'http://github.com/AlexisSM377.png'
   }
 ];
 
@@ -85,22 +90,31 @@ export const SwiperComponent = () => {
                 style={{
                   marginHorizontal: ESPACIO,
                   padding: ESPACIO,
-                  borderRadius: 34,
-                  backgroundColor: '#fc9745' ,
-                  paddingLeft: 30,
+                  borderRadius: 25,
+                  backgroundColor: '#fc9745',
+                  paddingLeft: 20,
                   transform: [{ translateY }],
                 }}
               >
                 <Text style={{ fontSize: 24, fontFamily: "Poppins_700Bold" }}>{item.title}</Text>
-                <Text style={{ fontSize: 16, color: 'white', fontFamily: "Poppins_700Bold" }}>{item.subtitle}</Text>
-                <View>
-                  <CircularProgress
-                    value={80}
-                    valueSuffix='%'
-                    activeStrokeColor={'#2465FD'}
-                    activeStrokeSecondaryColor={'#2ecc71'}
+                <Text style={{ fontSize: 16, color: 'white', fontFamily: "Poppins_700Bold" }}>{item.team}</Text>
+                <View style={tw`flex flex-row gap-1`}>
+                  <Image
+                    style={tw`w-10 h-10 rounded-full`}
+                    source={{ uri: item.image }}
+                  />
+                  <Image
+                    style={tw`w-10 h-10 rounded-full`}
+                    source={{ uri: item.avatar }}
                   />
                 </View>
+                <View style={tw`flex flex-row mt-3 gap-1`}>
+                  <Progress.Bar progress={.9} width={200} height={20} color='#0dac4a' borderRadius={20}
+                  />
+                  <Text style={{ fontSize: 12, fontFamily: "Poppins_700Bold" }}>80%</Text>
+                </View>
+
+
               </Animated.View>
               <StatusBar style="auto" />
             </View>
