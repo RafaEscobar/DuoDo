@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import React, { useState } from 'react'
 import tw from 'twrnc';
 import { Image } from "expo-image";
@@ -7,9 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
-
-
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export const SignUp = ({ navigation: { navigate }, route }: any) => {
 
@@ -22,6 +20,7 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
 
   const validateEmail = () => {
     const re = /\S+@\S+\.\S+/;
@@ -39,8 +38,32 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
       setPasswordError('');
     }
   }
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
 
+  const toggleDatepicker = () => {
+    setShowPicker(!showPicker);
+  };
+
+  const onChange = ({type}: any, selectedDate: any) => {
+    if (type === "set") {
+      const currentDate = selectedDate;
+      setDate(currentDate);
+      if(Platform.OS === 'android'){
+        toggleDatepicker();
+        setDateOfBirth(formatDate(currentDate));
+      }
+    }else{
+      toggleDatepicker();
+    }
+  };
+
+  const formatDate = (date: Date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <View style={tw`flex-1 items-center pt-10`}>
@@ -51,14 +74,14 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
         <AntDesign name="left" size={30} color="black" />
       </Button>
       <Image
-        style={{ width: 370, height: 210, alignSelf: "center", borderRadius: 20 }}
+        style={{ width: 370, height: 200, alignSelf: "center", borderRadius: 20 }}
         source="https://kaihatsu-code.com/assets/logo_solid.png"
       />
-      <Text style={[tw`text-4xl mt-8`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
+      <Text style={[tw`text-3xl mt-4`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
       <View style={tw`flex justify-center items-center`}>
         <FormControl>
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
               Nombre
             </FormControlLabelText>
           </FormControlLabel>
@@ -70,7 +93,7 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
             />
           </Input>
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
               Apellidos
             </FormControlLabelText>
           </FormControlLabel>
@@ -81,9 +104,35 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
               style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
             />
           </Input>
+        
+          <View>
+            <Text style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>Fecha de nacimiento</Text>
+            {showPicker && (
+              <DateTimePicker
+                mode="date"
+                value={date}
+                display="spinner"
+                onChange={onChange}
+              />
+            )}
+            {!showPicker && (
+              <Pressable
+                onPress={toggleDatepicker}
+              >
+                <TextInput
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  placeholder='Selecciona tu fecha de nacimiento'
+                  value={dateOfBirth}
+                  editable={false}
+                  onChangeText={setDateOfBirth}
+                >
+                </TextInput>
+              </Pressable>
+            )}
+          </View>
 
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
               Correo electrónico
             </FormControlLabelText>
           </FormControlLabel>
@@ -99,7 +148,7 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
             {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
           </Input>
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
               Contraseña
             </FormControlLabelText>
           </FormControlLabel>
@@ -116,8 +165,8 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
           </Input>
         </FormControl>
         <Button
-          onPress={() => { navigate('Login') }} style={[tw`flex justify-center items-center mt-10`]}>
-          <Text style={[tw`text-center text-3xl bg-indigo-500 p-4 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
+          onPress={() => { navigate('Login') }} style={[tw`flex justify-center items-center mt-4`]}>
+          <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
         </Button>
       </View>
     </View>
