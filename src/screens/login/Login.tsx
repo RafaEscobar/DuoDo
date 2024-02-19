@@ -77,7 +77,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
       <View style={tw`flex justify-center items-center`}>
         <FormControl>
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>
               Correo electrónico
             </FormControlLabelText>
           </FormControlLabel>
@@ -93,7 +93,7 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
             {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
           </Input>
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>
               Contraseña
             </FormControlLabelText>
           </FormControlLabel>
