@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, View, useColorScheme, Text } from 'react-native';
+import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
@@ -10,15 +10,23 @@ import { TouchableOpacity } from 'react-native';
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { AntDesign } from '@expo/vector-icons';
 import { LoginModule } from '../../modules/api/LoginModule';
-import { AuthContext } from '../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Login = ({ navigation: { navigate }, route }: any) => {
-  const { setAuthToken }:any = useContext(AuthContext);
+
+  const createTwoButtonAlert = () =>
+    Alert.alert('Error 😂', 'No se pudo iniciar sessión', [
+      {text: 'Aceptar', onPress: () => console.log('OK Pressed')},
+    ]);
 
   const handleLogin = async(email:any, password:any) => {
     try {
       const token = await LoginModule({email, password});
-      setAuthToken(token);
+      try {
+        await AsyncStorage.setItem('u-token', token);
+      } catch (e) {
+        createTwoButtonAlert();
+      }
       navigate('BottomTabNavigator');
     } catch (error) {
       console.log('Error: ', error);

@@ -8,6 +8,9 @@ import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins
 import { useFonts } from 'expo-font';
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 
+
+
+
 export const SignUp = ({ navigation: { navigate }, route }: any) => {
 
   const [fontsLoaded] = useFonts({
@@ -36,6 +39,9 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
       setPasswordError('');
     }
   }
+  const [date, setDate] = useState(new Date())
+
+
   return (
     <View style={tw`flex-1 items-center pt-10`}>
       <Button
@@ -75,6 +81,7 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
               style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
             />
           </Input>
+
           <FormControlLabel>
             <FormControlLabelText style={[tw`text-xl mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
               Correo electrónico
