@@ -30,7 +30,6 @@ const AuthProvider = ({ children }: any) => {
     }
   };
   
-
   return (
     <AuthContext.Provider value={{ token, setAuthToken }}>
       {children}
