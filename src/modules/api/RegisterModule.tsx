@@ -17,6 +17,12 @@ export const RegisterModule = async ({ name, last_name, birthdate, email, passwo
             },
             body: JSON.stringify({ ...params }),
         });
+        if (response.ok) {
+            console.log('se registró correctamente');
+        } else{
+            console.log(await response.json());
+        }        
+        console.log(response);
         const res = await response.json();
         console.log(res); 
     } catch (error) {
