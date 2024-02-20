@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
@@ -11,8 +11,20 @@ import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField 
 import { AntDesign } from '@expo/vector-icons';
 import { LoginModule } from '../../modules/api/LoginModule';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Login = ({ navigation: { navigate }, route }: any) => {
+
+  const { token, setAuthToken }:any = useContext(AuthContext);
+
+  useEffect(() =>{
+    const checkToken = async () => {
+      if (token) {
+        navigate('BottomTabNavigator');
+      }
+    };
+    checkToken();
+  }, [token]);
 
   const createTwoButtonAlert = () =>
     Alert.alert('Error 😂', 'No se pudo iniciar sessión', [

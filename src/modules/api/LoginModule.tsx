@@ -9,6 +9,11 @@ export const LoginModule = async ({ email, password }:any) => {
         },
         body: JSON.stringify({ email, password })
     });
+    if (response.ok) {
+      console.log('Se regsitro correctamente')
+    } else{
+      throw new Error('Error al iniciar sesión');
+    }
     const res = await response.json();
     console.log(res.token);
     return res.token;
