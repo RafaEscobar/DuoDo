@@ -8,26 +8,29 @@ import { ResetPassword } from '../screens/login/ResetPassword';
 import { BottomTabNavigator } from './BottomTabNavigation';
 import { AuthContext } from '../context/AuthContext';
 import { Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
-export const StackNavigation = () => {
-  const { token, setAuthToken }: any = useContext(AuthContext);
+export const StackNavigation = async () => {
 
   let initialScreen;
-  if (token === '') {
+  const token = await AsyncStorage.getItem('u-token');
+  if (token === null) {
+
     initialScreen = 'Login';
-  } else{
+  } else {
+
     initialScreen = 'BottomTabNavigator';
   }
+
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ headerShown: false}}  />
-      <Stack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
+    <Stack.Navigator initialRouteName='initialScreen'>
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
       <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-      <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false}}/>
+      <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
-    

@@ -1,22 +1,30 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { LogoutModule } from '../../modules/api/LogoutModule';
+import tw from 'twrnc';
 
 export const Profile = () => {
-    let token;
-    const handleGetToken = async () => {
-        try {
-            token = await AsyncStorage.getItem('u-token');
-            console.log(token);
-        } catch (e) {
-            console.log('Error: ', e);
-        }
-    }
+    const logoutModule = async () => {
+        let token = await AsyncStorage.getItem('u-token');
+        await LogoutModule(token);
+    };
+    const removeToken = async () => {
+        await AsyncStorage.removeItem('u-token');
+        console.log(await AsyncStorage.getItem('u-token'))
+    };
+
     return (
         <View>
             <Text>Profile</Text>
-            <Text>Token:{token}</Text>
+            <Text>Token</Text>
+            <TouchableOpacity onPress={()=>logoutModule()} style={tw`bg-orange-500`}>
+                <Text>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>removeToken()} style={tw`bg-orange-500`}>
+                <Text>Logout</Text>
+            </TouchableOpacity>
         </View>
     )
 }
