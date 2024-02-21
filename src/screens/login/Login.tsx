@@ -1,47 +1,50 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
+import { handleLogin } from '../../modules/handles';
 import { Image } from "expo-image";
-import { LoginModule } from '../../modules/api/LoginModule';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, useColorScheme, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import tw from "twrnc";
 
+
 export const Login = ({ navigation: { navigate } }: any) => {
-  const handleLogin = async(email:any, password:any) => {
-    try {
-      const token = await LoginModule({email, password});
-        await AsyncStorage.setItem('u-token', token);
-        navigate('BottomTabNavigator');
-    } catch (error) {
-      console.log('Error: ', error);
-    }
-  }
 
-  const colorScheme = useColorScheme();
-
-  const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
-  const themeContainerStyle =
-    colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
-
-  const [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_700Bold
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
+  /**
+   ** useState's
+   */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  /**
+   ** Variables
+   */
+  const colorScheme = useColorScheme();
+  const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
+  const themeContainerStyle =
+    colorScheme === 'light' ? styles.lightContainer : styles.darkContainer;
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold
+  });
+
+  /**
+   ** Conditionals
+   */
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  /**
+   ** Function to validate the email
+   *  @returns void
+   */
   const validateEmail = () => {
     const re = /\S+@\S+\.\S+/;
     if (!re.test(email)) {
@@ -51,6 +54,10 @@ export const Login = ({ navigation: { navigate } }: any) => {
     }
   };
 
+  /**
+   ** Function to validate the password
+   *  @returns void
+   */
   const validatePassword = () => {
     if (password.length <= 6) {
       setPasswordError('La contraseña debe tener al menos 8 caracteres');
@@ -110,7 +117,7 @@ export const Login = ({ navigation: { navigate } }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => handleLogin(email, password)} style={[styles.button]}>
+        onPress={() => handleLogin(email, password, navigate)} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
