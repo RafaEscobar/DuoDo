@@ -16,7 +16,7 @@ export const RegisterModule = async ({ name, last_name, birthdate, email, passwo
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ ...params }),
-        });
+        });      
         const res = await response.json();
         console.log(res); 
     } catch (error) {

@@ -1,23 +1,20 @@
-import { View, Text, Pressable, TextInput, Platform, Alert } from 'react-native'
-import React, { useState } from 'react'
-import tw from 'twrnc';
-import { Image } from "expo-image";
-import { Button } from "@gluestack-ui/themed";
 import { AntDesign } from '@expo/vector-icons';
+import { Button } from "@gluestack-ui/themed";
+import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
+import { handleRegister } from '../../modules/handles';
+import { Image } from "expo-image";
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
-import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
+import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { RegisterModule } from '../../modules/api/RegisterModule';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react'
+import tw from 'twrnc';
 
-export const SignUp = ({ navigation: { navigate }, route }: any) => {
+export const SignUp = ({ navigation: { navigate } }: any) => {
 
-  const [fontsLoaded] = useFonts({
-    Poppins_700Bold,
-    Poppins_600SemiBold
-  });
-
+  /**
+   ** useState's
+   */
   const [name, setName] = useState('');
   const [last_name, setLastName] = useState('');
   const [birthdate, setDateOfBirth] = useState('');
@@ -25,7 +22,21 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
 
+  /**
+   ** Variables
+   */
+  const [fontsLoaded] = useFonts({
+    Poppins_700Bold,
+    Poppins_600SemiBold
+  });
+
+  /**
+   ** Function to validate the email
+   * @returns void
+   */
   const validateEmail = () => {
     const re = /\S+@\S+\.\S+/;
     if (!re.test(email)) {
@@ -35,6 +46,10 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
     }
   }
 
+  /**
+   ** Function to validate the password
+   * @returns void
+   */
   const validatePassword = () => {
     if (password.length < 8) {
       setPasswordError('La contraseña debe tener al menos 8 caracteres');
@@ -42,13 +57,19 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
       setPasswordError('');
     }
   }
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
 
+  /**
+   ** Function to toggleDatepicker
+   * @returns void
+   */
   const toggleDatepicker = () => {
     setShowPicker(!showPicker);
   };
 
+  /**
+   ** Function to response on a change
+   * @returns void
+   */
   const onChange = ({ type }: any, selectedDate: any) => {
     if (type === "set") {
       const currentDate = selectedDate;
@@ -62,26 +83,16 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
     }
   };
 
+  /**
+   ** Function to build the format date
+   * @returns void
+   */
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
   };
-
-  const createTwoButtonAlert = () =>
-    Alert.alert('Error 😂', 'No se pudo iniciar sessión', [
-      { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
-    ]);
-
-  const handleRegister = async(name: any, last_name: any, birthdate:any ,email: any, password: any) => {
-    try {
-      await RegisterModule({ name, last_name, birthdate, email, password });
-      navigate('Login');
-    } catch (error) {
-      console.log('Error: ', error);
-    }
-  }
 
   return (
     <View style={tw`flex-1 items-center pt-10`}>
@@ -187,7 +198,7 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
           </Input>
         </FormControl>
         <Button
-          onPress={() =>  handleRegister(name, last_name, birthdate, email, password) } style={[tw`flex justify-center items-center mt-4`]}>
+          onPress={() =>  handleRegister(name, last_name, birthdate, email, password, navigate) } style={[tw`flex justify-center items-center mt-4`]}>
           <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
         </Button>
       </View>

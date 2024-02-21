@@ -2,11 +2,11 @@ import React, { createContext, useState } from 'react';
 
 const AuthContext = createContext({});
 
-const AuthProvider = ({ children }:any) => {
-  const [token, setToken] = useState(null);
+export const AuthProvider = ({ children }: any) => {
+  const [token, setToken] = useState('');
 
-  const setAuthToken = (newToken:any) => {
-    setToken(newToken);
+  const setAuthToken = async (newToken:any) => {
+
   };
 
   return (
@@ -15,5 +15,3 @@ const AuthProvider = ({ children }:any) => {
     </AuthContext.Provider>
   );
 };
-
-export { AuthContext, AuthProvider };
