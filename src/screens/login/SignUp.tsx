@@ -1,14 +1,14 @@
-import { View, Text, Pressable, TextInput, Platform } from 'react-native'
-import React, { useState } from 'react'
-import tw from 'twrnc';
-import { Image } from "expo-image";
-import { Button } from "@gluestack-ui/themed";
 import { AntDesign } from '@expo/vector-icons';
+import { Button } from "@gluestack-ui/themed";
+import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
+import { handleRegister } from '../../modules/handles';
+import { Image } from "expo-image";
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
-import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
+import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { handleRegister } from '../../modules/handles';
+import React, { useState } from 'react'
+import tw from 'twrnc';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
 
