@@ -11,7 +11,6 @@ import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
 import tw from "twrnc";
 
-
 export const Login = ({ navigation: { navigate } }: any) => {
 
   /**
