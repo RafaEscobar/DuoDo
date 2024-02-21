@@ -9,7 +9,6 @@ import { useFonts } from 'expo-font';
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RegisterModule } from '../../modules/api/RegisterModule';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SignUp = ({ navigation: { navigate }, route }: any) => {
 
