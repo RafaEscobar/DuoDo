@@ -7,6 +7,7 @@ import tw from "twrnc";
 import { Image } from "expo-image";
 import { Button } from "@gluestack-ui/themed";
 import { TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export const  Landing = ({ navigation: { navigate }, route }: any) => {

@@ -5,7 +5,7 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }:any) => {
   const [token, setToken] = useState('');
-  const [status, setStatus] = useState('Unauthorized');
+  const [status, setStatus] = useState('unauthorized');
 
   useEffect(() => {
     validateToken();
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }:any) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, setAuthToken }}>
+    <AuthContext.Provider value={{ token, setAuthToken, status }}>
       {children}
     </AuthContext.Provider>
   );

@@ -5,7 +5,7 @@ import { Image } from "expo-image";
 
 const Tab = createBottomTabNavigator();
 
-export const BottomTabNavigator = () => {
+export const BottomTabNavigation = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen

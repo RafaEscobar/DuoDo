@@ -69,17 +69,12 @@ export const SignUp = ({ navigation: { navigate }, route }: any) => {
     return `${year}-${month}-${day}`;
   };
 
-  const createTwoButtonAlert = () =>
-    Alert.alert('Error 😂', 'No se pudo iniciar sessión', [
-      { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
-    ]);
-
   const handleRegister = async(name: any, last_name: any, birthdate:any ,email: any, password: any) => {
     try {
       await RegisterModule({ name, last_name, birthdate, email, password });
       navigate('Login');
     } catch (error) {
-      console.log('Error: ', error);
+      // TODO: Hacer algo con el error
     }
   }
 

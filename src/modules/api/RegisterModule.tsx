@@ -18,8 +18,7 @@ export const RegisterModule = async ({ name, last_name, birthdate, email, passwo
             body: JSON.stringify({ ...params }),
         });
         const res = await response.json();
-        console.log(res); 
     } catch (error) {
-        console.log(error);
+        // Hacer algo con los errores
     }
 };

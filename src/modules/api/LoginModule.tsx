@@ -9,8 +9,6 @@ export const LoginModule = async ({ email, password }:any) => {
         },
         body: JSON.stringify({ email, password })
     });
-    console.log(response);
     const res = await response.json();
-    console.log(res.token);
     return res.token;
 };

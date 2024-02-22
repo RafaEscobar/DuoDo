@@ -24,7 +24,7 @@ export const Login = ({ navigation: { navigate } }: any) => {
       await AsyncStorage.setItem('u-token', token);
       navigate('BottomTabNavigator');
     } catch (error) {
-      console.log('Error: ', error);
+      // TODO: Hacer algo con el error
     }
   }
 
