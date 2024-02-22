@@ -1,7 +1,8 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import tw from 'twrnc';
 
 export const Profile = () => {
     let token;
@@ -17,6 +18,12 @@ export const Profile = () => {
         <View>
             <Text>Profile</Text>
             <Text>Token:{token}</Text>
+            <TouchableOpacity
+                onPress={handleGetToken}
+                style={tw`mt-8`}
+            >
+                <Text>Nose</Text>
+            </TouchableOpacity>
         </View>
     )
 }

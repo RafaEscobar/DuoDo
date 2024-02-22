@@ -1,32 +1,27 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
-import tw from "twrnc";
-import { Image } from "expo-image";
-import { Button } from "@gluestack-ui/themed";
-import { TouchableOpacity } from 'react-native';
-import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { AntDesign } from '@expo/vector-icons';
+import { Button } from "@gluestack-ui/themed";
+import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
+import { Image } from "expo-image";
 import { LoginModule } from '../../modules/api/LoginModule';
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext, useState } from 'react';
+import tw from "twrnc";
 
-export const Login = ({ navigation: { navigate }, route }: any) => {
-
-  const createTwoButtonAlert = () =>
-    Alert.alert('Error 😂', 'No se pudo iniciar sessión', [
-      {text: 'Aceptar', onPress: () => console.log('OK Pressed')},
-    ]);
+export const Login = ({ navigation: { navigate } }: any) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = async(email:any, password:any) => {
     try {
       const token = await LoginModule({email, password});
-      try {
-        await AsyncStorage.setItem('u-token', token);
-      } catch (e) {
-        createTwoButtonAlert();
-      }
+      await AsyncStorage.setItem('u-token', token);
       navigate('BottomTabNavigator');
     } catch (error) {
       console.log('Error: ', error);
@@ -47,10 +42,6 @@ export const Login = ({ navigation: { navigate }, route }: any) => {
   if (!fontsLoaded) {
     return null;
   }
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
 
   const validateEmail = () => {
     const re = /\S+@\S+\.\S+/;
