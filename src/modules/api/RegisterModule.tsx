@@ -9,7 +9,7 @@ export const RegisterModule = async ({ name, last_name, birthdate, email, passwo
             birthdate,
             email,
             password,
-        } 
+        }
         const response = await fetch(url, {
             method: 'POST',
             headers: {

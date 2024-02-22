@@ -1,18 +1,16 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from '../screens/login/Login';
-
-import React, { useContext } from 'react';
-import { Landing } from '../screens/login/Landing';
-import { SignUp } from '../screens/login/SignUp';
-import { ResetPassword } from '../screens/login/ResetPassword';
 import { AuthContext } from '../context/AuthContext';
 import { BottomTabNavigation } from './BottomTabNavigation';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Landing } from '../screens/login/Landing';
+import { Login } from '../screens/login/Login';
+import { ResetPassword } from '../screens/login/ResetPassword';
+import { SignUp } from '../screens/login/SignUp';
+import React, { useContext } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 export const StackNavigation = () => {
   const { status }:any = useContext(AuthContext);
-  console.log(status);
   return (
     <Stack.Navigator>
       {
