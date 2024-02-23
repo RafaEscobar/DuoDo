@@ -1,4 +1,4 @@
-import { RegisterModule } from "../api/RegisterModule";
+import { RegisterModule } from "../requests/RegisterRequest";
 
 export const handleRegister = async (name: any, last_name: any, birthdate: any, email: any, password: any, navigate:any) => {
     try {
