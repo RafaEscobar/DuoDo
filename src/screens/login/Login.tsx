@@ -9,22 +9,21 @@ import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import tw from "twrnc";
 
-const handleLogin = async(email:any, password:any, navigate:any) => {
-  console.log("nose");
+const handleLogin = async(email:any, password:any, navigation:any) => {
   try {
     const token = await LoginModule({email, password});
     await AsyncStorage.setItem('u-token', token);
     console.log(token);
-    navigate('BottomTabNavigation');
+    navigation.navigate('BottomTabNavigation');
   } catch (error) {
     console.log(error);
   }
 }
 
-export const Login = ({ navigation: { navigate } }: any) => {
+export const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -113,7 +112,7 @@ export const Login = ({ navigation: { navigate } }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => handleLogin(email, password, navigate)} style={[styles.button]}>
+        onPress={() => handleLogin(email, password, navigation)} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
