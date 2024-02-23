@@ -1,7 +1,5 @@
-import { BASE_URL_AUTH } from '@env';
-
 export const LoginModule = async ({ email, password }:any) => {
-    const url = `${BASE_URL_AUTH}/login`;
+    const url = `https://c533-187-235-143-15.ngrok-free.app/api/login`;
     const response = await fetch(url, {
         method: 'POST',
         headers: {

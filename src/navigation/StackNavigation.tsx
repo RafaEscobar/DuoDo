@@ -11,14 +11,16 @@ const Stack = createNativeStackNavigator();
 
 export const StackNavigation = () => {
   const { status }:any = useContext(AuthContext);
+  console.log(status);
   return (
     <Stack.Navigator>
       {
         (status == 'unauthorized') ?
           (
             <>
+              <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} /> 
+              <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} options={{ headerShown: false}}  />
               <Stack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
-              <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
               <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
               <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false}}/>
             </>
@@ -26,6 +28,7 @@ export const StackNavigation = () => {
           (
             <>
               <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} options={{ headerShown: false}}  />
+              <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             </>
           )
 

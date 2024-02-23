@@ -12,21 +12,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext, useState } from 'react';
 import tw from "twrnc";
 
+const handleLogin = async(email:any, password:any, navigate:any) => {
+  console.log("nose");
+  try {
+    const token = await LoginModule({email, password});
+    await AsyncStorage.setItem('u-token', token);
+    console.log(token);
+    navigate('BottomTabNavigation');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const Login = ({ navigation: { navigate } }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
-  const handleLogin = async(email:any, password:any) => {
-    try {
-      const token = await LoginModule({email, password});
-      await AsyncStorage.setItem('u-token', token);
-      navigate('BottomTabNavigator');
-    } catch (error) {
-      // TODO: Hacer algo con el error
-    }
-  }
 
   const colorScheme = useColorScheme();
 
@@ -111,7 +113,7 @@ export const Login = ({ navigation: { navigate } }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => handleLogin(email, password)} style={[styles.button]}>
+        onPress={() => handleLogin(email, password, navigate)} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
