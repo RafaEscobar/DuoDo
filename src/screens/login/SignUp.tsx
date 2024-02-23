@@ -94,6 +94,15 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
     return `${year}-${month}-${day}`;
   };
 
+  const handleRegister = async(name: any, last_name: any, birthdate:any ,email: any, password: any) => {
+    try {
+      await RegisterModule({ name, last_name, birthdate, email, password });
+      navigate('Login');
+    } catch (error) {
+      // TODO: Hacer algo con el error
+    }
+  }
+
   return (
     <View style={tw`flex-1 items-center pt-10`}>
       <Button

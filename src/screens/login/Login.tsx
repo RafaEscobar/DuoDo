@@ -1,29 +1,34 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
-import { handleLogin } from '../../modules/handles';
 import { Image } from "expo-image";
+import { LoginModule } from '../../modules/api/LoginModule';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, useColorScheme, Text } from 'react-native';
+import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {  useState } from 'react';
 import tw from "twrnc";
 
-export const Login = ({ navigation: { navigate } }: any) => {
+const handleLogin = async(email:any, password:any, navigation:any) => {
+  try {
+    const token = await LoginModule({email, password});
+    await AsyncStorage.setItem('u-token', token);
+    console.log(token);
+    navigation.navigate('BottomTabNavigation');
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-  /**
-   ** useState's
-   */
+export const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  /**
-   ** Variables
-   */
   const colorScheme = useColorScheme();
   const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
@@ -116,7 +121,7 @@ export const Login = ({ navigation: { navigate } }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => handleLogin(email, password, navigate)} style={[styles.button]}>
+        onPress={() => handleLogin(email, password, navigation)} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
