@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import { Image } from "expo-image";
 import { SwiperComponent } from '../../component/SwiperComponent';
+import { TaskComponent } from '../../component/TaskComponent';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 
-export const Create = () => {
+
+
+export const Create = ({ navigation: { navigate }, route }: any) => {
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -44,24 +49,17 @@ export const Create = () => {
                     <View>
                         <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
                     </View>
-                    <View style={tw`flex justify-end pl-50 items-center -mt-6`} >
-                        <Text style={[tw`text-base opacity-50`, { fontFamily: "Poppins_400Regular", fontWeight: 'bold' }]}>Agregar Tareas</Text>
+                    <View style={tw`flex flex-row pl-60 gap-2 items-center -mt-6`} >
+                        <TouchableOpacity onPress={() => { navigate('AllTask') }}>
+                            <MaterialIcons name="add-task" size={25} color="black" style={tw`bg-indigo-400 p-2 rounded-2xl -top-4`} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigate('AddTask') }}>
+                            <Octicons name="tasklist" size={25} color="black" style={tw`bg-sky-400 p-2 rounded-2xl -top-4`} />
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <View style={tw`bg-orange-300 w-84 p-3 rounded-2xl mt-2`}>
-                    <Text style={[tw`text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Tarea 1</Text>
-                    <Text style={[tw`w-60`, { fontFamily: "Poppins_400Regular" }]}>Hacer un slide que me permita mostrar info</Text>
-                    <Text style={[tw`text-base opacity-50`, { fontFamily: "Poppins_700Bold" }]}>9:00 am</Text>
-                </View>
-                <View style={tw`bg-orange-300 w-84 p-3 rounded-2xl mt-2`}>
-                    <Text style={[tw`text-xl`, { fontFamily: "Poppins_700Bold" }]}>Tarea 2</Text>
-                    <Text style={[tw`w-60`, { fontFamily: "Poppins_400Regular" }]}>Hacer un slide que me permita mostrar info</Text>
-                    <Text style={[tw`text-base opacity-50`, { fontFamily: "Poppins_700Bold" }]}>9:00 am</Text>
-                </View>
-                <View style={tw`bg-orange-300 w-84 p-3 rounded-2xl mt-2`}>
-                    <Text style={[tw`text-xl`, { fontFamily: "Poppins_700Bold" }]}>Tarea 3</Text>
-                    <Text style={[tw`w-60`, { fontFamily: "Poppins_400Regular" }]}>Hacer un slide que me permita mostrar info</Text>
-                    <Text style={[tw`text-base opacity-50`, { fontFamily: "Poppins_700Bold" }]}>9:00 am</Text>
+                <View style={tw`w-85 h-80`}>
+                    <TaskComponent />
                 </View>
             </View>
         </View>
