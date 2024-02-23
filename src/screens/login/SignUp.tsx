@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
-import { handleRegister } from '../../modules/handles';
+import { handleRegister } from '../../modules/handles/HandleRegister';
 import { Image } from "expo-image";
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
