@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export const LoginStack = () => {
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} /> 
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Landing" component={Landing} options={{ headerShown: false }} />
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false}}/>
