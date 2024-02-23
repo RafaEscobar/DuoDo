@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginModule } from "../api/LoginModule";
+import { LoginModule } from "../requests/LoginRequest";
 
 export const handleLogin = async (email: any, password: any, navigate: any) => {
   try {

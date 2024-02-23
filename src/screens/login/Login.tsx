@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
-import { LoginModule } from '../../modules/api/LoginModule';
+import { LoginModule } from '../../modules/requests/LoginRequest';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
@@ -73,7 +73,7 @@ export const Login = ({ navigation }: any) => {
   return (
     <View style={[styles.container, themeContainerStyle]}>
       <Button
-        onPress={() => { navigate('Landing') }}
+        onPress={() => { navigation.navigate('Landing') }}
         style={tw`absolute top-0 left-0 mt-16 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
       >
         <AntDesign name="left" size={30} color="black" />
@@ -117,7 +117,7 @@ export const Login = ({ navigation }: any) => {
             />
             {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
           </Input>
-          <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
+          <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigation.navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
         </FormControl>
       </View>
       <Button
@@ -127,7 +127,7 @@ export const Login = ({ navigation }: any) => {
       <View style={styles.contex}>
         <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
         <TouchableOpacity>
-          <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigate('SignUp')} >
+          <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigation.navigate('SignUp')} >
             Registrate
           </Text>
         </TouchableOpacity>

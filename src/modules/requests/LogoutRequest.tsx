@@ -1,10 +1,7 @@
-import { BASE_URL_AUTH } from '@env';
-
-
-export const LogoutModule = async (token: any) => {
+export const LogoutRequest = async (token: any) => {
     console.log(token);
 
-    const url = `${BASE_URL_AUTH}/logout`;
+    const url = `url_base/logout`;
     const response = await fetch(url, {
         method: 'POST',
         headers: {

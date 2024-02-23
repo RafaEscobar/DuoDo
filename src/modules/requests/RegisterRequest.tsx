@@ -1,8 +1,6 @@
-import { BASE_URL_AUTH } from '@env';
-
-export const RegisterModule = async ({ name, last_name, birthdate, email, password }:any) => {
+export const RegisterRequest = async ({ name, last_name, birthdate, email, password }:any) => {
     try {
-        const url = `${BASE_URL_AUTH}/register`;
+        const url = `url_base/register`;
         const params = {
             name,
             last_name,
@@ -16,7 +14,7 @@ export const RegisterModule = async ({ name, last_name, birthdate, email, passwo
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ ...params }),
-        });      
+        });
         const res = await response.json();
     } catch (error) {
         // Hacer algo con los errores
