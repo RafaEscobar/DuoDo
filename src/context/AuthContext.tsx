@@ -1,16 +1,39 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, ReactNode } from 'react';
 
+/**
+ ** AuthProviderProps interface to {children} param
+ */
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+/**
+ * Context entity
+ */
 export const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }:any) => {
+/**
+ ** Function to build the AuthContext for the Auth
+ * @param {children}
+ * @returns void
+ */
+export const AuthProvider = ({ children }:AuthProviderProps) => {
+  //* useState's
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('unauthorized');
 
+  /**
+   ** Secondary load of token validation
+   */
   useEffect(() => {
     validateToken();
   }, []);
 
+  /**
+   ** Async function to the token validate
+   * @returns void
+   */
   const validateToken = async() => {
     const token = await AsyncStorage.getItem('u-token');
     if (token) {
@@ -21,16 +44,24 @@ export const AuthProvider = ({ children }:any) => {
     }
   }
 
-  const setAuthToken = async (newToken:any) => {
-
+  /**
+   ** Function to set token in the context
+   * @param newToken - Current token
+   */
+  const setAuthToken = (newToken:string) => {
+    setToken(newToken);
   };
 
-  const setUserStatus = (newStatus:any) => {
+  /**
+   ** Function to set status in the context
+   * @param newStatus - Current status
+   */
+  const setUserStatus = (newStatus:string) => {
     setStatus(newStatus);
   }
 
   return (
-    <AuthContext.Provider value={{ token, setAuthToken, status }}>
+    <AuthContext.Provider value={{ token, status, setAuthToken }}>
       {children}
     </AuthContext.Provider>
   );
