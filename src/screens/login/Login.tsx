@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
-import { LoginModule } from '../../modules/api/LoginModule';
+import { LoginModule } from '../../modules/requests/LoginRequest';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
