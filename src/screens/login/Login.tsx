@@ -2,7 +2,6 @@ import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
-import { LoginModule } from '../../modules/requests/LoginRequest';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
@@ -11,10 +10,11 @@ import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {  useState } from 'react';
 import tw from "twrnc";
+import { LoginRequest } from '../../modules/requests/LoginRequest';
 
 const handleLogin = async(email:any, password:any, navigation:any) => {
   try {
-    const token = await LoginModule({email, password});
+    const token = await LoginRequest({email, password});
     await AsyncStorage.setItem('u-token', token);
     console.log(token);
     navigation.navigate('BottomTabNavigation');
