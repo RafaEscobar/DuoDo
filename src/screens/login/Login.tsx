@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Button } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
-import { handleLogin } from '../../modules/handles';
+import { handleLogin } from '../../modules/handles/HandleLogin';
 import { Image } from "expo-image";
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
@@ -116,7 +116,7 @@ export const Login = ({ navigation: { navigate } }: any) => {
         </FormControl>
       </View>
       <Button
-        onPress={() => handleLogin(email, password, navigate)} style={[styles.button]}>
+        onPress={() => {navigate('BottomTabNavigator')}} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
