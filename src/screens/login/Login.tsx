@@ -12,22 +12,22 @@ import React, {  useState } from 'react';
 import tw from "twrnc";
 import { LoginRequest } from '../../modules/requests/LoginRequest';
 
-const handleLogin = async(email:any, password:any, navigation:any) => {
-  try {
-    const token = await LoginRequest({email, password});
-    await AsyncStorage.setItem('u-token', token);
-    console.log(token);
-    navigation.navigate('BottomTabNavigation');
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const Login = ({ navigation }: any) => {
+export const Login = ({ navigation: {navigate} }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const handleLogin = async() => {
+    try {
+      const token = await LoginRequest(email, password);
+      await AsyncStorage.setItem('u-token', token);
+      console.log(token);
+      navigate('BottomTabNavigation');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const colorScheme = useColorScheme();
   const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
@@ -73,7 +73,7 @@ export const Login = ({ navigation }: any) => {
   return (
     <View style={[styles.container, themeContainerStyle]}>
       <Button
-        onPress={() => { navigation.navigate('Landing') }}
+        onPress={() => { navigate('Landing') }}
         style={tw`absolute top-0 left-0 mt-16 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
       >
         <AntDesign name="left" size={30} color="black" />
@@ -117,17 +117,17 @@ export const Login = ({ navigation }: any) => {
             />
             {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
           </Input>
-          <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigation.navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
+          <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
         </FormControl>
       </View>
       <Button
-        onPress={() => handleLogin(email, password, navigation)} style={[styles.button]}>
+        onPress={() => handleLogin()} style={[styles.button]}>
         <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
       </Button>
       <View style={styles.contex}>
         <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
         <TouchableOpacity>
-          <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigation.navigate('SignUp')} >
+          <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigate('SignUp')} >
             Registrate
           </Text>
         </TouchableOpacity>
