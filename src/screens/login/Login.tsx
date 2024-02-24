@@ -9,9 +9,11 @@ import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {  useState } from 'react';
+import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
+import { AuthContext } from '../../context/AuthContext';
 export const Login = ({ navigation: {navigate} }: any) => {
+  const { setUser, setToken }:any = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -22,6 +24,8 @@ export const Login = ({ navigation: {navigate} }: any) => {
       const response = await LoginRequest(email, password);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
+      setToken(response.token);
+      setUser(JSON.stringify(response.user));
       navigate('BottomTabNavigation');
     } catch (error) {
       console.log(error);

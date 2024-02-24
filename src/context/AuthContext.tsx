@@ -41,6 +41,8 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
       const res = await WhoIAm(token);
       if (res == 'ok') {
         const user = await AsyncStorage.getItem('user');
+        console.log(user);
+        console.log(token);
         if (user) {
           setUser(user);
           setToken(token);
@@ -89,7 +91,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, status, setAuthToken, user }}>
+    <AuthContext.Provider value={{ token, status, user, setToken, setUser }}>
       {children}
     </AuthContext.Provider>
   );
