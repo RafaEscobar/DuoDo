@@ -98,7 +98,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
       await RegisterRequest(name, last_name, email, password, birthdate );
       navigate('Login');
     } catch (error) {
-      // TODO: Hacer algo con el error
+      console.log(error);
     }
   }
 

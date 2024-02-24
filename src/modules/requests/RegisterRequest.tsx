@@ -1,5 +1,3 @@
-
-
 export const RegisterRequest = async (name:any, last_name:any, email:any, password:any, birthdate:any) => {
     console.log(name, last_name, email, password, birthdate);
     try {
@@ -18,9 +16,7 @@ export const RegisterRequest = async (name:any, last_name:any, email:any, passwo
             },
             body: JSON.stringify(params),
         });
-        console.log(response);
         const res = await response.json();
-        console.log(res);
     } catch (error) {
         console.log(error);
     }
