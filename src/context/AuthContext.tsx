@@ -21,7 +21,7 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }:AuthProviderProps) => {
   //* useState's
   const [token, setToken] = useState('');
-  const [status, setStatus] = useState('unauthorized');
+  const [status, setStatus] = useState('checking');
 
   /**
    ** Secondary load of token validation
@@ -43,8 +43,10 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
         setToken(token);
         setStatus('authorized');
       } else {
-        // TODO: TRATAR ERROR
+        setStatus('unauthorized');
       }
+    } else {
+      setStatus('unauthorized');
     }
   }
 
