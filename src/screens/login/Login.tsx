@@ -26,6 +26,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
       setToken(response.token);
       setUser(JSON.stringify(response.user));
+      console.log(response.token);
       navigate('BottomTabNavigation');
     } catch (error) {
       console.log(error);
