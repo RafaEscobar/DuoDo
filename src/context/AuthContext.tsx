@@ -37,11 +37,29 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const validateToken = async() => {
     const token = await AsyncStorage.getItem('u-token');
     if (token) {
-      //!TODO: Validamos por medio de una peticion que el token sea valido aun
-
-      setToken(token);
-      setStatus('authorized');
+      const res = await WhoIAm(token);
+      console.log(res);
+      if (res == 'ok') {
+        setToken(token);
+        setStatus('authorized');
+      } else {
+        // TODO: TRATAR ERROR
+      }
     }
+  }
+
+  const WhoIAm = async(token:any) => {
+    const url = "https://9a3a-2806-2f0-9f00-ffaf-804a-c5a6-4bbf-63f4.ngrok-free.app/api/who-i-am"
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+    const res = await response.json();
+    return res.status;
   }
 
   /**

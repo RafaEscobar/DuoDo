@@ -21,7 +21,6 @@ export const Login = ({ navigation: {navigate} }: any) => {
     try {
       const token = await LoginRequest(email, password);
       await AsyncStorage.setItem('u-token', token);
-      console.log(token);
       navigate('BottomTabNavigation');
     } catch (error) {
       console.log(error);
