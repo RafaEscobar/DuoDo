@@ -18,5 +18,5 @@ export const LoginRequest = async (email:string, password:string) => {
       throw new Error('Error al iniciar sesión');
     }
     const res = await response.json();
-    return res.token;
+    return res;
 };

@@ -95,7 +95,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
 
   const handleRegister = async() => {
     try {
-      await RegisterRequest(name, last_name, birthdate, email, password );
+      await RegisterRequest(name, last_name, email, password, birthdate );
       navigate('Login');
     } catch (error) {
       // TODO: Hacer algo con el error
@@ -215,6 +215,6 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
         </View>
       </ScrollView>
      </SafeAreaView>
-    
+
   )
 }

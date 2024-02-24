@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   //* useState's
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('checking');
+  const [user, setUser] = useState('');
 
   /**
    ** Secondary load of token validation
@@ -38,8 +39,10 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
     const token = await AsyncStorage.getItem('u-token');
     if (token) {
       const res = await WhoIAm(token);
-      console.log(res);
       if (res == 'ok') {
+        const user = await AsyncStorage.getItem('user');
+        console.log(user);
+        // setUser(user);
         setToken(token);
         setStatus('authorized');
       } else {
@@ -78,6 +81,10 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
    */
   const setUserStatus = (newStatus:string) => {
     setStatus(newStatus);
+  }
+
+  const seCurrentUser = (newUser:any) => {
+    setUser(newUser);
   }
 
   return (
