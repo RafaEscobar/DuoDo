@@ -1,23 +1,20 @@
-import { Text, View, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import { Text, View } from 'react-native';
+import React, { useContext } from 'react';
 import tw from 'twrnc';
+import { AuthContext } from '../../context/AuthContext';
+import { LogoutAction } from '../../component/actions/LogoutAction';
 
-export const Profile = ({ navigation: { navigate } }: any) => {
-    const deleteToken = async() => {
-        await AsyncStorage.removeItem('u-token');
-        navigate('Login');
-    }
+export const Profile = ({ navigation }: any) => {
+    const { user }:any = useContext(AuthContext);
+    const currentUser = JSON.parse(user);
     return (
         <View>
+            <View style={tw`flex items-end pr-4 pt-4 w-full`}>
+                <LogoutAction navigation={navigation} />
+            </View>
             <Text>Profile</Text>
-            <Text>Token:</Text>
-            <TouchableOpacity
-            onPress={() => { deleteToken() }}
-                style={tw`mt-8 bg-blue-500`}
-            >
-                <Text>Salir</Text>
-            </TouchableOpacity>
+            <Text>Usuario: {currentUser.name}</Text>
+            <Text>Correo electronico: {currentUser.email}</Text>
         </View>
     )
 }

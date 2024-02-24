@@ -1,9 +1,9 @@
 import { AntDesign } from '@expo/vector-icons';
-import { Button } from "@gluestack-ui/themed";
+import { Button, SafeAreaView, ScrollView } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
-import { handleRegister } from '../../modules/handles/HandleRegister';
 import { Image } from "expo-image";
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
+import { RegisterRequest } from '../../modules/requests/RegisterRequest';
 import { useFonts } from 'expo-font';
 import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -11,7 +11,6 @@ import React, { useState } from 'react'
 import tw from 'twrnc';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
-
   /**
    ** useState's
    */
@@ -94,123 +93,128 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleRegister = async(name: any, last_name: any, birthdate:any ,email: any, password: any) => {
+  const handleRegister = async() => {
     try {
-      await RegisterModule({ name, last_name, birthdate, email, password });
+      await RegisterRequest(name, last_name, email, password, birthdate );
       navigate('Login');
     } catch (error) {
-      // TODO: Hacer algo con el error
+      console.log(error);
     }
   }
 
   return (
-    <View style={tw`flex-1 items-center pt-10`}>
-      <Button
-        onPress={() => { navigate('Login') }}
-        style={tw`absolute top-0 left-0 mt-13 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
-      >
-        <AntDesign name="left" size={30} color="black" />
-      </Button>
-      <Image
-        style={{ width: 370, height: 200, alignSelf: "center", borderRadius: 20 }}
-        source="https://kaihatsu-code.com/assets/logo_solid.png"
-      />
-      <Text style={[tw`text-3xl mt-4`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
-      <View style={tw`flex justify-center items-center`}>
-        <FormControl>
-          <FormControlLabel>
-            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
-              Nombre
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField
-              value={name}
-              onChangeText={setName}
-              type='text'
-              placeholder="Admin"
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
-            />
-          </Input>
-          <FormControlLabel>
-            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
-              Apellidos
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField
-              value={last_name}
-              onChangeText={setLastName}
-              type='text'
-              placeholder="Admin DuoDo"
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
-            />
-          </Input>
-
-          <View>
-            <Text style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>Fecha de nacimiento</Text>
-            {showPicker && (
-              <DateTimePicker
-                mode="date"
-                value={date}
-                display="spinner"
-                onChange={onChange}
-              />
-            )}
-            {!showPicker && (
-              <Pressable
-                onPress={toggleDatepicker}
-              >
-                <TextInput
+     <SafeAreaView>
+      <ScrollView style={tw`mb-6`}>
+        <View style={tw`flex-1 items-center pt-10`}>
+          <Button
+            onPress={() => { navigate('Login') }}
+            style={tw`absolute top-0 left-0 mt-13 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
+          >
+            <AntDesign name="left" size={30} color="black" />
+          </Button>
+          <Image
+            style={{ width: 370, height: 200, alignSelf: "center", borderRadius: 20 }}
+            source="https://kaihatsu-code.com/assets/logo_solid.png"
+          />
+          <Text style={[tw`text-3xl mt-4`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
+          <View style={tw`flex justify-center items-center`}>
+            <FormControl>
+              <FormControlLabel>
+                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                  Nombre
+                </FormControlLabelText>
+              </FormControlLabel>
+              <Input>
+                <InputField
+                  value={name}
+                  onChangeText={setName}
+                  type='text'
+                  placeholder="Admin"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
-                  placeholder='Selecciona tu fecha de nacimiento'
-                  value={birthdate}
-                  editable={false}
-                  onChangeText={setDateOfBirth}
-                >
-                </TextInput>
-              </Pressable>
-            )}
-          </View>
+                />
+              </Input>
+              <FormControlLabel>
+                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                  Apellidos
+                </FormControlLabelText>
+              </FormControlLabel>
+              <Input>
+                <InputField
+                  value={last_name}
+                  onChangeText={setLastName}
+                  type='text'
+                  placeholder="Admin DuoDo"
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                />
+              </Input>
 
-          <FormControlLabel>
-            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
-              Correo electrónico
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField
-              onChangeText={setEmail}
-              onEndEditing={validateEmail}
-              value={email}
-              keyboardType="email-address"
-              placeholder="admin@duo.com"
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
-            />
-            {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
-          </Input>
-          <FormControlLabel>
-            <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
-              Contraseña
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField
-              onChangeText={setPassword}
-              onEndEditing={validatePassword}
-              value={password}
-              placeholder="*********"
-              secureTextEntry
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
-            />
-            {passwordError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{passwordError}</Text> : null}
-          </Input>
-        </FormControl>
-        <Button
-          onPress={() =>  handleRegister(name, last_name, birthdate, email, password, navigate) } style={[tw`flex justify-center items-center mt-4`]}>
-          <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
-        </Button>
-      </View>
-    </View>
+              <View>
+                <Text style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>Fecha de nacimiento</Text>
+                {showPicker && (
+                  <DateTimePicker
+                    mode="date"
+                    value={date}
+                    display="spinner"
+                    onChange={onChange}
+                  />
+                )}
+                {!showPicker && (
+                  <Pressable
+                    onPress={toggleDatepicker}
+                  >
+                    <TextInput
+                      style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                      placeholder='Selecciona tu fecha de nacimiento'
+                      value={birthdate}
+                      editable={false}
+                      onChangeText={setDateOfBirth}
+                    >
+                    </TextInput>
+                  </Pressable>
+                )}
+              </View>
+
+              <FormControlLabel>
+                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                  Correo electrónico
+                </FormControlLabelText>
+              </FormControlLabel>
+              <Input>
+                <InputField
+                  onChangeText={setEmail}
+                  onEndEditing={validateEmail}
+                  value={email}
+                  keyboardType="email-address"
+                  placeholder="admin@duo.com"
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                />
+                {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
+              </Input>
+              <FormControlLabel>
+                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                  Contraseña
+                </FormControlLabelText>
+              </FormControlLabel>
+              <Input>
+                <InputField
+                  onChangeText={setPassword}
+                  onEndEditing={validatePassword}
+                  value={password}
+                  placeholder="*********"
+                  secureTextEntry
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                />
+                {passwordError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{passwordError}</Text> : null}
+              </Input>
+            </FormControl>
+            <Button
+              onPress={() =>  handleRegister() } style={[tw`flex justify-center items-center mt-4`]}>
+              <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
+            </Button>
+          </View>
+        </View>
+      </ScrollView>
+     </SafeAreaView>
+
   )
 }

@@ -1,33 +1,37 @@
 import { AntDesign } from '@expo/vector-icons';
-import { Button } from "@gluestack-ui/themed";
+import { Button, ScrollView } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
+import { LoginRequest } from '../../modules/requests/LoginRequest';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {  useState } from 'react';
+import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
-import { LoginRequest } from '../../modules/requests/LoginRequest';
-
-const handleLogin = async(email:any, password:any, navigation:any) => {
-  try {
-    const token = await LoginRequest({email, password});
-    await AsyncStorage.setItem('u-token', token);
-    console.log(token);
-    navigation.navigate('BottomTabNavigation');
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export const Login = ({ navigation }: any) => {
+import { AuthContext } from '../../context/AuthContext';
+export const Login = ({ navigation: {navigate} }: any) => {
+  const { setUser, setToken }:any = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const handleLogin = async() => {
+    try {
+      const response = await LoginRequest(email, password);
+      await AsyncStorage.setItem('u-token', response.token);
+      await AsyncStorage.setItem('user', JSON.stringify(response.user));
+      setToken(response.token);
+      setUser(JSON.stringify(response.user));
+      console.log(response.token);
+      navigate('BottomTabNavigation');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const colorScheme = useColorScheme();
   const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
@@ -71,70 +75,71 @@ export const Login = ({ navigation }: any) => {
   };
 
   return (
-    <View style={[styles.container, themeContainerStyle]}>
-      <Button
-        onPress={() => { navigation.navigate('Landing') }}
-        style={tw`absolute top-0 left-0 mt-16 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
-      >
-        <AntDesign name="left" size={30} color="black" />
-      </Button>
-      <Image
-        style={{ width: 370, height: 210, alignSelf: "center", borderRadius: 20 }}
-        source="https://kaihatsu-code.com/assets/logo_solid.png"
-      />
-      <Text style={[styles.fonText, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Iniciar sesión</Text>
-      <View style={tw`flex justify-center items-center`}>
-        <FormControl>
-          <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>
-              Correo electrónico
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField
-              onChangeText={setEmail}
-              onEndEditing={validateEmail}
-              value={email}
-              keyboardType="email-address"
-              placeholder="admin@duo.com"
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
-            />
-            {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-          </Input>
-          <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>
-              Contraseña
-            </FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField
-              onChangeText= {setPassword}
-              onEndEditing={validatePassword}
-              value={password}
-              placeholder="*********"
-              secureTextEntry
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
-            />
-            {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-          </Input>
-          <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigation.navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
-        </FormControl>
+    <ScrollView style={tw`h-full`}>
+      <View style={[[styles.container, themeContainerStyle], tw`h-full py-10`]}>
+        <Button
+          onPress={() => { navigate('Landing') }}
+          style={tw`absolute top-0 left-0 mt-16 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
+        >
+          <AntDesign name="left" size={30} color="black" />
+        </Button>
+        <Image
+          style={{ width: 370, height: 210, alignSelf: "center", borderRadius: 20 }}
+          source="https://kaihatsu-code.com/assets/logo_solid.png"
+        />
+        <Text style={[styles.fonText, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>Iniciar sesión</Text>
+        <View style={tw`flex justify-center items-center`}>
+          <FormControl>
+            <FormControlLabel>
+              <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>
+                Correo electrónico
+              </FormControlLabelText>
+            </FormControlLabel>
+            <Input>
+              <InputField
+                onChangeText={setEmail}
+                onEndEditing={validateEmail}
+                value={email}
+                keyboardType="email-address"
+                placeholder="admin@duo.com"
+                style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+              />
+              {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+            </Input>
+            <FormControlLabel>
+              <FormControlLabelText style={[tw`text-xl mt-4`, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>
+                Contraseña
+              </FormControlLabelText>
+            </FormControlLabel>
+            <Input>
+              <InputField
+                onChangeText= {setPassword}
+                onEndEditing={validatePassword}
+                value={password}
+                placeholder="*********"
+                secureTextEntry
+                style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+              />
+              {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+            </Input>
+            <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
+          </FormControl>
+        </View>
+        <Button
+          onPress={() => handleLogin()} style={[styles.button]}>
+          <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
+        </Button>
+        <View style={styles.contex}>
+          <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
+          <TouchableOpacity>
+            <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigate('SignUp')} >
+              Registrate
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <StatusBar />
       </View>
-      <Button
-        onPress={() => handleLogin(email, password, navigation)} style={[styles.button]}>
-        <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
-      </Button>
-      <View style={styles.contex}>
-        <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
-        <TouchableOpacity>
-          <Text style={[styles.textFont, { fontFamily: "Poppins_700Bold", color: '#8955E3' }]} onPress={() => navigation.navigate('SignUp')} >
-            Registrate
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <StatusBar />
-    </View>
-
+    </ScrollView>
   );
 }
 

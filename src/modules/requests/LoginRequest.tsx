@@ -1,18 +1,10 @@
 /**
- ** Typed for login function parameters
- */
-interface LoginParams {
-  email: string,
-  password: string
-}
-
-/**
  ** Function to login request
  * @param email_password - User credentials
  * @returns void
  */
-export const LoginRequest = async ({ email, password }:LoginParams) => {
-    const url = `https://c533-187-235-143-15.ngrok-free.app/api/login`;
+export const LoginRequest = async (email:string, password:string) => {
+    const url = `https://9a3a-2806-2f0-9f00-ffaf-804a-c5a6-4bbf-63f4.ngrok-free.app/api/login`;
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -21,10 +13,10 @@ export const LoginRequest = async ({ email, password }:LoginParams) => {
         body: JSON.stringify({ email, password })
     });
     if (response.ok) {
-      console.log('Se regsitro correctamente')
+      console.log('Inicio de sesión valido');
     } else{
       throw new Error('Error al iniciar sesión');
     }
     const res = await response.json();
-    return res.token;
+    return res;
 };
