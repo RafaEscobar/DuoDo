@@ -4,12 +4,12 @@ import { AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import tw from 'twrnc';
 
-export const LogoutAction = (navigate: any) => {
+export const LogoutAction = ({navigation}:any) => {
     const handlePress = async() => {
         try {
-          await AsyncStorage.removeItem('u-token');
-          await AsyncStorage.removeItem('user');
-          navigate('Login');
+            await AsyncStorage.removeItem('u-token');
+            await AsyncStorage.removeItem('user');
+            navigation.navigate('Login');
         } catch (error) {
           console.error('Error al realizar el logout:', error);
         }

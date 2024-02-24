@@ -41,8 +41,6 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
       const res = await WhoIAm(token);
       if (res == 'ok') {
         const user = await AsyncStorage.getItem('user');
-        console.log(user);
-        console.log(token);
         if (user) {
           setUser(user);
           setToken(token);
