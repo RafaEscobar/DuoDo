@@ -1,9 +1,9 @@
 import { AntDesign } from '@expo/vector-icons';
-import { Button } from "@gluestack-ui/themed";
+import { Button, ScrollView } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
-import { handleRegister } from '../../modules/handles/HandleRegister';
 import { Image } from "expo-image";
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
+import { RegisterRequest } from '../../modules/requests/RegisterRequest';
 import { useFonts } from 'expo-font';
 import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -11,7 +11,6 @@ import React, { useState } from 'react'
 import tw from 'twrnc';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
-
   /**
    ** useState's
    */
@@ -94,9 +93,9 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleRegister = async(name: any, last_name: any, birthdate:any ,email: any, password: any) => {
+  const handleRegister = async() => {
     try {
-      await RegisterModule({ name, last_name, birthdate, email, password });
+      await RegisterRequest(name, last_name, birthdate, email, password );
       navigate('Login');
     } catch (error) {
       // TODO: Hacer algo con el error
@@ -104,6 +103,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   }
 
   return (
+    <ScrollView>
     <View style={tw`flex-1 items-center pt-10`}>
       <Button
         onPress={() => { navigate('Login') }}
@@ -207,10 +207,11 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
           </Input>
         </FormControl>
         <Button
-          onPress={() =>  handleRegister(name, last_name, birthdate, email, password, navigate) } style={[tw`flex justify-center items-center mt-4`]}>
+          onPress={() =>  handleRegister() } style={[tw`flex justify-center items-center mt-4`]}>
           <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
         </Button>
       </View>
     </View>
+    </ScrollView>
   )
 }

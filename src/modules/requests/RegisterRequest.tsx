@@ -1,4 +1,4 @@
-export const RegisterRequest = async ({ name, last_name, birthdate, email, password }:any) => {
+export const RegisterRequest = async (name:any, last_name:any, birthdate:any, email:any, password:any) => {
     try {
         const url = `url_base/register`;
         const params = {
