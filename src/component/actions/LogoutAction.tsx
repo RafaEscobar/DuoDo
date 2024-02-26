@@ -6,15 +6,17 @@ import tw from 'twrnc';
 import { AuthContext } from '../../context/AuthContext';
 import { LogoutRequest } from '../../modules/requests/LogoutRequest';
 
-export const LogoutAction = ({navigation}:any) => {
+export const LogoutAction = ({navigation, setLoading}:any) => {
     const {token, setStatus}:any = useContext(AuthContext);
     const handlePress = async() => {
         try {
+            setLoading(true);
             const response = await LogoutRequest(token);
             if (response == 'ok') {
                 await AsyncStorage.removeItem('u-token');
                 await AsyncStorage.removeItem('user');
                 setStatus('unauthorized');
+                setLoading(false);
                 navigation.navigate('Login');
             }
         } catch (error) {
