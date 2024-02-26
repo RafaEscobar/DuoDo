@@ -1,6 +1,6 @@
 
 export const ForgotPasswordRequest = async(email:string) => {
-    const url = `https://9a03-187-235-110-63.ngrok-free.app/api/forgot-password`;
+    const url = `${process.env.AUTH_URL}/forgot-password`;
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({email}),

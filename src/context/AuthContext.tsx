@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   const WhoIAm = async(token:any) => {
-    const url = "https://9a03-187-235-110-63.ngrok-free.app/api/who-i-am"
+    const url = `${process.env.AUTH_URL}/who-i-am`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {

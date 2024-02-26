@@ -1,5 +1,5 @@
 export const LogoutRequest = async(token: any) => {
-    const url = `https://9a03-187-235-110-63.ngrok-free.app/api/logout`;
+    const url = `${process.env.AUTH_URL}/logout`;
     try {
         const response = await fetch(url, {
             method: 'POST',
