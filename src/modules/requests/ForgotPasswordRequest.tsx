@@ -5,12 +5,13 @@ export const ForgotPasswordRequest = async(email:string) => {
         method: 'POST',
         body: JSON.stringify({email}),
         headers: {
-            'Accept': 'application/json'
+            'Content-Type': 'application/json',
         }
     });
-    console.log(response)
     const res = await response.json();
     if (response.ok) {
-        console.log(res.status);
+        return res.status;
+    } else {
+        return res.message;
     }
 }

@@ -7,6 +7,7 @@ import { LogoutAction } from '../../component/actions/LogoutAction';
 export const Profile = ({ navigation }: any) => {
     const { user }:any = useContext(AuthContext);
     const currentUser = JSON.parse(user);
+
     return (
         <View>
             <View style={tw`flex items-end pr-4 pt-4 w-full`}>

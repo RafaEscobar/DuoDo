@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import tw from 'twrnc';
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
@@ -6,9 +6,11 @@ import { useFonts } from 'expo-font';
 import { Button, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, ScrollView } from '@gluestack-ui/themed';
 import { AntDesign } from '@expo/vector-icons';
 import { ForgotPasswordRequest } from '../../modules/requests/Index';
+import { ModalComponent } from '../../component/ModalComponent';
 
 
 export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
+  const [modalVisible, setModalVisible] = useState(false);
   // Forma de colocar el tema de nuestro dispositivo, aun queda por definir el tema de la aplicacion
   // const scheme = useColorScheme();
 
@@ -20,7 +22,11 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   const [email, setEmail] = useState('');
 
   const handleForgotPassword = async() => {
-    await ForgotPasswordRequest(email);
+    const response = await ForgotPasswordRequest(email);
+    if (response == 'ok') {
+      setModalVisible(true);
+    }
+    // console.log(response);
   }
 
   const [fontsLoaded] = useFonts({
@@ -62,13 +68,18 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
         </FormControl>
         <View style={styles.btnContent}>
           <View style={tw`w-4/12`}>
-            <Button
+            <TouchableOpacity
                 onPress={handleForgotPassword} style={[styles.button]}>
                 <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Enviar</Text>
-            </Button>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
+      <ModalComponent
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          modalText="El correo electrónico ha sido enviado."
+      />
     </ScrollView>
   )
 }
