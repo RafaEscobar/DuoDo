@@ -7,10 +7,13 @@ import { Button, FormControl, FormControlLabel, FormControlLabelText, Input, Inp
 import { AntDesign } from '@expo/vector-icons';
 import { ForgotPasswordRequest } from '../../modules/requests/Index';
 import { ModalComponent } from '../../component/ModalComponent';
+import { LoadingComponent } from '../../component/LoadingComponent';
 
 
 export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
   // Forma de colocar el tema de nuestro dispositivo, aun queda por definir el tema de la aplicacion
   // const scheme = useColorScheme();
 
@@ -19,10 +22,10 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   //   color: scheme === 'dark' ? '#333' : '#fff',
   // };
 
-  const [email, setEmail] = useState('');
-
   const handleForgotPassword = async() => {
+    setLoading(true);
     const response = await ForgotPasswordRequest(email);
+    setLoading(false);
     if (response == 'ok') {
       setModalVisible(true);
     }
@@ -79,6 +82,10 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           modalText="El correo electrónico ha sido enviado."
+      />
+      <LoadingComponent
+          modalVisible={loading}
+          modalText='Enviando...'
       />
     </ScrollView>
   )
