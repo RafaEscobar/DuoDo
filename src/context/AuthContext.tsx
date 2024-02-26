@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   const WhoIAm = async(token:any) => {
-    const url = "https://9a3a-2806-2f0-9f00-ffaf-804a-c5a6-4bbf-63f4.ngrok-free.app/api/who-i-am"
+    const url = "https://9a03-187-235-110-63.ngrok-free.app/api/who-i-am"
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, status, user, setToken, setUser }}>
+    <AuthContext.Provider value={{ token, status, user, setToken, setUser, setStatus }}>
       {children}
     </AuthContext.Provider>
   );

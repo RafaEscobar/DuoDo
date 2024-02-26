@@ -7,13 +7,14 @@ import { AuthContext } from '../../context/AuthContext';
 import { LogoutRequest } from '../../modules/requests/LogoutRequest';
 
 export const LogoutAction = ({navigation}:any) => {
-    const {token}:any = useContext(AuthContext);
+    const {token, setStatus}:any = useContext(AuthContext);
     const handlePress = async() => {
         try {
             const response = await LogoutRequest(token);
             if (response == 'ok') {
                 await AsyncStorage.removeItem('u-token');
                 await AsyncStorage.removeItem('user');
+                setStatus('unauthorized');
                 navigation.navigate('Login');
             }
         } catch (error) {
