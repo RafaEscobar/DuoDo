@@ -9,7 +9,6 @@ import { ForgotPasswordRequest } from '../../modules/requests/Index';
 import { ModalComponent } from '../../component/ModalComponent';
 import { LoadingComponent } from '../../component/LoadingComponent';
 
-
 export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
