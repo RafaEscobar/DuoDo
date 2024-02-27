@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 export const RegisterRequest = async (name:any, last_name:any, email:any, password:any, birthdate:any) => {
-    console.log(name, last_name, email, password, birthdate);
+    const { authUrl }:any = useContext(AuthContext);
+
     try {
-        const url = `${process.env.AUTH_URL}/register`;
+        const url = `${authUrl}/register`;
         const params = {
             name,
             last_name,

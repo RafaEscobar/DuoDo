@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export const ForgotPasswordRequest = async(email:string) => {
-    console.log(process.env.AUTH_URL);
-    const url = `${process.env.AUTH_URL}/forgot-password`;
+    const { authUrl }:any = useContext(AuthContext);
+    const url = `${authUrl}/forgot-password`;
+
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({email}),

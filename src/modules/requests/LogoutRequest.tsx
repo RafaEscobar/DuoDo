@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 export const LogoutRequest = async(token: any) => {
-    console.log(process.env.AUTH_URL);
-    const url = `${process.env.AUTH_URL}/logout`;
+    const { authUrl }:any = useContext(AuthContext);
+    const url = `${authUrl}/logout`;
+
     try {
         const response = await fetch(url, {
             method: 'POST',

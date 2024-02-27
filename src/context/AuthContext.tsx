@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('checking');
   const [user, setUser] = useState('');
-
+  const [authUrl, setAuthUrl] = useState('https://ad0d-2806-2f0-9f00-ffaf-7d27-5606-a3ed-7131.ngrok-free.app/api');
   /**
    ** Secondary load of token validation
    */
@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   const WhoIAm = async(token:any) => {
-    console.log(process.env.AUTH_URL);
-    const url = `${process.env.AUTH_URL}/who-i-am`;
+    const url = `${authUrl}/who-i-am`;
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, status, user, setToken, setUser, setStatus }}>
+    <AuthContext.Provider value={{ token, status, user, authUrl, setToken, setUser, setStatus }}>
       {children}
     </AuthContext.Provider>
   );
