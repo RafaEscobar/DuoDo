@@ -12,6 +12,7 @@ export const BottomTabNavigation = () => {
         name="Inicio"
         component={Dashboard}
         options={{
+          headerShown: false,
           tabBarIcon: () => (
             <Image
               source="https://kaihatsu-code.com/assets/home.png"
@@ -25,6 +26,7 @@ export const BottomTabNavigation = () => {
         name="Calendario"
         component={Calendar}
         options={{
+          headerShown: false,
           tabBarIcon: () => (
             <Image
               source="https://kaihatsu-code.com/assets/calendar.png"
@@ -38,6 +40,7 @@ export const BottomTabNavigation = () => {
         name="Creación"
         component={Create}
         options={{
+          headerShown: false,
           tabBarIcon: () => (
             <Image
               source="https://kaihatsu-code.com/assets/task.png"
@@ -45,13 +48,13 @@ export const BottomTabNavigation = () => {
             />
           ),
           tabBarLabel: () => null,
-          headerShown: false,
         }}
       />
       <Tab.Screen
         name="Info"
         component={Profile}
         options={{
+          headerShown: false,
           tabBarIcon: () => (
             <Image
               source="https://kaihatsu-code.com/assets/menu.png"

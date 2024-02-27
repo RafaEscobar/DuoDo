@@ -13,9 +13,9 @@ export const LogoutAction = ({navigation, setLoading}:any) => {
             setLoading(true);
             const response = await LogoutRequest(token);
             if (response == 'ok') {
+                setStatus('unauthorized');
                 await AsyncStorage.removeItem('u-token');
                 await AsyncStorage.removeItem('user');
-                setStatus('unauthorized');
                 setLoading(false);
                 navigation.navigate('Login');
             }
@@ -29,7 +29,7 @@ export const LogoutAction = ({navigation, setLoading}:any) => {
             onPress={handlePress}
                 style={tw`mb-4`}
             >
-                <AntDesign name="login" size={35} color="black" />
+                <AntDesign name="login" size={35} color="white" />
             </TouchableOpacity>
         </View>
     )
