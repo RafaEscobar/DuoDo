@@ -129,10 +129,10 @@ export const Login = ({ navigation: {navigate} }: any) => {
             <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
           </FormControl>
         </View>
-        <Button
+        <TouchableOpacity
           onPress={() => handleLogin()} style={[styles.button]}>
           <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
-        </Button>
+        </TouchableOpacity>
         <View style={styles.contex}>
           <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
           <TouchableOpacity>
