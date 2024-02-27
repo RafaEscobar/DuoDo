@@ -12,21 +12,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
 import { AuthContext } from '../../context/AuthContext';
+import { LoadingComponent } from '../../component/LoadingComponent';
 export const Login = ({ navigation: {navigate} }: any) => {
   const { setUser, setToken }:any = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async() => {
     try {
+      setLoading(true);
       const response = await LoginRequest(email, password);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
       setToken(response.token);
       setUser(JSON.stringify(response.user));
       console.log(response.token);
+      setLoading(false);
       navigate('BottomTabNavigation');
     } catch (error) {
       console.log(error);
@@ -125,10 +129,10 @@ export const Login = ({ navigation: {navigate} }: any) => {
             <Text style={[styles.endText, { fontFamily: "Poppins_700Bold", color: '#0090c9' }]} onPress={() => navigate('ResetPassword')} >¿Olvidaste tu contraseña?</Text>
           </FormControl>
         </View>
-        <Button
+        <TouchableOpacity
           onPress={() => handleLogin()} style={[styles.button]}>
           <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
-        </Button>
+        </TouchableOpacity>
         <View style={styles.contex}>
           <Text style={[styles.textFont, themeTextStyle, { fontFamily: "Poppins_700Bold" }]}>No tienes cuenta?</Text>
           <TouchableOpacity>
@@ -139,6 +143,10 @@ export const Login = ({ navigation: {navigate} }: any) => {
         </View>
         <StatusBar />
       </View>
+      <LoadingComponent
+          modalVisible={loading}
+          modalText='Iniciando'
+      />
     </ScrollView>
   );
 }

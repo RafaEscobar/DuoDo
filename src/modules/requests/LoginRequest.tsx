@@ -4,7 +4,9 @@
  * @returns void
  */
 export const LoginRequest = async (email:string, password:string) => {
-    const url = `https://9a3a-2806-2f0-9f00-ffaf-804a-c5a6-4bbf-63f4.ngrok-free.app/api/login`;
+  console.log(process.env.AUTH_URL);
+  const url = `${process.env.AUTH_URL}/login`;
+  console.log(url);
     const response = await fetch(url, {
         method: 'POST',
         headers: {
