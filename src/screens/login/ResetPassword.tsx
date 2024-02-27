@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
@@ -8,11 +8,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { ForgotPasswordRequest } from '../../modules/requests/Index';
 import { ModalComponent } from '../../component/ModalComponent';
 import { LoadingComponent } from '../../component/LoadingComponent';
+import { AuthContext } from '../../context/AuthContext';
 
 export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
+
+  const {authUrl}:any = useContext(AuthContext);
   // Forma de colocar el tema de nuestro dispositivo, aun queda por definir el tema de la aplicacion
   // const scheme = useColorScheme();
 
@@ -23,7 +26,7 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
 
   const handleForgotPassword = async() => {
     setLoading(true);
-    const response = await ForgotPasswordRequest(email);
+    const response = await ForgotPasswordRequest(email, authUrl);
     setLoading(false);
     if (response == 'ok') {
       setModalVisible(true);

@@ -21,10 +21,12 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const {authUrl}:any = useContext(AuthContext);
+
   const handleLogin = async() => {
     try {
       setLoading(true);
-      const response = await LoginRequest(email, password);
+      const response = await LoginRequest(email, password, authUrl);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
       setToken(response.token);

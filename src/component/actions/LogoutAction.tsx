@@ -7,11 +7,11 @@ import { AuthContext } from '../../context/AuthContext';
 import { LogoutRequest } from '../../modules/requests/LogoutRequest';
 
 export const LogoutAction = ({navigation, setLoading}:any) => {
-    const {token, setStatus}:any = useContext(AuthContext);
+    const {token, setStatus, authUrl}:any = useContext(AuthContext);
     const handlePress = async() => {
         try {
             setLoading(true);
-            const response = await LogoutRequest(token);
+            const response = await LogoutRequest(token, authUrl);
             if (response == 'ok') {
                 setStatus('unauthorized');
                 await AsyncStorage.removeItem('u-token');
@@ -19,6 +19,7 @@ export const LogoutAction = ({navigation, setLoading}:any) => {
                 setLoading(false);
                 navigation.navigate('Login');
             }
+
         } catch (error) {
           console.error('Error al realizar el logout:', error);
         }

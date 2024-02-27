@@ -1,8 +1,4 @@
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-
-export const ForgotPasswordRequest = async(email:string) => {
-    const { authUrl }:any = useContext(AuthContext);
+export const ForgotPasswordRequest = async(email:string, authUrl:any) => {
     const url = `${authUrl}/forgot-password`;
 
     const response = await fetch(url, {

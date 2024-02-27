@@ -4,13 +4,13 @@ import tw from 'twrnc';
 import { AuthContext } from '../../context/AuthContext';
 import { LogoutAction } from '../../component/actions/LogoutAction';
 import { LoadingComponent } from '../../component/LoadingComponent';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-export const Profile = ({ navigation }: any) => {
-const [loading, setLoading] = useState(false);
 
-const { user }:any = useContext(AuthContext);
-const currentUser = JSON.parse(user);
+export const Profile = ({ navigation }: any) => {
+    const { user }:any = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
+
+    const currentUser = JSON.parse(user);
     return (
         <SafeAreaView style={{flex:1}}>
             <ScrollView>

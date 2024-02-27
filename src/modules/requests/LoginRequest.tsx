@@ -1,15 +1,10 @@
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-
 /**
  ** Function to login request
  * @param email_password - User credentials
  * @returns void
  */
-export const LoginRequest = async (email:string, password:string) => {
-  const { authUrl }:any = useContext(AuthContext);
+export const LoginRequest = async (email:string, password:string, authUrl:any) => {
   const url = `${authUrl}/login`;
-
   const response = await fetch(url, {
       method: 'POST',
       headers: {
