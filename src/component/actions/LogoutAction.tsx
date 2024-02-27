@@ -13,9 +13,9 @@ export const LogoutAction = ({navigation, setLoading}:any) => {
             setLoading(true);
             const response = await LogoutRequest(token);
             if (response == 'ok') {
+                setStatus('unauthorized');
                 await AsyncStorage.removeItem('u-token');
                 await AsyncStorage.removeItem('user');
-                setStatus('unauthorized');
                 setLoading(false);
                 navigation.navigate('Login');
             }
