@@ -4,6 +4,7 @@
  * @returns void
  */
 export const LoginRequest = async (email:string, password:string) => {
+  console.log(process.env.AUTH_URL);
   const url = `${process.env.AUTH_URL}/login`;
   console.log(url);
     const response = await fetch(url, {

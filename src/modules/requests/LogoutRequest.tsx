@@ -1,4 +1,5 @@
 export const LogoutRequest = async(token: any) => {
+    console.log(process.env.AUTH_URL);
     const url = `${process.env.AUTH_URL}/logout`;
     try {
         const response = await fetch(url, {

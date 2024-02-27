@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   const WhoIAm = async(token:any) => {
+    console.log(process.env.AUTH_URL);
     const url = `${process.env.AUTH_URL}/who-i-am`;
     const response = await fetch(url, {
       method: 'POST',
