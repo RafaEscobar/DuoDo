@@ -14,6 +14,6 @@ export const LogoutRequest = async(token: any, authUrl:any) => {
             return res.status;
         }
     } catch (error) {
-        console.log(error);
+        // TODO: Tratar errores
     }
 }

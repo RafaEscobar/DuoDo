@@ -41,8 +41,6 @@ export const SelectAvatar = ({ navigation: {navigate} }: any) => {
     const procedures = async() => {
         const response = await RefreshUser(authUrl);
         await AsyncStorage.setItem('user', JSON.stringify(response.data));
-        console.log(JSON.stringify(response.data));
-        console.log(await AsyncStorage.getItem('user'));
         setUser(JSON.stringify(response.data));
     }
 

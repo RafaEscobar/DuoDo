@@ -32,13 +32,12 @@ export const Login = ({ navigation: {navigate} }: any) => {
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
       VerifyAvatarProcedure(response.user, setAvatar);
-      console.log(response.token);
       setToken(response.token);
       setUser(JSON.stringify(response.user));
       setLoading(false);
       navigate('MainStackNavigation');
     } catch (error) {
-      console.log(error);
+      // TODO TRATAR ERROR
     }
   }
 

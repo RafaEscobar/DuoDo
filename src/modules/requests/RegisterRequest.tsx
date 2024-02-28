@@ -15,10 +15,9 @@ export const RegisterRequest = async (name:any, last_name:any, email:any, passwo
             },
             body: JSON.stringify(params),
         });
-        console.log(response);
         const res = await response.json();
         console.log(res);
     } catch (error) {
-        console.log(error);
+        // TODO: Tratar errores
     }
 };

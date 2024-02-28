@@ -31,7 +31,6 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
     if (response == 'ok') {
       setModalVisible(true);
     }
-    // console.log(response);
   }
 
   const [fontsLoaded] = useFonts({

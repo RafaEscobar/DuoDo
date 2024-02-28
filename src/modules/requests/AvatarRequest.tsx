@@ -11,6 +11,5 @@ export const AvatarRequest = async(baseUrl:any) => {
         }
     });
     const res = await response.json();
-    console.log(res);
     return res.data;
 }
