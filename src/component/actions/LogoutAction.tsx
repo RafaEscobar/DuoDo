@@ -30,7 +30,7 @@ export const LogoutAction = ({navigation, setLoading}:any) => {
             onPress={handlePress}
                 style={tw`mb-4`}
             >
-                <AntDesign name="login" size={35} color="black" />
+                <AntDesign name="login" size={35} color="white" />
             </TouchableOpacity>
         </View>
     )
