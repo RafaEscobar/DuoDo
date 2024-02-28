@@ -1,19 +1,18 @@
 import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../context/AuthContext';
 import { Button, ScrollView } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
+import { LoadingComponent } from '../../component/LoadingComponent';
 import { LoginRequest } from '../../modules/requests/LoginRequest';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, useColorScheme, Text, Alert } from 'react-native';
+import { StyleSheet, View, useColorScheme, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
-import { AuthContext } from '../../context/AuthContext';
-import { LoadingComponent } from '../../component/LoadingComponent';
-import { VerifyAvatarProcedure } from '../../modules/procedures/Index';
 
 export const Login = ({ navigation: {navigate} }: any) => {
   const { setUser, setToken }:any = useContext(AuthContext);
@@ -31,7 +30,6 @@ export const Login = ({ navigation: {navigate} }: any) => {
       const response = await LoginRequest(email, password, authUrl);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
-      // VerifyAvatarProcedure(response.user);
       console.log(response.token);
       setToken(response.token);
       setUser(JSON.stringify(response.user));

@@ -1,6 +1,5 @@
 import { AuthContext } from '../context/AuthContext';
 import { DashboardStack } from './DashboardStack';
-import { NavigationContainer } from '@react-navigation/native';
 import { SelectAvatar } from '../screens/auth/SelectAvatar';
 import React, { useContext } from 'react';
 
