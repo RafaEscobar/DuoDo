@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { NavigationContainer } from '@react-navigation/native';
-import { DashboardStack } from './DashboardStack';
 import { LoginStack } from './LoginStack';
+import { NavigationContainer } from '@react-navigation/native';
 import { ValidatingLogin } from '../screens/auth/ValidatingLogin';
+import React, { useContext } from 'react';
+import { DashboardStack } from './DashboardStack';
 
 export const CustomNavigation = () => {
   const { status }:any = useContext(AuthContext);
@@ -15,8 +15,9 @@ export const CustomNavigation = () => {
             <ValidatingLogin /> :
             ((status === 'unauthorized') ?
             <LoginStack /> :
-            <DashboardStack />)
-
+            // <MainStackNavigation />
+            <DashboardStack />
+            )
         }
     </NavigationContainer>
   );

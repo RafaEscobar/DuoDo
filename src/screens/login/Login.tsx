@@ -13,6 +13,8 @@ import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
 import { AuthContext } from '../../context/AuthContext';
 import { LoadingComponent } from '../../component/LoadingComponent';
+import { VerifyAvatarProcedure } from '../../modules/procedures/Index';
+
 export const Login = ({ navigation: {navigate} }: any) => {
   const { setUser, setToken }:any = useContext(AuthContext);
   const [email, setEmail] = useState('');
@@ -29,9 +31,10 @@ export const Login = ({ navigation: {navigate} }: any) => {
       const response = await LoginRequest(email, password, authUrl);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
+      // VerifyAvatarProcedure(response.user);
+      console.log(response.token);
       setToken(response.token);
       setUser(JSON.stringify(response.user));
-      console.log(response.token);
       setLoading(false);
       navigate('BottomTabNavigation');
     } catch (error) {
