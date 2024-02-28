@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('checking');
   const [user, setUser] = useState('');
-  const [authUrl, setAuthUrl] = useState('https://ad0d-2806-2f0-9f00-ffaf-7d27-5606-a3ed-7131.ngrok-free.app/api');
+  const [authUrl, setAuthUrl] = useState('https://0cb6-189-203-89-106.ngrok-free.app/api');
   const [avatar, setAvatar] = useState(false);
 
   /**
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
 
   const WhoIAm = async(token:any) => {
     const url = `${authUrl}/who-i-am`;
-
+    console.log(url)
     const response = await fetch(url, {
       method: 'POST',
       headers: {

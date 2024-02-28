@@ -13,6 +13,7 @@ import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
+import { VerifyAvatarProcedure } from '../../modules/procedures/VerifyAvatarProcedure';
 
 export const Login = ({ navigation: {navigate} }: any) => {
   const { setUser, setToken }:any = useContext(AuthContext);
@@ -22,7 +23,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const {authUrl}:any = useContext(AuthContext);
+  const { authUrl, setAvatar }:any = useContext(AuthContext);
 
   const handleLogin = async() => {
     try {
@@ -30,6 +31,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
       const response = await LoginRequest(email, password, authUrl);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
+      VerifyAvatarProcedure(response.user, setAvatar);
       console.log(response.token);
       setToken(response.token);
       setUser(JSON.stringify(response.user));
