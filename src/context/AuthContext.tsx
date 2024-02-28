@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
+import { VerifyAvatarProcedure } from '../modules/procedures/VerifyAvatarProcedure';
 
 /**
  ** AuthProviderProps interface to {children} param
@@ -48,6 +49,8 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
           setUser(user);
           setToken(token);
           setStatus('authorized');
+          console.log(token);
+          VerifyAvatarProcedure(user, setAvatar, 'refresh');
         } else {
           setStatus('unauthorized');
         }

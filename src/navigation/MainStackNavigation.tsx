@@ -1,9 +1,8 @@
 import { AuthContext } from '../context/AuthContext';
-import { DashboardStack } from './DashboardStack';
-import { SelectAvatar } from '../screens/auth/SelectAvatar';
 import React, { useContext } from 'react';
 import { BottomTabNavigation } from './BottomTabNavigation';
 import { SelectedStackNavigation } from './SelectedStackNavigation';
+import { DashboardStack } from './DashboardStack';
 
 export const MainStackNavigation = () => {
     const { avatar }:any = useContext(AuthContext);
@@ -11,7 +10,7 @@ export const MainStackNavigation = () => {
     console.log(avatar);
     return (
         (avatar == true) ?
-        <BottomTabNavigation /> :
+        <DashboardStack /> :
         <SelectedStackNavigation />
     )
 }

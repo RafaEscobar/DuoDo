@@ -31,7 +31,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
       const response = await LoginRequest(email, password, authUrl);
       await AsyncStorage.setItem('u-token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
-      VerifyAvatarProcedure(response.user, setAvatar);
+      VerifyAvatarProcedure(response.user, setAvatar, 'login');
       setToken(response.token);
       setUser(JSON.stringify(response.user));
       setLoading(false);
