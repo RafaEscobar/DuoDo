@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
+import { VerifyAvatarProcedure } from '../modules/procedures/VerifyAvatarProcedure';
 
 /**
  ** AuthProviderProps interface to {children} param
@@ -23,6 +24,9 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('checking');
   const [user, setUser] = useState('');
+  const [authUrl, setAuthUrl] = useState('https://9e8f-2806-2f0-9f00-ffaf-59c7-81f4-cafd-9a4b.ngrok-free.app/api');
+  const [baseUrl, setBaseUrl] = useState('https://9e8f-2806-2f0-9f00-ffaf-59c7-81f4-cafd-9a4b.ngrok-free.app/api/v1');
+  const [avatar, setAvatar] = useState(false);
 
   /**
    ** Secondary load of token validation
@@ -45,6 +49,10 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
           setUser(user);
           setToken(token);
           setStatus('authorized');
+          console.log(token);
+          VerifyAvatarProcedure(user, setAvatar, 'refresh');
+        } else {
+          setStatus('unauthorized');
         }
       } else {
         setStatus('unauthorized');
@@ -55,8 +63,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   const WhoIAm = async(token:any) => {
-    console.log(process.env.AUTH_URL);
-    const url = `${process.env.AUTH_URL}/who-i-am`;
+    const url = `${authUrl}/who-i-am`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -90,7 +97,18 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, status, user, setToken, setUser, setStatus }}>
+    <AuthContext.Provider value={{
+      token,
+      status,
+      user,
+      authUrl,
+      baseUrl,
+      avatar,
+      setToken,
+      setUser,
+      setStatus,
+      setAvatar
+      }}>
       {children}
     </AuthContext.Provider>
   );

@@ -51,7 +51,7 @@ export const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Info"
+        name="Profile"
         component={Profile}
         options={{
           headerShown: false,

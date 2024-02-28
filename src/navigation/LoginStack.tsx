@@ -5,6 +5,7 @@ import { ResetPassword } from '../screens/login/ResetPassword';
 import { SignUp } from '../screens/login/SignUp';
 import React from 'react';
 import { BottomTabNavigation } from './BottomTabNavigation';
+import { MainStackNavigation } from './MainStackNavigation';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export const LoginStack = () => {
         <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false}}/>
         <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} options={{ headerShown: false}}  />
+        <Stack.Screen name="MainStackNavigation" component={MainStackNavigation} options={{ headerShown: false}} />
     </Stack.Navigator>
   );
 }

@@ -7,8 +7,9 @@ import { RegisterRequest } from '../../modules/requests/RegisterRequest';
 import { useFonts } from 'expo-font';
 import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
+import { AuthContext } from '../../context/AuthContext';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
   /**
@@ -23,6 +24,8 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   const [passwordError, setPasswordError] = useState('');
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+
+  const {authUrl}:any = useContext(AuthContext);
 
   /**
    ** Variables
@@ -95,10 +98,10 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
 
   const handleRegister = async() => {
     try {
-      await RegisterRequest(name, last_name, email, password, birthdate );
+      await RegisterRequest(name, last_name, email, password, birthdate, authUrl);
       navigate('Login');
     } catch (error) {
-      console.log(error);
+      // TODO: TRATAR ERROR
     }
   }
 

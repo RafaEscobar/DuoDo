@@ -1,16 +1,16 @@
-import { Button, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import tw from 'twrnc';
 import { AuthContext } from '../../context/AuthContext';
 import { LogoutAction } from '../../component/actions/LogoutAction';
 import { LoadingComponent } from '../../component/LoadingComponent';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-export const Profile = ({ navigation }: any) => {
-const [loading, setLoading] = useState(false);
 
-const { user }:any = useContext(AuthContext);
-const currentUser = JSON.parse(user);
+export const Profile = ({ navigation }: any) => {
+    const { user }:any = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
+
+    const currentUser = JSON.parse(user);
     return (
         <SafeAreaView style={{flex:1}}>
             <ScrollView>
@@ -23,7 +23,7 @@ const currentUser = JSON.parse(user);
                         </View>
                         <View style={tw`flex items-center mt-8 w-full`}>
                             <Image
-                                source={{ uri: 'https://i.postimg.cc/Vvkd9khj/avatar.png' }}
+                                source={{ uri: currentUser.avatar[0].url }}
                                 style={tw`border-2 border-blue-500 rounded-full w-38 h-38`}
                             />
                         </View>

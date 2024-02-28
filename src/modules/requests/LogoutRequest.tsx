@@ -1,6 +1,5 @@
-export const LogoutRequest = async(token: any) => {
-    console.log(process.env.AUTH_URL);
-    const url = `${process.env.AUTH_URL}/logout`;
+export const LogoutRequest = async(token: any, authUrl:any) => {
+    const url = `${authUrl}/logout`;
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -15,6 +14,6 @@ export const LogoutRequest = async(token: any) => {
             return res.status;
         }
     } catch (error) {
-        console.log(error);
+        // TODO: Tratar errores
     }
 }

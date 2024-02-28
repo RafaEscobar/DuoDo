@@ -102,7 +102,6 @@ export const TaskComponent = () => {
 
     const deleteTodo = (id: string) => {
         setTask(task.filter((item) => item.id !== id));
-        console.log(task);
     }
 
     return (

@@ -1,7 +1,6 @@
+export const ForgotPasswordRequest = async(email:string, authUrl:any) => {
+    const url = `${authUrl}/forgot-password`;
 
-export const ForgotPasswordRequest = async(email:string) => {
-    console.log(process.env.AUTH_URL);
-    const url = `${process.env.AUTH_URL}/forgot-password`;
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({email}),

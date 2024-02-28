@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { TouchableOpacity, View } from "react-native"
 import { AntDesign } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import tw from 'twrnc';
 import { AuthContext } from '../../context/AuthContext';
 import { LogoutRequest } from '../../modules/requests/LogoutRequest';
+import { TouchableOpacity, View } from "react-native"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext } from 'react';
+import tw from 'twrnc';
 
 export const LogoutAction = ({navigation, setLoading}:any) => {
-    const {token, setStatus}:any = useContext(AuthContext);
+    const {token, setStatus, authUrl}:any = useContext(AuthContext);
     const handlePress = async() => {
         try {
             setLoading(true);
-            const response = await LogoutRequest(token);
+            const response = await LogoutRequest(token, authUrl);
             if (response == 'ok') {
                 setStatus('unauthorized');
                 await AsyncStorage.removeItem('u-token');
@@ -19,6 +19,7 @@ export const LogoutAction = ({navigation, setLoading}:any) => {
                 setLoading(false);
                 navigation.navigate('Login');
             }
+
         } catch (error) {
           console.error('Error al realizar el logout:', error);
         }

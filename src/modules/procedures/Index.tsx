@@ -1,0 +1,1 @@
+export { VerifyAvatarProcedure } from "./VerifyAvatarProcedure";
