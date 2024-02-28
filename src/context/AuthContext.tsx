@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const [status, setStatus] = useState('checking');
   const [user, setUser] = useState('');
   const [authUrl, setAuthUrl] = useState('https://0cb6-189-203-89-106.ngrok-free.app/api');
+  const [baseUrl, setBaseUrl] = useState('https://0cb6-189-203-89-106.ngrok-free.app/api/v1');
   const [avatar, setAvatar] = useState(false);
 
   /**
@@ -92,7 +93,18 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, status, user, authUrl, avatar, setToken, setUser, setStatus, setAvatar }}>
+    <AuthContext.Provider value={{
+      token,
+      status,
+      user,
+      authUrl,
+      baseUrl,
+      avatar,
+      setToken,
+      setUser,
+      setStatus,
+      setAvatar
+      }}>
       {children}
     </AuthContext.Provider>
   );
