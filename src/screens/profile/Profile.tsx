@@ -23,7 +23,7 @@ export const Profile = ({ navigation }: any) => {
                         </View>
                         <View style={tw`flex items-center mt-8 w-full`}>
                             <Image
-                                source={{ uri: 'https://i.postimg.cc/Vvkd9khj/avatar.png' }}
+                                source={{ uri: currentUser.avatar[0].url }}
                                 style={tw`border-2 border-blue-500 rounded-full w-38 h-38`}
                             />
                         </View>

@@ -44,10 +44,13 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
       const res = await WhoIAm(token);
       if (res == 'ok') {
         const user = await AsyncStorage.getItem('user');
+        console.log(user);
         if (user) {
           setUser(user);
           setToken(token);
           setStatus('authorized');
+        } else {
+          setStatus('unauthorized');
         }
       } else {
         setStatus('unauthorized');
@@ -59,7 +62,6 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
 
   const WhoIAm = async(token:any) => {
     const url = `${authUrl}/who-i-am`;
-    console.log(url)
     const response = await fetch(url, {
       method: 'POST',
       headers: {

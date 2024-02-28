@@ -37,8 +37,8 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                     <Ionicons name="notifications" size={25} color="black" style={tw`bg-orange-400 p-2 rounded-2xl mb-4`} />
                     <Image
                         style={tw`w-15 h-15 rounded-full`}
-                        // source={currentUser.avatar[0].url}
-                        source=""
+                        source={currentUser.avatar[0].url}
+                        // source=""
                     />
                 </View>
                 <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>Teams</Text>

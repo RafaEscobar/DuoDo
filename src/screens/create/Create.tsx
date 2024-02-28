@@ -3,8 +3,9 @@ import { View, Text, Image, StyleSheet, Platform, ScrollView, TouchableOpacity }
 import { AuthContext } from '../../context/AuthContext';
 import { AvatarRequest } from '../../modules/requests/AvatarRequest';
 import tw from 'twrnc';
-import { SetAvatarRequest } from '../../modules/requests/Index';
+import { RefreshUser, SetAvatarRequest } from '../../modules/requests/Index';
 import { LoadingComponent } from '../../component/LoadingComponent';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Create = () => {
     const [avatars, setAvatars] = useState([]);
@@ -12,7 +13,7 @@ export const Create = () => {
     const [selectedId, setSelectedId] = useState(1);
     const [loading, setLoading] = useState(false);
 
-    const { token, baseUrl, authUrl, user }:any = useContext(AuthContext);
+    const { token, baseUrl, authUrl, user, setUser }:any = useContext(AuthContext);
 
     useEffect(() => {
         const handleAvatar = async() => {
@@ -31,7 +32,16 @@ export const Create = () => {
         setLoading(true);
         const currentUser = JSON.parse(user);
         SetAvatarRequest(token, authUrl, currentUser.external_identifier, selectedId);
+        await procedures();
         setLoading(false);
+    }
+
+    const procedures = async() => {
+        const response = await RefreshUser(token, authUrl);
+        await AsyncStorage.setItem('user', JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data));
+        console.log(await AsyncStorage.getItem('user'));
+        setUser(JSON.stringify(response.data));
     }
 
     return (
