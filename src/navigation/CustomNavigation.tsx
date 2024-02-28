@@ -7,7 +7,6 @@ import { MainStackNavigation } from './MainStackNavigation';
 
 export const CustomNavigation = () => {
   const { status }:any = useContext(AuthContext);
-  console.log("1. Estatus: " + status);
   return (
     <NavigationContainer>
         {
