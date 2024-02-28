@@ -15,6 +15,8 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user }:any = useContext(AuthContext);
     const currentUser = JSON.parse(user);
 
+    let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
+
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_700Bold
@@ -37,8 +39,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                     <Ionicons name="notifications" size={25} color="black" style={tw`bg-orange-400 p-2 rounded-2xl mb-4`} />
                     <Image
                         style={tw`w-15 h-15 rounded-full`}
-                        source={currentUser.avatar[0].url}
-                        // source=""
+                        source={urlImage}
                     />
                 </View>
                 <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>Teams</Text>

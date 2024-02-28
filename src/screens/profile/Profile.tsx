@@ -11,6 +11,8 @@ export const Profile = ({ navigation }: any) => {
     const [loading, setLoading] = useState(false);
 
     const currentUser = JSON.parse(user);
+    let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
+    
     return (
         <SafeAreaView style={{flex:1}}>
             <ScrollView>
@@ -23,7 +25,7 @@ export const Profile = ({ navigation }: any) => {
                         </View>
                         <View style={tw`flex items-center mt-8 w-full`}>
                             <Image
-                                source={{ uri: currentUser.avatar[0].url }}
+                                source={{ uri: urlImage }}
                                 style={tw`border-2 border-blue-500 rounded-full w-38 h-38`}
                             />
                         </View>
