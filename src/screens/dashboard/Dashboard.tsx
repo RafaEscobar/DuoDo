@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import tw from 'twrnc';
-import { Ionicons } from '@expo/vector-icons';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
+import { AuthContext } from '../../context/AuthContext';
 import { Image } from "expo-image";
-import { SwiperComponent } from '../../component/SwiperComponent';
-import { TaskComponent } from '../../component/TaskComponent';
+import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
-import { AuthContext } from '../../context/AuthContext';
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { SwiperComponent } from '../../component/SwiperComponent';
+import { TaskComponent } from '../../component/TaskComponent';
+import { useFonts } from 'expo-font';
+import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import tw from 'twrnc';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user }:any = useContext(AuthContext);

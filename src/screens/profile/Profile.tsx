@@ -1,10 +1,10 @@
+import { AuthContext } from '../../context/AuthContext';
+import { Entypo } from '@expo/vector-icons';
 import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { LoadingComponent } from '../../component/LoadingComponent';
+import { LogoutAction } from '../../component/actions/LogoutAction';
 import React, { useContext, useState } from 'react';
 import tw from 'twrnc';
-import { AuthContext } from '../../context/AuthContext';
-import { LogoutAction } from '../../component/actions/LogoutAction';
-import { LoadingComponent } from '../../component/LoadingComponent';
-import { Entypo } from '@expo/vector-icons';
 
 export const Profile = ({ navigation }: any) => {
     const { user }:any = useContext(AuthContext);
@@ -12,7 +12,7 @@ export const Profile = ({ navigation }: any) => {
 
     const currentUser = JSON.parse(user);
     let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
-    
+
     return (
         <SafeAreaView style={{flex:1}}>
             <ScrollView>

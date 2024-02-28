@@ -1,7 +1,7 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Calendar, Create, Dashboard, Profile } from "../screens";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
+import React from "react";
 
 const Tab = createBottomTabNavigator();
 
