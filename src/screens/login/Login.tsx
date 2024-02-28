@@ -23,7 +23,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { authUrl, setAvatar }:any = useContext(AuthContext);
+  const { authUrl, setAvatar  }:any = useContext(AuthContext);
 
   const handleLogin = async() => {
     try {
@@ -36,7 +36,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
       setToken(response.token);
       setUser(JSON.stringify(response.user));
       setLoading(false);
-      navigate('BottomTabNavigation');
+      navigate('MainStackNavigation');
     } catch (error) {
       console.log(error);
     }

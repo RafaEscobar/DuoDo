@@ -4,6 +4,7 @@ import { LoginStack } from './LoginStack';
 import { NavigationContainer } from '@react-navigation/native';
 import { ValidatingLogin } from '../screens/auth/ValidatingLogin';
 import React, { useContext } from 'react';
+import { MainStackNavigation } from './MainStackNavigation';
 
 export const CustomNavigation = () => {
   const { status }:any = useContext(AuthContext);
@@ -15,7 +16,6 @@ export const CustomNavigation = () => {
             <ValidatingLogin /> :
             ((status === 'unauthorized') ?
             <LoginStack /> :
-            // <MainStackNavigation />
             <DashboardStack />
             )
         }
