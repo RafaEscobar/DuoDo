@@ -1,4 +1,4 @@
-import { Button, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import tw from 'twrnc';
 import { AuthContext } from '../../context/AuthContext';
