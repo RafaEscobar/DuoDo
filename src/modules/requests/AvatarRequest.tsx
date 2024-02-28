@@ -1,5 +1,8 @@
-export const AvatarRequest = async(token:any, baseUrl:any) => {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export const AvatarRequest = async(baseUrl:any) => {
     const url = `${baseUrl}/avatars`;
+    const token = await AsyncStorage.getItem('u-token');
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -8,5 +11,6 @@ export const AvatarRequest = async(token:any, baseUrl:any) => {
         }
     });
     const res = await response.json();
+    console.log(res);
     return res.data;
 }
