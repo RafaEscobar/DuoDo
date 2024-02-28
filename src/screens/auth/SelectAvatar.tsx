@@ -6,8 +6,9 @@ import { View, Text, Image, StyleSheet, Platform, ScrollView, TouchableOpacity }
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext, useEffect, useState } from 'react';
 import tw from 'twrnc';
+import { useNavigation } from '@react-navigation/native';
 
-export const SelectAvatar = () => {
+export const SelectAvatar = ({ navigation: {navigate} }: any) => {
     const [avatars, setAvatars] = useState([]);
     const [selected, setSelected] = useState('https://kaihatsu-code.com/assets/avatars/avatar_a.png');
     const [selectedId, setSelectedId] = useState(1);
@@ -34,7 +35,7 @@ export const SelectAvatar = () => {
         SetAvatarRequest(authUrl, currentUser.external_identifier, selectedId);
         await procedures();
         setLoading(false);
-        // navigate('BottomTabNavigation');
+        navigate('BottomTabNavigation');
     }
 
     const procedures = async() => {

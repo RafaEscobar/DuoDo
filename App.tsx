@@ -6,8 +6,8 @@ import { SelectAvatar } from './src/screens/auth/SelectAvatar';
 export default function App(){
   return (
     <AuthProvider>
-      {/* <CustomNavigation /> */}
-      <SelectAvatar />
+      <CustomNavigation />
+      {/* <SelectAvatar /> */}
     </AuthProvider>
   );
 }
