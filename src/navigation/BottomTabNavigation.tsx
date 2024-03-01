@@ -38,6 +38,20 @@ export const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
+        name="Calendario"
+        component={Calendar}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source="https://kaihatsu-code.com/assets/calendar.png"
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+          tabBarLabel: () => null,
+        }}
+      />
+      <Tab.Screen
         name="Creación"
         component={TaskStack}
         options={{
