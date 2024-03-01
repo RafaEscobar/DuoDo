@@ -10,6 +10,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
 import { AuthContext } from '../../context/AuthContext';
+import { LoadingComponent } from '../../component/LoadingComponent';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
   /**
@@ -24,6 +25,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   const [passwordError, setPasswordError] = useState('');
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {authUrl}:any = useContext(AuthContext);
 
@@ -98,7 +100,9 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
 
   const handleRegister = async() => {
     try {
+      setLoading(true);
       await RegisterRequest(name, last_name, email, password, birthdate, authUrl);
+      setLoading(false);
       navigate('Login');
     } catch (error) {
       // TODO: TRATAR ERROR
@@ -216,6 +220,10 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
             </Button>
           </View>
         </View>
+        <LoadingComponent
+          modalVisible={loading}
+          modalText='Registrando'
+      />
       </ScrollView>
      </SafeAreaView>
 
