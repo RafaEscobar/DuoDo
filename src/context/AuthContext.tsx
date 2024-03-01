@@ -24,8 +24,8 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('checking');
   const [user, setUser] = useState('');
-  const [authUrl, setAuthUrl] = useState('https://8bed-187-235-110-63.ngrok-free.app/api');
-  const [baseUrl, setBaseUrl] = useState('https://8bed-187-235-110-63.ngrok-free.app/api/v1');
+  const [authUrl, setAuthUrl] = useState('https://b88c-187-235-35-230.ngrok-free.app/api');
+  const [baseUrl, setBaseUrl] = useState('https://b88c-187-235-35-230.ngrok-free.app/api/v1');
   const [avatar, setAvatar] = useState(false);
 
   /**
