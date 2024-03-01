@@ -14,8 +14,6 @@ export const DashboardStack = () => {
         <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} options={{ headerShown: false}}  />
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="AllTask" component={AllTask} options={{ headerShown: false }} />
-        <Stack.Screen name="AddTask" component={AddTask} options={{ presentation: "modal" }} />
     </Stack.Navigator>
   );
 }

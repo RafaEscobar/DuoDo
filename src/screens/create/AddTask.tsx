@@ -4,9 +4,10 @@ import tw from 'twrnc';
 import { Comfortaa_700Bold, Comfortaa_500Medium } from "@expo-google-fonts/comfortaa";
 import { useFonts } from 'expo-font';
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { todosData } from '../../data/todos';
+import { SelectList } from 'react-native-dropdown-select-list'
 
-
-export const AddTask = () => {
+export const AddTask = ({ navigation: { navigate }, route }: any) => {
 
   const [fontsLoaded] = useFonts({
     Comfortaa_700Bold,
@@ -24,6 +25,8 @@ export const AddTask = () => {
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+
+  const [select, setSelect] = useState([]);
 
   const handleDateChange = (event: any, selectedDate: Date | undefined) => {
     setSelectedDate(selectedDate);
@@ -49,24 +52,26 @@ export const AddTask = () => {
           onChangeText={(text) => { setDescription(text) }}
         />
       </View>
-      <View>
+      <View style={tw`w-80`}>
         <Text style={[tw`leading-8 text-xl mt-1`, { fontFamily: "Comfortaa_700Bold" }]}>Asignar a:</Text>
-        <TextInput
-          style={[tw`w-80 border-b border-gray-400 text-lg mb-5`, { fontFamily: "Comfortaa_700Bold" }]}
-          placeholder="select"
-          onChangeText={(text) => { setName(text) }}
+        <SelectList
+          data={todosData.map((item) => item.text)}
+          setSelected={setSelect}
+          save='value'
+          search={false}
+        />
+      </View>
+      <View style={tw`w-80`}>
+        <Text style={[tw`leading-8 text-xl mt-3`, { fontFamily: "Comfortaa_700Bold" }]}>Prioridad:</Text>
+        <SelectList
+          data={todosData.map((item) => item.text)}
+          setSelected={setSelect}
+          save='value'
+          search={false}
         />
       </View>
       <View>
-        <Text style={[tw`leading-8 text-xl mt-1`, { fontFamily: "Comfortaa_700Bold" }]}>Prioridad:</Text>
-        <TextInput
-          style={[tw`w-80 border-b border-gray-400 text-lg mb-5`, { fontFamily: "Comfortaa_700Bold" }]}
-          placeholder="select"
-          onChangeText={(text) => { setName(text) }}
-        />
-      </View>
-      <View>
-        <Text style={[tw`leading-8 text-xl mt-1`, { fontFamily: "Comfortaa_700Bold" }]}>Fecha:</Text>
+        <Text style={[tw`leading-8 text-xl mt-4`, { fontFamily: "Comfortaa_700Bold" }]}>Fecha:</Text>
         <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
           <TextInput
             style={[tw`w-80 border-b border-gray-400 text-lg mb-5`, { fontFamily: "Comfortaa_700Bold" }]}
@@ -87,7 +92,7 @@ export const AddTask = () => {
       <View style={tw`flex-row pb-4 justify-around items-center w-70`}>
         <View>
           <Text style={[tw`text-2xl `, { fontFamily: "Comfortaa_700Bold" }]}>Hoy</Text>
-         <Text style={[tw`text-sm w-60`, { fontFamily: "Comfortaa_700Bold" }]}>Si desactivas hoy, la tarea se considerará mañana.</Text>
+          <Text style={[tw`text-sm w-60`, { fontFamily: "Comfortaa_700Bold" }]}>Si desactivas hoy, la tarea se considerará para mañana.</Text>
         </View>
 
         <Switch
@@ -99,10 +104,9 @@ export const AddTask = () => {
         />
       </View>
       <View style={tw`mt-10 justify-center items-center`}>
-        <TouchableOpacity style={tw`bg-sky-500 p-4 w-50 rounded-xl`}>
-          <Text style={tw`text-center`}>Guardar</Text>
+        <TouchableOpacity onPress={() => navigate('AllTask')} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
+          <Text style={[tw`text-center text-4xl`, {fontFamily: "Comfortaa_700Bold"}]}>Guardar</Text>
         </TouchableOpacity>
-
       </View>
     </View>
   )

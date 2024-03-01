@@ -2,6 +2,7 @@ import { Calendar, Create, Dashboard, Profile } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
 import React from "react";
+import { TaskStack } from "./Stacts/TaskStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +39,7 @@ export const BottomTabNavigation = () => {
       />
       <Tab.Screen
         name="Creación"
-        component={Create}
+        component={TaskStack}
         options={{
           headerShown: false,
           tabBarIcon: () => (

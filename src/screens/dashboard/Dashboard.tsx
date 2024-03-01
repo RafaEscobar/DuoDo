@@ -28,7 +28,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
 
     return (
         <View>
-            <View style={tw`flex ml-8 mt-10 sm:ml-4 sm:mt-5`}>
+            <View style={tw`flex ml-3 mt-10 sm:ml-4 sm:mt-5`}>
                 <View>
                     <View>
                         <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>{currentUser.name}</Text>
@@ -47,21 +47,16 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
             <View>
                 <SwiperComponent />
             </View>
-            <View style={tw`flex ml-8 mt-6 sm:ml-4 sm:mt-5`}>
+            <View style={tw`flex ml-3 mt-6 sm:ml-4 sm:mt-5`}>
                 <View>
-                    <View>
+                    <View style={tw`flex flex-row justify-between items-center w-90`}>
                         <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
-                    </View>
-                    <View style={tw`flex flex-row pl-60 gap-2 items-center -mt-6`} >
-                        <TouchableOpacity onPress={() => { navigate('AllTask') }}>
-                            <MaterialIcons name="add-task" size={25} color="black" style={tw`bg-indigo-400 p-2 rounded-2xl -top-4`} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { navigate('AddTask') }}>
-                            <Octicons name="tasklist" size={25} color="black" style={tw`bg-sky-400 p-2 rounded-2xl -top-4`} />
+                        <TouchableOpacity onPress={() => navigate('AllTask')}>
+                            <Text style={[tw`text-base text-sky-500`, {fontFamily: "Poppins_700Bold"}]}>Ver todas</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={tw`w-85 h-80`}>
+                <View style={tw`w-92 h-85`}>
                     <TaskComponent />
                 </View>
             </View>

@@ -6,7 +6,6 @@ export const Calendar = () => {
     return (
         <View>
             <Text>Calendario</Text>
-            <TaskComponent />
         </View>
     )
 }
