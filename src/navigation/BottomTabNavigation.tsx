@@ -38,7 +38,7 @@ export const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Calendario"
+        name="Cal"
         component={Calendar}
         options={{
           headerShown: false,
