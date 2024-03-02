@@ -1,4 +1,4 @@
-export const BottonSheetComponent = (showActionSheetWithOptions:any) => {
+export const ModalSheetComponent = (showActionSheetWithOptions:any) => {
   const options = ['Tarea', 'Espacio de trabajo', 'Cerrar'];
 
   const cancelButtonIndex = 2;
