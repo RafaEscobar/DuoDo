@@ -12,6 +12,7 @@
     "@expo-google-fonts/comfortaa": "^0.2.3",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-runtime": "~3.1.1",
+    "@expo/react-native-action-sheet": "^4.0.1",
     "@gluestack-style/react": "^1.0.45",
     "@gluestack-ui/config": "^1.1.2",
     "@gluestack-ui/themed": "^1.1.3",
