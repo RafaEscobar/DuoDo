@@ -25,7 +25,7 @@ export const ModalSheetScreen = ({navigate}:any) => {
           <View style={styles.content}>
             <Text style={styles.contentTitle}>Hi !</Text>
             <Text>Hello from Overlay!</Text>
-            <TouchableOpacity onPress={() => { navigate('Another') }}>
+            <TouchableOpacity onPress={() => { navigate('Add') }}>
                 <Text>Ir a another</Text>
             </TouchableOpacity>
           </View>

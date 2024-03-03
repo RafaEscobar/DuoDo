@@ -1,13 +1,21 @@
-import { Text, View, TextInput, TouchableOpacity, Switch } from 'react-native';
-import React, { useState } from 'react'
-import tw from 'twrnc';
 import { Comfortaa_700Bold, Comfortaa_500Medium } from "@expo-google-fonts/comfortaa";
+import { SelectList } from 'react-native-dropdown-select-list'
+import { Text, View, TextInput, TouchableOpacity, Switch } from 'react-native';
+import { todosData } from '../../data/todos';
 import { useFonts } from 'expo-font';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { todosData } from '../../data/todos';
-import { SelectList } from 'react-native-dropdown-select-list'
+import React, { useState } from 'react'
+import tw from 'twrnc';
 
-export const AddTask = ({ navigation: { navigate }, route }: any) => {
+export const AddTask = ({ navigation: { navigate } }: any) => {
+
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [date, setDate] = useState(new Date())
+  const [isToday, setIsToday] = useState(false)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [select, setSelect] = useState([]);
 
   const [fontsLoaded] = useFonts({
     Comfortaa_700Bold,
@@ -18,15 +26,6 @@ export const AddTask = ({ navigation: { navigate }, route }: any) => {
     return null;
   }
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [date, setDate] = useState(new Date())
-  const [isToday, setIsToday] = useState(false)
-
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-
-  const [select, setSelect] = useState([]);
 
   const handleDateChange = (event: any, selectedDate: Date | undefined) => {
     setSelectedDate(selectedDate);
@@ -35,6 +34,11 @@ export const AddTask = ({ navigation: { navigate }, route }: any) => {
 
   return (
     <View style={tw`flex ml-6 mt-14 sm:ml-4 sm:mt-5`}>
+      <TouchableOpacity
+        onPress={() => { navigate('BottomTabNavigation') }}
+      >
+        <Text>Regresar</Text>
+      </TouchableOpacity>
       <Text style={[tw`text-4xl mb-8 mt-2.5`, { fontFamily: "Comfortaa_700Bold" }]}>Crear Tarea</Text>
       <View>
         <Text style={[tw`leading-8 text-xl mt-1`, { fontFamily: "Comfortaa_700Bold" }]}>Nombre:</Text>

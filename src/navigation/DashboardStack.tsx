@@ -1,11 +1,9 @@
+import { AddTask } from '../screens/create/AddTask';
 import { BottomTabNavigation } from './BottomTabNavigation';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from '../screens/login/Login';
 import { Profile } from '../screens';
 import React from 'react';
-import { AllTask } from '../screens/create/AllTask';
-import { AddTask } from '../screens/create/AddTask';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 const Stack = createNativeStackNavigator();
@@ -16,6 +14,8 @@ export const DashboardStack = () => {
         <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} options={{ headerShown: false}}  />
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Add" component={AddTask} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="Main" component={MainStackNavigation} options={{ headerShown: false }} /> */}
     </Stack.Navigator>
   );
 }

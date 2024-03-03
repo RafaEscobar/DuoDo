@@ -1,9 +1,9 @@
 import { Calendar, Dashboard, Profile } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
+import { ModalSheetScreen } from "../component/ModalSheetScreen";
 import { TaskStack } from "./Stacts/TaskStack";
 import React from "react";
-import { ModalSheetScreen } from "../component/ModalSheetScreen";
 
 const Tab = createBottomTabNavigator();
 
