@@ -1,13 +1,11 @@
-import React from 'react';
 import { AuthProvider } from './src/context/AuthContext';
 import { CustomNavigation } from './src/navigation/CustomNavigation';
-import { SelectAvatar } from './src/screens/auth/SelectAvatar';
+import React from 'react';
 
 export default function App(){
   return (
-    <AuthProvider>
-      <CustomNavigation />
-      {/* <SelectAvatar /> */}
-    </AuthProvider>
+      <AuthProvider>
+        <CustomNavigation />
+      </AuthProvider>
   );
 }
