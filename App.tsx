@@ -1,7 +1,7 @@
-import React from 'react';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { AuthProvider } from './src/context/AuthContext';
 import { CustomNavigation } from './src/navigation/CustomNavigation';
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import React from 'react';
 
 export default function App(){
   return (
