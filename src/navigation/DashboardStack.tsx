@@ -7,6 +7,7 @@ import { AllTask } from '../screens/create/AllTask';
 import { AddTask } from '../screens/create/AddTask';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+
 const Stack = createNativeStackNavigator();
 
 export const DashboardStack = () => {

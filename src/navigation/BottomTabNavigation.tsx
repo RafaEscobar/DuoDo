@@ -1,28 +1,17 @@
 import { Calendar, Dashboard, Profile } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
-import { ModalSheetComponent } from "../component/ModalSheetComponent";
 import { TaskStack } from "./Stacts/TaskStack";
-import { Text, View } from "react-native";
-import { useActionSheet } from "@expo/react-native-action-sheet";
 import React from "react";
-import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
+import { ModalSheetScreen } from "../component/ModalSheetScreen";
 
 const Tab = createBottomTabNavigator();
 
-const ModalSheetScreen = () => {
-  // const { showActionSheetWithOptions } = useActionSheet();
-  // ModalSheetComponent(showActionSheetWithOptions);
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
+const MiddleBtn = () => {
+  return null;
 }
 
-
-export const BottomTabNavigation = () => {
-  const { showActionSheetWithOptions } = useActionSheet();
+export const BottomTabNavigation = ({ navigation: {navigate} }: any) => {
   return (
       <Tab.Navigator>
         <Tab.Screen name="Inicio" component={Dashboard}
@@ -49,16 +38,11 @@ export const BottomTabNavigation = () => {
             tabBarLabel: () => null,
           }}
         />
-        <Tab.Screen name="Add" component={ModalSheetScreen}
+        <Tab.Screen
+          name="Add"
+          component={MiddleBtn}
           options={{
-            headerShown: false,
-            tabBarIcon: () => (
-              <Image
-                source="https://kaihatsu-code.com/assets/add-removebg-preview.png"
-                style={{ width: 40, height: 40 }}
-              />
-            ),
-            tabBarLabel: () => null,
+            tabBarButton: () => (<ModalSheetScreen navigate={navigate} />),
           }}
         />
         <Tab.Screen
