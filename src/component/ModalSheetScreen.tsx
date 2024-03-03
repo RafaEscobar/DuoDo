@@ -4,7 +4,13 @@ import React, { useState } from 'react';
 
 export const ModalSheetScreen = ({navigate}:any) => {
   const [modalVisible, setModalVisible] = useState(false);
-  console.log("nose");
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handlePress = () => {
+    setIsPressed(!isPressed);
+  };
+
+
   return (
     <View>
       <TouchableOpacity
@@ -24,14 +30,38 @@ export const ModalSheetScreen = ({navigate}:any) => {
           style={styles.contentView}
         >
           <View style={styles.content}>
-            <Text style={styles.contentTitle}>Hi !</Text>
-            <Text>La alin no se baña, pero aun asi la quiero xq es mi compa 🫶🏻</Text>
-            <TouchableOpacity onPress={ () => {
-              setModalVisible(false);
-               navigate('Add');
-              }}>
-                <Text>Ir a another</Text>
-            </TouchableOpacity>
+            <View>
+              <Text style={styles.contentTitle}>¿Qué deseas crear?</Text>
+              <Text style={{ textAlign: 'center', paddingLeft: 20, paddingRight: 20, }}>Puedes crear una tarea individual/grupal o un espacio de trabajo para poder gestionar tus pendientes y colaborar con otras personas.</Text>
+            </View>
+            <View style={{ marginTop: 25 }}>
+              <View
+                style={{backgroundColor: '#FAF8F4', paddingTop:4, paddingBottom:4, borderRadius: 20, marginBottom: 10 }}
+              >
+                <TouchableOpacity
+                  onPress={ () => {
+                    setModalVisible(false);
+                    navigate('Add');
+                  }}
+                  style={styles.button}
+                >
+                    <Text style={styles.optionText}>Tarea</Text>
+                </TouchableOpacity>
+              </View>
+              <View 
+                style={{backgroundColor: '#FAF8F4', paddingTop:4, paddingBottom:4, borderRadius: 20 }}
+              >
+                <TouchableOpacity
+                  onPress={ () => {
+                    setModalVisible(false);
+                    navigate('Add');
+                  }}
+                  style={styles.button}
+                >
+                    <Text style={styles.optionText}>Espacio de trabajo</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </Modal>
       </View>
@@ -42,18 +72,29 @@ export const ModalSheetScreen = ({navigate}:any) => {
 const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
-    padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: 22,
+    paddingBottom: 22,
     borderTopRightRadius: 17,
     borderTopLeftRadius: 17,
   },
   contentTitle: {
+    textAlign: 'center',
     fontSize: 20,
     marginBottom: 12,
   },
   contentView: {
     justifyContent: 'flex-end',
     margin: 0,
+  },
+  button: {
+    paddingLeft: 25,
+    borderRadius: 5,
+  },
+  buttonPressed: {
+    backgroundColor: 'red',
+  },
+  optionText: {
+    fontSize: 24,
   }
+
 });
