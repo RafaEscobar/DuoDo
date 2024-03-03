@@ -4,15 +4,16 @@ import React, { useState } from 'react';
 
 export const ModalSheetScreen = ({navigate}:any) => {
   const [modalVisible, setModalVisible] = useState(false);
+  console.log("nose");
   return (
-    <>
-      <TouchableOpacity 
+    <View>
+      <TouchableOpacity
         onPress={() => {setModalVisible(true)}}
-        style={{ marginTop: 2 }}
+        style={{ marginTop: 4, marginLeft: 6, marginRight: 6}}
         >
         <Image
             source={{uri: 'https://kaihatsu-code.com/assets/add-removebg-preview.png'}}
-            style={{ width: 42, height: 42 }}
+            style={{ width: 40, height: 40 }}
         />
       </TouchableOpacity>
       <View>
@@ -24,14 +25,17 @@ export const ModalSheetScreen = ({navigate}:any) => {
         >
           <View style={styles.content}>
             <Text style={styles.contentTitle}>Hi !</Text>
-            <Text>Hello from Overlay!</Text>
-            <TouchableOpacity onPress={() => { navigate('Add') }}>
+            <Text>La alin no se baña, pero aun asi la quiero xq es mi compa 🫶🏻</Text>
+            <TouchableOpacity onPress={ () => {
+              setModalVisible(false);
+               navigate('Add');
+              }}>
                 <Text>Ir a another</Text>
             </TouchableOpacity>
           </View>
         </Modal>
       </View>
-    </>
+    </View>
   );
 }
 

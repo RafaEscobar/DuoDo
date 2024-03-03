@@ -15,7 +15,6 @@ export const DashboardStack = () => {
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Add" component={AddTask} options={{ headerShown: false }} />
-        {/* <Stack.Screen name="Main" component={MainStackNavigation} options={{ headerShown: false }} /> */}
     </Stack.Navigator>
   );
 }
