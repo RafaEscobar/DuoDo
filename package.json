@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@dicebear/collection": "^7.0.5",
+    "@dicebear/core": "^7.0.5",
     "@expo-google-fonts/comfortaa": "^0.2.3",
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo/metro-runtime": "~3.1.1",
@@ -18,6 +20,7 @@
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/datetimepicker": "7.6.1",
     "@react-navigation/bottom-tabs": "^6.5.11",
+    "@react-navigation/material-top-tabs": "^6.6.10",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@types/react": "~18.2.45",
@@ -43,6 +46,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "^14.1.0",
     "react-native-swiper-flatlist": "^3.2.3",
+    "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.6",
     "twrnc": "^3.6.8"
   },
