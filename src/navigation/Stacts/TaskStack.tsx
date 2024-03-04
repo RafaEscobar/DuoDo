@@ -9,7 +9,6 @@ const Stack = createNativeStackNavigator();
 export const TaskStack = () => {
   return (
     <Stack.Navigator>
-        {/* <Stack.Screen name="Create" component={Create} options={{ headerShown: false }} /> */}
         <Stack.Screen name="AllTask" component={AllTask} options={{ headerShown: false }} />
         <Stack.Screen name="AddTask" component={AddTask} options={{ presentation: 'modal', headerShown: false }} />
     </Stack.Navigator>
