@@ -24,10 +24,11 @@ export const TopTapGroup = () => {
                     fontSize: 18,
                     textTransform: 'capitalize',
                     fontFamily: 'Poppins_700Bold',
+                    color: '#fff',
                 },
                 tabBarContentContainerStyle: {
-                    backgroundColor: '#fff',
-                    paddingTop: 30,
+                    backgroundColor: '#271C3A',
+                    paddingTop: 20,
                 },
             }}
         >

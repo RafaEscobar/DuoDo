@@ -42,14 +42,6 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
       <Tab.Screen
         name="Chat"
         component={TopTapGroup}
-        // listeners={
-        //   () => ({
-        //     tabPress: (e) => {
-        //       e.preventDefault();
-        //       navigate('Chat');
-        //     },
-        //   })
-        // }
         options={{
           headerShown: false,
           tabBarIcon: () => (
