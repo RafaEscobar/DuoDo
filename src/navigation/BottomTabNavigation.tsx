@@ -5,7 +5,6 @@ import { ModalSheetScreen } from "../component/ModalSheetScreen";
 import { TaskStack } from "./Stacts/TaskStack";
 import React from "react";
 import { TopTapGroup } from "./Stacts/TopTapGroup";
-import { ChatStack } from "./Stacts/ChatStact";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +41,7 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
       /> */}
       <Tab.Screen
         name="ChatStack"
-        component={ChatStack}
+        component={TopTapGroup}
         options={{
           headerShown: false,
           tabBarIcon: () => (

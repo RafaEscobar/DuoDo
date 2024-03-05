@@ -72,10 +72,6 @@ export const AllTask = ({ navigation: { navigate }, route }: any) => {
       {/* Esto es para las tareas futuras, en caso de que se quiera implementar
       <Text style={[tw`text-3xl mb-4 mt-4 pl-9`, { fontFamily: "Comfortaa_700Bold" }]}>Tareas Futuras</Text>
       <TodoList todosData={todosData.filter(todo => !todo.isToday)} /> */}
-
-      <TouchableOpacity onPress={() => navigate('AddTask')} style={tw`w-15 h-15 bg-indigo-400 p-2 rounded-2xl absolute bottom-5 right-8`}>
-        <MaterialIcons name="add-task" size={40} color="black" />
-      </TouchableOpacity>
     </SafeAreaView>
   )
 }
