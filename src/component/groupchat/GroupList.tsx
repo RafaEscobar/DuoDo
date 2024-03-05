@@ -28,7 +28,6 @@ export const GroupList = () => {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => <GroupChat {...item} />}
             />
-
         </View>
     )
 }

@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 import { Input, InputField } from '@gluestack-ui/themed';
 import { FontAwesome } from '@expo/vector-icons';
 
-export const ChatList = ({ navigation: { navigate }, route }: any) => {
+export const ChatList = ({ navigate }: any) => {
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -38,7 +38,7 @@ export const ChatList = ({ navigation: { navigate }, route }: any) => {
                 decelerationRate={3}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) =>
-                    <TouchableOpacity onPress={() => navigate('Index')}>
+                    <TouchableOpacity onPress={() => { navigate('ChatMessage', {id:item.id, name:item.name}) }}>
                         <View >
                             <View style={tw`flex flex-row w-90 rounded-xl pl-2 p-2 mt-3S h-18 border-solid border border-violet-300 rounded-xl`}>
                                 <Image
@@ -46,8 +46,8 @@ export const ChatList = ({ navigation: { navigate }, route }: any) => {
                                     style={tw`w-14 h-14 rounded-full border-2 border-sky-500 mr-2`}
                                 />
                                 <View style={tw`flex-grow mt-1`}>
-                                    <Text style={[tw`text-lg text-white`, { fontFamily: "Poppins_700Bold" }]}>{item.name}</Text>
-                                    <Text style={[tw`text-sm text-white w-50`, { fontFamily: "Poppins_400Regular" }]}>{item.message}</Text>
+                                    <Text style={[tw`text-xl text-white`, { fontFamily: "Poppins_700Bold" }]}>{item.name}</Text>
+                                    <Text style={[tw`text-sm text-white w-50 opacity-60`, { fontFamily: "Poppins_400Regular" }]}>{item.message}</Text>
                                 </View>
 
                                 <View style={tw`flex items-end justify-between`}>

@@ -91,13 +91,13 @@ export const SwiperComponent = () => {
                   marginHorizontal: ESPACIO,
                   padding: ESPACIO,
                   borderRadius: 25,
-                  backgroundColor: '#fc9745',
+                  backgroundColor: '#c4bbf7',
                   paddingLeft: 20,
                   transform: [{ translateY }],
                 }}
               >
                 <Text style={{ fontSize: 24, fontFamily: "Poppins_700Bold" }}>{item.title}</Text>
-                <Text style={{ fontSize: 16, color: 'white', fontFamily: "Poppins_700Bold" }}>{item.team}</Text>
+                <Text style={{ fontSize: 18, color: '#7749de', fontFamily: "Poppins_700Bold" }}>{item.team}</Text>
                 <View style={tw`flex flex-row gap-1`}>
                   <Image
                     style={tw`w-10 h-10 rounded-full`}

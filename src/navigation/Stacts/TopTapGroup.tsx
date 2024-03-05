@@ -19,18 +19,18 @@ export const TopTapGroup = () => {
     }
     return (
         <TopTap.Navigator
-            screenOptions={{
+            screenOptions={({ route }) => ({
                 tabBarLabelStyle: {
                     fontSize: 18,
                     textTransform: 'capitalize',
                     fontFamily: 'Poppins_700Bold',
-                    color: '#fff',
+                    color: route.name === 'Grupos' ? '#5b62a7' : '#61a146',
                 },
                 tabBarContentContainerStyle: {
                     backgroundColor: '#271C3A',
                     paddingTop: 20,
                 },
-            }}
+            })}
         >
             <TopTap.Screen name="Mensajes" component={Chat} />
             <TopTap.Screen name="Grupos" component={GroupChat} />

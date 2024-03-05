@@ -7,7 +7,7 @@ import { ChatList } from '../../component/ChatList';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-export const Chat = () => {
+export const Chat = ({ navigation: { navigate }, route }: any) => {
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -21,7 +21,7 @@ export const Chat = () => {
     return (
         <View style={tw`bg-[#271C3A] h-full`}>
             <View style={tw`ml-4.5`}>
-                <ChatList />
+                <ChatList navigate={navigate}/>
             </View>
             <TouchableOpacity
                 style={tw`w-13 h-13 bg-indigo-400 p-3 rounded-full absolute bottom-5 right-4`}

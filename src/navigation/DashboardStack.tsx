@@ -4,8 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from '../screens/login/Login';
 import { Profile } from '../screens';
 import React from 'react';
-import { Index } from '../screens/chat/Index';
-
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +14,6 @@ export const DashboardStack = () => {
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Add" component={AddTask} options={{ headerShown: false }} />
-        <Stack.Screen name="Index" component={Index} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
