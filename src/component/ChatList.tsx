@@ -38,7 +38,7 @@ export const ChatList = ({ navigate }: any) => {
                 decelerationRate={3}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) =>
-                    <TouchableOpacity onPress={() => { navigate('ChatMessage', {id:item.id, name:item.name}) }}>
+                    <TouchableOpacity onPress={() => { navigate('ChatMessage', { name:item.name}) }}>
                         <View >
                             <View style={tw`flex flex-row w-90 rounded-xl pl-2 p-2 mt-3S h-18 border-solid border border-violet-300 rounded-xl`}>
                                 <Image
