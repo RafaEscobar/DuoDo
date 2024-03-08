@@ -33,22 +33,22 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
 
 
   return (
-    <View style={tw`bg-[#271C3A] h-full`}>
+    <View style={tw`bg-gray-900 h-full`}>
       <View style={tw`flex ml-3 mt-12 sm:ml-4 sm:mt-5 w-90`}>
-        <View style={tw`flex flex-row justify-between items-center`}>
+        <View style={tw`flex flex-row gap-4 items-center`}>
           <TouchableOpacity onPress={() => navigate('Mensajes')}>
-            <AntDesign name="left" size={30} color="white" />
+            <AntDesign name="left" size={30} color="black" style={tw`bg-neutral-300 w-10 h-10 rounded-xl p-1`}/>
           </TouchableOpacity>
-          <View style={tw`flex-row gap-2 items-center`}>
+          <View style={tw`flex-row gap-2`}>
             <Image
               source="https://kaihatsu-code.com/assets/logo_solid.png"
               style={tw`w-10 h-10 rounded-full border-2 border-sky-300`}
             />
-            <Text style={[tw`text-xl text-white`, { fontFamily: "Comfortaa_700Bold" }]}>{name}</Text>
+            <View>
+              <Text style={[tw`flex text-xl text-white`, { fontFamily: "Comfortaa_700Bold" }]}>{name}</Text>
+              <Text style={[tw`text-xs opacity-50 text-white`, { fontFamily: "Comfortaa_700Bold" }]}>ult. vez hoy a las 9:10 a. m.</Text>
+            </View>
           </View>
-          <TouchableOpacity onPress={() => navigate('ProfileChat')}>
-            <FontAwesome5 name="user-circle" size={30} color="white" />
-          </TouchableOpacity>
         </View>
       </View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}

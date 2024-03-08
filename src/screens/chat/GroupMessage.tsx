@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollVie
 import React, { useState } from 'react'
 import tw from 'twrnc';
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Comfortaa_700Bold, Comfortaa_500Medium } from "@expo-google-fonts/comfortaa";
 import { useFonts } from 'expo-font';
@@ -32,11 +31,11 @@ export const GroupMessage = ({ navigation: { navigate }, route }: any) => {
     }
 
     return (
-        <View style={tw`bg-[#271C3A] h-full`}>
+        <View style={tw`bg-gray-900 h-full`}>
             <View style={tw`flex ml-3 mt-12 sm:ml-4 sm:mt-5 w-90`}>
-                <View style={tw`flex flex-row justify-between items-center`}>
+                <View style={tw`flex flex-row items-center gap-4`}>
                     <TouchableOpacity onPress={() => navigate('Grupos')}>
-                        <AntDesign name="left" size={30} color="white" />
+                        <AntDesign name="left" size={30} color="black" style={tw`bg-neutral-300 w-10 h-10 rounded-xl p-1`}/>
                     </TouchableOpacity>
                     <View style={tw`flex-row gap-2`}>
                         <Image
@@ -48,9 +47,6 @@ export const GroupMessage = ({ navigation: { navigate }, route }: any) => {
                             <Text style={[tw`text-xs text-white opacity-50`, { fontFamily: "Comfortaa_500Medium" }]}>Integrantes:{name}.....</Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => navigate('ProfileGroup')}>
-                        <FontAwesome5 name="user-circle" size={30} color="white" />
-                    </TouchableOpacity>
                 </View>
             </View>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}
