@@ -46,7 +46,7 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
             />
             <Text style={[tw`text-xl text-white`, { fontFamily: "Comfortaa_700Bold" }]}>{name}</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('ProfileChat')}>
             <FontAwesome5 name="user-circle" size={30} color="white" />
           </TouchableOpacity>
         </View>

@@ -6,6 +6,8 @@ import { Profile } from '../screens';
 import React from 'react';
 import { ChatMessage } from '../screens/chat/ChatMessage';
 import { GroupMessage } from '../screens/chat/GroupMessage';
+import { ProfileChat } from '../screens/chat/ProfileChat';
+import { ProfileGroup } from '../screens/chat/ProfileGroup';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +20,8 @@ export const DashboardStack = () => {
         <Stack.Screen name="Add" component={AddTask} options={{ headerShown: false }} />
         <Stack.Screen name="ChatMessage" component={ChatMessage} options={{ headerShown: false }} />
         <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ presentation:"modal", headerShown: false }} />
+        <Stack.Screen name="ProfileChat" component={ProfileChat} options={{ presentation:"modal", headerShown: false }} />
+        <Stack.Screen name="ProfileGroup" component={ProfileGroup} options={{ presentation:"modal", headerShown: false }} />
     </Stack.Navigator>
   );
 }

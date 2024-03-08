@@ -48,7 +48,7 @@ export const GroupMessage = ({ navigation: { navigate }, route }: any) => {
                             <Text style={[tw`text-xs text-white opacity-50`, { fontFamily: "Comfortaa_500Medium" }]}>Integrantes:{name}.....</Text>
                         </View>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('ProfileGroup')}>
                         <FontAwesome5 name="user-circle" size={30} color="white" />
                     </TouchableOpacity>
                 </View>
