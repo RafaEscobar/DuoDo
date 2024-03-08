@@ -2,9 +2,9 @@ import { Calendar, Dashboard, Profile } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
 import { ModalSheetScreen } from "../component/ModalSheetScreen";
-import { TaskStack } from "./Stacts/TaskStack";
 import React from "react";
 import { TopTapGroup } from "./Stacts/TopTapGroup";
+import { TopTapChat } from "./Stacts/TopTapChat";
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +69,7 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
 
       <Tab.Screen
         name="Creación"
-        component={TaskStack}
+        component={TopTapChat}
         options={{
           headerShown: false,
           tabBarIcon: () => (

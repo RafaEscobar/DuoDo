@@ -43,24 +43,8 @@ export const AllTask = ({ navigation: { navigate }, route }: any) => {
   }
 
   return (
-    <View style={tw`bg-[#271C3A] h-full `}>
+    <View style={tw`bg-[#271C3A] h-full`}>
       <SafeAreaView style={tw`flex pt-10 ml-2.5`}>
-        <View style={tw`flex ml-2.5 sm:ml-4 sm:mt-5`}>
-          <View>
-            <View>
-              <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>{currentUser.name}</Text>
-              <Text style={[tw`text-xl opacity-50 text-white`, { fontFamily: "Poppins_400Regular" }]}>Desarrollador Web</Text>
-            </View>
-          </View>
-          <View style={tw`flex flex-row-reverse items-center -top-15 -left-5 gap-2`}>
-            <Ionicons name="notifications" size={25} color="black" style={tw`bg-orange-400 p-2 rounded-2xl mb-4`} />
-            <Image
-              style={tw`w-15 h-15 rounded-full`}
-              source={urlImage}
-            />
-          </View>
-        </View>
-
         <View style={tw`flex flex-row justify-between -top-6 w-88 ml-2.5`}>
           <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas de hoy</Text>
           <TouchableOpacity onPress={handleHidePress}>
