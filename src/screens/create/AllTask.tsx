@@ -2,12 +2,9 @@ import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useContext, useState } from 'react'
 import { TodoList } from '../../component/TodoList'
 import { todosData } from '../../data/todos';
-import { Ionicons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Image } from "expo-image";
 import { AuthContext } from '../../context/AuthContext';
 
 export const AllTask = ({ navigation: { navigate }, route }: any) => {
