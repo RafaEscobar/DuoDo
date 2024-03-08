@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import tw from 'twrnc';
 import { Image } from 'expo-image';
@@ -11,7 +11,7 @@ export const GroupChat = ({
     avatar,
     message,
     hours,
-    notification
+    notification,
 }: any) => {
 
     const [fontsLoaded] = useFonts({
@@ -23,9 +23,8 @@ export const GroupChat = ({
         return null;
     };
 
-
-
     return (
+        
         <View style={tw`bg-[#a8a9f9] w-90 mb-1 mt-2 rounded-xl`}>
             <View style={tw`ml-3 flex-row items-center justify-between p-2`}>
                 <View style={tw`flex justify-between mt-2`}>
@@ -38,5 +37,6 @@ export const GroupChat = ({
                 </View>
             </View>
         </View>
+
     )
 }

@@ -6,6 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Comfortaa_700Bold, Comfortaa_500Medium } from "@expo-google-fonts/comfortaa";
 import { useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from "expo-image";
 
 export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
 
@@ -34,13 +35,19 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
   return (
     <View style={tw`bg-[#271C3A] h-full`}>
       <View style={tw`flex ml-3 mt-12 sm:ml-4 sm:mt-5 w-90`}>
-        <View style={tw`flex flex-row justify-between items-stretch`}>
+        <View style={tw`flex flex-row justify-between items-center`}>
           <TouchableOpacity onPress={() => navigate('Mensajes')}>
-            <AntDesign name="left" size={24} color="white" />
+            <AntDesign name="left" size={30} color="white" />
           </TouchableOpacity>
-          <Text style={[tw`text-2xl text-white`, { fontFamily: "Comfortaa_700Bold" }]}>{name}</Text>
+          <View style={tw`flex-row gap-2 items-center`}>
+            <Image
+              source="https://kaihatsu-code.com/assets/logo_solid.png"
+              style={tw`w-10 h-10 rounded-full border-2 border-sky-300`}
+            />
+            <Text style={[tw`text-xl text-white`, { fontFamily: "Comfortaa_700Bold" }]}>{name}</Text>
+          </View>
           <TouchableOpacity>
-            <FontAwesome5 name="user-circle" size={25} color="white" />
+            <FontAwesome5 name="user-circle" size={30} color="white" />
           </TouchableOpacity>
         </View>
       </View>

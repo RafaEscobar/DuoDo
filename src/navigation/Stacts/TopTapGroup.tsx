@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 import { Chat } from '../../screens/chat/Chat';
-import { GroupChat } from '../../screens/chat/GroupChat';
+import { Group } from '../../screens/chat/Group';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 
@@ -33,7 +33,7 @@ export const TopTapGroup = () => {
             })}
         >
             <TopTap.Screen name="Mensajes" component={Chat} />
-            <TopTap.Screen name="Grupos" component={GroupChat} />
+            <TopTap.Screen name="Grupos" component={Group} />
         </TopTap.Navigator>
     );
 }

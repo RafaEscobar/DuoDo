@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Touchable, TouchableOpacity } from 'react-native'
 import { GroupChat } from './GroupChat'
 import { userData } from '../../data/user'
 import tw from 'twrnc';
 import { Input, InputField } from '@gluestack-ui/themed';
 import { FontAwesome } from '@expo/vector-icons';
 
-export const GroupList = () => {
+export const GroupList = ({ navigate }: any) => {
 
     const [searchText, setSearchText] = useState('');
 
@@ -26,7 +26,11 @@ export const GroupList = () => {
                 showsVerticalScrollIndicator={false}
                 decelerationRate={3}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <GroupChat {...item} />}
+                renderItem={({ item }) =>
+                    <TouchableOpacity onPress={() => {navigate('GroupMessage', { name:item.name})}}>
+                        <GroupChat {...item} />
+                    </TouchableOpacity>
+                }
             />
         </View>
     )

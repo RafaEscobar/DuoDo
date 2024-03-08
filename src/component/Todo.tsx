@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import tw from 'twrnc';
-import { Comfortaa_700Bold, Comfortaa_500Medium } from "@expo-google-fonts/comfortaa";
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import { Checkbox } from "./Checkbox";
 
@@ -14,8 +14,8 @@ export const Todo = ({
 }: any) => {
 
     const [fontsLoaded] = useFonts({
-        Comfortaa_700Bold,
-        Comfortaa_500Medium
+        Poppins_400Regular,
+        Poppins_700Bold
     });
 
     if (!fontsLoaded) {
@@ -23,27 +23,31 @@ export const Todo = ({
     }
 
     return (
-        <View style={tw`mb-4 flex flex-row items-center w-80`}>
-            <Checkbox
-                id={id}
-                text={text}
-                isCompleted={isCompleted}
-                isToday={isToday}
-                hours={hours}
-            />
-            <View>
-                <Text style={
-                    isCompleted
-                        ? [tw`text-lg opacity-50 w-50`, { fontFamily: "Comfortaa_500Medium", textDecorationLine: 'line-through', color: '#737373' }] : [tw`text-lg w-50`, { fontFamily: "Comfortaa_500Medium" }]}>
-                    {text}
-                </Text>
-                <Text style={
-                    isCompleted
-                        ? [tw`text-sm opacity-50`, { fontFamily: "Comfortaa_500Medium", textDecorationLine: 'line-through', color: '#737373' }]
-                        : [tw`text-sm opacity-50`, { fontFamily: "Comfortaa_500Medium" }]}>
-                    {hours}
-                </Text>
+
+        <ScrollView>
+            <View style={tw`mb-4 flex flex-row w-80`}>
+                <Checkbox
+                    id={id}
+                    text={text}
+                    isCompleted={isCompleted}
+                    isToday={isToday}
+                    hours={hours}
+                />
+                <View>
+                    <Text style={
+                        isCompleted
+                            ? [tw`text-lg opacity-50 w-50 text-white`, { fontFamily: "Poppins_400Regular", textDecorationLine: 'line-through', color: 'white' }] : [tw`text-lg w-50 text-white`, { fontFamily: "Poppins_400Regular" }]}>
+                        {text}
+                    </Text>
+                    <Text style={
+                        isCompleted
+                            ? [tw`text-sm opacity-50 text-white`, { fontFamily: "Poppins_400Regular", textDecorationLine: 'line-through', color: 'white' }]
+                            : [tw`text-sm opacity-50 text-white`, { fontFamily: "Poppins_400Regular" }]}>
+                        {hours}
+                    </Text>
+                </View>
             </View>
-        </View>
+        </ScrollView>
+
     )
 }
