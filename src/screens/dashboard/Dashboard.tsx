@@ -12,7 +12,7 @@ import React, { useContext } from 'react';
 import tw from 'twrnc';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
-    const { user }:any = useContext(AuthContext);
+    const { user }: any = useContext(AuthContext);
     const currentUser = JSON.parse(user);
 
     let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
@@ -32,7 +32,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                 <View>
                     <View>
                         <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>{currentUser.name}</Text>
-                        <Text style={[tw`text-xl opacity-80 text-indigo-200`, { fontFamily: "Poppins_400Regular" }]}>Desarrollador Web</Text>
+                        <Text style={[tw`text-lg opacity-80 text-indigo-200`, { fontFamily: "Poppins_400Regular" }]}>Desarrollador Web</Text>
                     </View>
                 </View>
                 <View style={tw`flex flex-row-reverse items-center -top-15 -left-5 gap-2`}>
@@ -42,17 +42,24 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         source={urlImage}
                     />
                 </View>
-                <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Teams</Text>
             </View>
             <View>
+                <View>
+                    <View style={tw`flex flex-row justify-between items-center w-90 ml-3`}>
+                        <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Workspace</Text>
+                        <TouchableOpacity onPress={() => navigate('Workspace')}>
+                            <Text style={[tw`text-base text-sky-500`, { fontFamily: "Poppins_700Bold" }]}>Ver todas</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <SwiperComponent />
             </View>
             <View style={tw`flex ml-3 mt-6 sm:ml-4 sm:mt-5`}>
                 <View>
                     <View style={tw`flex flex-row justify-between items-center w-90`}>
                         <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
-                        <TouchableOpacity onPress={() => navigate('AllTask')}>
-                            <Text style={[tw`text-base text-sky-500`, {fontFamily: "Poppins_700Bold"}]}>Ver todas</Text>
+                        <TouchableOpacity onPress={() => navigate('Task')}>
+                            <Text style={[tw`text-base text-sky-500`, { fontFamily: "Poppins_700Bold" }]}>Ver todas</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

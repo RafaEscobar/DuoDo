@@ -24,7 +24,7 @@ export const TopTapChat = () => {
                     fontSize: 20,
                     textTransform: 'capitalize',
                     fontFamily: 'Poppins_700Bold',
-                    color: '#fff',
+                    color: '#58b4ff',
                 },
                 tabBarContentContainerStyle: {
                     backgroundColor: '#271C3A',
