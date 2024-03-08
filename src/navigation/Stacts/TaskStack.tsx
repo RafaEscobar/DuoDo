@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Create } from '../../screens';
 import { AllTask } from '../../screens/create/AllTask';
 import { AddTask } from '../../screens/create/AddTask';
 

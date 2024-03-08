@@ -1,7 +1,7 @@
 const userData = [
     {
         id: 1,
-        name: "John Doe",
+        name: "Alex Doe",
         avatar: "https://i.postimg.cc/FH8ZXxfK/default.png",
         message: "Lorem ipsum dolor sit amet",
         hours: '11:00',

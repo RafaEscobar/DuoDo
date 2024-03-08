@@ -27,12 +27,12 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
     }
 
     return (
-        <View>
+        <View style={tw`bg-[#271C3A]`}>
             <View style={tw`flex ml-3 mt-10 sm:ml-4 sm:mt-5`}>
                 <View>
                     <View>
-                        <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>{currentUser.name}</Text>
-                        <Text style={[tw`text-xl opacity-50`, { fontFamily: "Poppins_400Regular" }]}>Desarrollador Web</Text>
+                        <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>{currentUser.name}</Text>
+                        <Text style={[tw`text-xl opacity-80 text-indigo-200`, { fontFamily: "Poppins_400Regular" }]}>Desarrollador Web</Text>
                     </View>
                 </View>
                 <View style={tw`flex flex-row-reverse items-center -top-15 -left-5 gap-2`}>
@@ -42,7 +42,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         source={urlImage}
                     />
                 </View>
-                <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>Teams</Text>
+                <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Teams</Text>
             </View>
             <View>
                 <SwiperComponent />
@@ -50,7 +50,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
             <View style={tw`flex ml-3 mt-6 sm:ml-4 sm:mt-5`}>
                 <View>
                     <View style={tw`flex flex-row justify-between items-center w-90`}>
-                        <Text style={[tw`text-3xl`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
+                        <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
                         <TouchableOpacity onPress={() => navigate('AllTask')}>
                             <Text style={[tw`text-base text-sky-500`, {fontFamily: "Poppins_700Bold"}]}>Ver todas</Text>
                         </TouchableOpacity>

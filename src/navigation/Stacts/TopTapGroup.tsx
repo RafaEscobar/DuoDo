@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 import { Chat } from '../../screens/chat/Chat';
-import { GroupChat } from '../../screens/chat/GroupChat';
+import { Group } from '../../screens/chat/Group';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 
@@ -19,20 +19,21 @@ export const TopTapGroup = () => {
     }
     return (
         <TopTap.Navigator
-            screenOptions={{
+            screenOptions={({ route }) => ({
                 tabBarLabelStyle: {
                     fontSize: 18,
                     textTransform: 'capitalize',
                     fontFamily: 'Poppins_700Bold',
+                    color: route.name === 'Grupos' ? '#5b62a7' : '#61a146',
                 },
                 tabBarContentContainerStyle: {
-                    backgroundColor: '#fff',
-                    paddingTop: 30,
+                    backgroundColor: '#271C3A',
+                    paddingTop: 20,
                 },
-            }}
+            })}
         >
             <TopTap.Screen name="Mensajes" component={Chat} />
-            <TopTap.Screen name="Grupos" component={GroupChat} />
+            <TopTap.Screen name="Grupos" component={Group} />
         </TopTap.Navigator>
     );
 }

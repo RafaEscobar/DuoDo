@@ -93,21 +93,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           />
         )}
       </View>
-      <View style={tw`flex-row pb-4 justify-around items-center w-70`}>
-        <View>
-          <Text style={[tw`text-2xl `, { fontFamily: "Comfortaa_700Bold" }]}>Hoy</Text>
-          <Text style={[tw`text-sm w-60`, { fontFamily: "Comfortaa_700Bold" }]}>Si desactivas hoy, la tarea se considerará para mañana.</Text>
-        </View>
-
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isToday ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={() => setIsToday(!isToday)}
-          value={isToday}
-        />
-      </View>
-      <View style={tw`mt-10 justify-center items-center`}>
+      <View style={tw`mt-20 justify-center items-center`}>
         <TouchableOpacity onPress={() => navigate('AllTask')} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
           <Text style={[tw`text-center text-4xl`, {fontFamily: "Comfortaa_700Bold"}]}>Guardar</Text>
         </TouchableOpacity>
