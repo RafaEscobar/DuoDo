@@ -18,8 +18,6 @@ export const List = ({ navigate }: any) => {
         return null;
     }
 
-
-
     return (
         <SafeAreaView>
             <ScrollView style={tw`h-[90%]`}>
