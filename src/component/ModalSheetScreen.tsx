@@ -54,7 +54,7 @@ export const ModalSheetScreen = ({navigate}:any) => {
                 <TouchableOpacity
                   onPress={ () => {
                     setModalVisible(false);
-                    navigate('Add');
+                    navigate('AddWorkspace');
                   }}
                   style={styles.button}
                 >

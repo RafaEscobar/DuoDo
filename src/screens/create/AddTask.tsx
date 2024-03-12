@@ -94,7 +94,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         )}
       </View>
       <View style={tw`mt-20 justify-center items-center`}>
-        <TouchableOpacity onPress={() => navigate('AllTask')} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
+        <TouchableOpacity onPress={() => navigate('Task')} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
           <Text style={[tw`text-center text-4xl`, {fontFamily: "Comfortaa_700Bold"}]}>Guardar</Text>
         </TouchableOpacity>
       </View>

@@ -8,6 +8,7 @@ import { ChatMessage } from '../screens/chat/ChatMessage';
 import { GroupMessage } from '../screens/chat/GroupMessage';
 import { DetailsWorkspace } from '../screens/create/DetailsWorkspace';
 import { Members } from '../screens/create/Members';
+import { AddWorkspace } from '../screens/create/AddWorkspace';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export const DashboardStack = () => {
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Add" component={AddTask} options={{ headerShown: false }} />
+        <Stack.Screen name="AddWorkspace" component={AddWorkspace} options={{ headerShown: false }} />
         <Stack.Screen name="ChatMessage" component={ChatMessage} options={{ headerShown: false }} />
         <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ presentation:"modal", headerShown: false }} />
         <Stack.Screen name="DetailsWorkspace" component={DetailsWorkspace} options={{ presentation:"modal", headerShown: false }} />
