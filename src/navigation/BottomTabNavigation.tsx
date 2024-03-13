@@ -14,7 +14,16 @@ const MiddleBtn = () => {
 
 export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={
+      {
+        tabBarStyle: {
+          backgroundColor: '#271C3A',
+          borderTopColor: 'transparent',
+          height: 60,
+        }
+      }
+    
+    }>
       <Tab.Screen name="Inicio" component={Dashboard}
         options={{
           headerShown: false,
