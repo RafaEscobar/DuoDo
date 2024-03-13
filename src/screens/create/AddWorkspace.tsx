@@ -35,16 +35,18 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
     return (
         <View style={tw`bg-gray-900 h-full`}>
             <View style={tw`flex ml-4 mt-10 sm:ml-4 sm:mt-5`}>
-                <TouchableOpacity
-                    onPress={() => { navigate('Workspace') }}
-                >
-                    <AntDesign name="left" size={30} color="black" style={tw`bg-neutral-300 w-10 h-10 rounded-xl p-1`} />
-                </TouchableOpacity>
-                <Text style={[tw`text-2xl text-center mt-3 text-white`, { fontFamily: "Poppins_700Bold" }]}>Crear espacio de trabajo</Text>
+                <View style={tw`flex flex-row items-center gap-5`}>
+                    <TouchableOpacity
+                        onPress={() => { navigate('Workspace') }}
+                    >
+                        <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`}/>
+                    </TouchableOpacity>
+                    <Text style={[tw`text-2xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Crear espacio de trabajo</Text>
+                </View>
                 <View>
-                    <Text style={[tw`leading-8 text-xl mt-3 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
+                    <Text style={[tw`leading-8 text-xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
                     <TextInput
-                        style={[tw`w-90 border-b border-gray-400 text-base mb-5`, { fontFamily: "Poppins_400Regular", }]}
+                        style={[tw`w-90 border-b border-gray-400 text-base mb-5 text-white`, { fontFamily: "Poppins_400Regular", }]}
                         placeholder="nombre de la tarea"
                         placeholderTextColor={'#58b4ff'}
                         onChangeText={(text) => { setName(text) }}
@@ -96,7 +98,7 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                 </View>
                 <View style={tw`mt-20 justify-center items-center`}>
                     <TouchableOpacity onPress={() => navigate('Workspace')} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
-                        <Text style={[tw`text-center text-4xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
+                        <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
