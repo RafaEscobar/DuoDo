@@ -16,7 +16,7 @@ export const CheckList = ({ todosData }: any) => {
         return null;
     }
     return (
-        <View style={tw`h-[70%]`}>
+        <View style={tw`h-[68%]`}>
             <FlatList
                 data={todosData}
                 keyExtractor={(item) => item.id.toString()}

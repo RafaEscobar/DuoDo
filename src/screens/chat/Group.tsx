@@ -3,8 +3,6 @@ import React from 'react'
 import { GroupList } from '../../component/groupchat/GroupList';
 import tw from 'twrnc';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { GroupChat } from '../../component/groupchat/GroupChat';
-
 
 export const Group = ({ navigation: { navigate }, route }: any) => {
   return (

@@ -40,7 +40,7 @@ export const Members = ({ navigation: { navigate } }: any) => {
 
     return (
         <SafeAreaView style={tw`bg-gray-900 h-full`}>
-            <View style={tw`flex pt-10 ml-3.5 w-90`}>
+            <View style={tw`flex pt-10 ml-4.5 w-90`}>
                 <View style={tw`flex flex-row items-end gap-5`}>
                     <TouchableOpacity>
                         <AntDesign name="left" size={30} color="black" style={tw`bg-neutral-300 w-10 h-10 rounded-xl p-1`} />
@@ -49,7 +49,7 @@ export const Members = ({ navigation: { navigate } }: any) => {
                 </View>
                 <ScrollView>
                     {members.map((item) => (
-                        <View style={tw`flex flex-row items-center mt-3 gap-3 border-4 border-sky-500 p-2 rounded-xl`} key={item.id}>
+                        <View style={tw`flex flex-row items-center mt-3 gap-3 bg-gray-800 p-2 rounded-xl`} key={item.id}>
                             <Image
                                 source={{ uri: item.avatar }}
                                 style={tw`w-10 h-10 rounded-full ml-2`}

@@ -66,13 +66,14 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
         </ScrollView>
         <View style={tw`flex-row items-center -top-3 pl-2`}>
           <TextInput
-            style={[tw`flex-1 pl-4 mr-2 bg-white h-12 w-80 rounded-2xl text-base`, { fontFamily: "Comfortaa_500Medium" }]}
+            style={[tw`bg-[#1C1D22] flex-1 pl-4 mr-2 h-14 w-80 rounded-2xl text-base text-white`, { fontFamily: "Comfortaa_500Medium" }]}
             placeholder="Escribe un mensaje.."
+            placeholderTextColor="#fff"
             multiline
             value={message}
             onChangeText={text => setMessage(text)}
           />
-          <TouchableOpacity style={tw`absolute right-4 top-3`} onPress={handleSendMessage}>
+          <TouchableOpacity style={tw`absolute right-4 top-4`} onPress={handleSendMessage}>
             <Ionicons name="send" size={25} color="#007AFF" style={tw`mb-2`} />
           </TouchableOpacity>
         </View>
