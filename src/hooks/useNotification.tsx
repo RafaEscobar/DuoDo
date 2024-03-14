@@ -1,49 +1,69 @@
-import { useState, useEffect, useRef } from 'react';
 import { Platform } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 
+/**
+ * Set configuration to background actions
+ */
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 });
 
-async function registerForPushNotificationsAsync() {
-    let token;
+const verifyPermissions = async() => {
+    if (Device.isDevice) {
+        //* Get current permissions status
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
 
+        /**
+         * Verify current permissions status
+         ** If there're no notification permissions request them
+         */
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+        return finalStatus;
+    } else {
+        console.log('Se requiere de un equipo físico para lanzar notificaciones push.');
+    }
+}
+
+const registerForPushNotificationsAsync = async() => {
+    let token:any;
+
+    //* Set configurations for an android device
     if (Platform.OS === 'android') {
         Notifications.setNotificationChannelAsync('default', {
-            name: 'DuoDo',
+            name: 'default',
             importance: Notifications.AndroidImportance.MAX,
             vibrationPattern: [0, 250, 250, 250],
-            lightColor: '#FF231F7C',
+            lightColor: '#A055EB',
         });
     }
 
-    if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
-        return;
-    }
-    token = await Notifications.getExpoPushTokenAsync({
-        projectId: Constants.expoConfig.extra.eas.projectId,
-    });
-        console.log(token);
-    } else {
-        alert('Must use physical device for Push Notifications');
-    }
+    //* Get permissons status
+    const finalStatus = await verifyPermissions();
 
-    return token.data;
+    /**
+     * If there's no notification permissions, show an error
+     */
+    if (finalStatus !== 'granted') {
+        console.log('No se cuenta con permisos para lanzar notificaciones push.');
+        return;
+    } else {
+        //* Get an expo token
+        token = await Notifications.getExpoPushTokenAsync({
+            projectId: Constants.expoConfig.extra.eas.projectId,
+        });
+        return token.data;
+    }
 }
 
 export const useNotification = () => {
