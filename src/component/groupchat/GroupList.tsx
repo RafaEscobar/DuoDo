@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, FlatList, Touchable, TouchableOpacity } from 'react-native'
-import { GroupChat } from './GroupChat'
+import { View, Text, FlatList, Touchable, TouchableOpacity, ScrollView } from 'react-native';
 import { userData } from '../../data/user'
 import tw from 'twrnc';
 import { Input, InputField } from '@gluestack-ui/themed';
 import { FontAwesome } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+
 
 export const GroupList = ({ navigate }: any) => {
 
@@ -20,18 +21,32 @@ export const GroupList = ({ navigate }: any) => {
                     <InputField placeholder="Buscar amigo..." onChangeText={text => setSearchText(text)} />
                 </Input>
             </View>
-            <FlatList
-                data={filteredData}
-                scrollEventThrottle={16}
-                showsVerticalScrollIndicator={false}
-                decelerationRate={3}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) =>
-                    <TouchableOpacity onPress={() => {navigate('GroupMessage', { name:item.name})}}>
-                        <GroupChat {...item} />
-                    </TouchableOpacity>
-                }
-            />
+            <ScrollView style={tw`h-[90%]`}>
+                <View style={tw`flex-row flex-wrap`}>
+                    {filteredData.map((item) => (
+                        <View style={tw`w-1/2 mt-3`} key={item.id}>
+                            <View style={tw`bg-[#100323] w-44 h-50 rounded-2xl`}>
+                                <TouchableOpacity onPress={() => { navigate('GroupMessage', { name: item.name }) }}>
+                                    <View style={tw`justify-start ml-4 mt-4`}>
+                                        <Image
+                                            source={{ uri: item.avatar }}
+                                            style={tw`w-15 h-15 rounded-full`}
+                                        />
+                                        <Text style={[tw`text-white mt-1 text-lg w-30`, { fontFamily: "Poppins_700Bold" }]}>{item.name}</Text>
+                                        <Text style={[tw`text-white mt-1 text-sm w-40`, { fontFamily: "Poppins_400Regular" }]}>
+                                            Descripción: {item.message}
+                                        </Text>
+                                        <Text style={[tw`text-white mt-1 text-sm w-30 opacity-50`, { fontFamily: "Poppins_700Bold" }]}>
+                                            Integrantes: {item.notification}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+                    ))}
+                </View>
+            </ScrollView>
         </View>
     )
 }

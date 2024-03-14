@@ -21,10 +21,10 @@ export const TopTapGroup = () => {
         <TopTap.Navigator
             screenOptions={({ route }) => ({
                 tabBarLabelStyle: {
-                    fontSize: 18,
+                    fontSize: 20,
                     textTransform: 'capitalize',
                     fontFamily: 'Poppins_700Bold',
-                    color: route.name === 'Grupos' ? '#5b62a7' : '#61a146',
+                    color: '#58b4ff',
                 },
                 tabBarContentContainerStyle: {
                     backgroundColor: '#271C3A',

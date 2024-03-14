@@ -42,7 +42,7 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
           <View style={tw`flex-row gap-2`}>
             <Image
               source="https://kaihatsu-code.com/assets/logo_solid.png"
-              style={tw`w-10 h-10 rounded-full border-2 border-sky-300`}
+              style={tw`w-12 h-12 rounded-full`}
             />
             <View>
               <Text style={[tw`flex text-xl text-white`, { fontFamily: "Comfortaa_700Bold" }]}>{name}</Text>
