@@ -38,13 +38,18 @@ export const ChatList = ({ navigate }: any) => {
                 decelerationRate={3}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) =>
-                    <TouchableOpacity onPress={() => { navigate('ChatMessage', { name:item.name}) }}>
+                    <TouchableOpacity onPress={() => { navigate('ChatMessage', { name: item.name }) }}>
                         <View >
-                            <View style={tw`flex flex-row w-90 rounded-xl pl-2 p-2 mt-3S h-18 border-solid border border-violet-300 rounded-xl`}>
-                                <Image
-                                    source={{ uri: item.avatar }}
-                                    style={tw`w-14 h-14 rounded-full border-2 border-sky-500 mr-2`}
-                                />
+                            <View style={tw`flex flex-row w-90 rounded-xl pl-2 p-2 mt-2 h-18 bg-[#100323] rounded-xl`}>
+                                <View>
+
+                                    <Image
+                                        source={{ uri: item.avatar }}
+                                        style={tw`w-14 h-14 rounded-2xl mr-2`}
+                                    />
+                                    <View style={tw`bg-green-500 shadow-lg shadow-green-500/50 rounded-full w-2.5 h-2.5 absolute top-12 right-3`} />
+                                </View>
+
                                 <View style={tw`flex-grow mt-1`}>
                                     <Text style={[tw`text-xl text-white`, { fontFamily: "Poppins_700Bold" }]}>{item.name}</Text>
                                     <Text style={[tw`text-sm text-white w-50 opacity-60`, { fontFamily: "Poppins_400Regular" }]}>{item.message}</Text>

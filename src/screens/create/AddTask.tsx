@@ -49,7 +49,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         <View>
           <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
           <TextInput
-            style={[tw`w-80 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+            style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
             placeholder="nombre de la tarea"
             placeholderTextColor={'#58b4ff'}
             onChangeText={(text) => { setName(text) }}
@@ -67,7 +67,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             numberOfLines={4}
           />
         </View>
-        <View style={tw`w-80`}>
+        <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Asignar a:</Text>
           <SelectList
             data={todosData.map((item) => item.text)}
@@ -79,7 +79,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             fontFamily='Poppins_400Regular'
           />
         </View>
-        <View style={tw`w-80`}>
+        <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
           <SelectList
             data={todosData.map((item) => item.text)}
@@ -95,7 +95,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha:</Text>
           <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
             <TextInput
-              style={[tw`w-80 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+              style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
               placeholder='Añadir fecha'
               placeholderTextColor={'#58b4ff'}
               value={selectedDate?.toString() || ''}

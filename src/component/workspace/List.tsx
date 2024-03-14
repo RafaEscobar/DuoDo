@@ -24,7 +24,7 @@ export const List = ({ navigate }: any) => {
                 <View style={tw`flex-row flex-wrap`}>
                     {workspaceData.map((item) => (
                         <View style={tw`w-1/2 mt-3`} key={item.id}>
-                            <View style={tw`bg-[#3C2A5A] w-44 h-44 rounded-2xl `}>
+                            <View style={tw`bg-[#100323] w-44 h-44 rounded-2xl `}>
                                 <TouchableOpacity onPress={() => navigate('DetailsWorkspace', {id: item.id})} >
                                     <View style={tw`justify-start ml-4 mt-2`}>
                                         <Image
