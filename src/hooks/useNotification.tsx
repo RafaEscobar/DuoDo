@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * Set configuration to background actions
@@ -51,27 +52,27 @@ const registerForPushNotificationsAsync = async() => {
     //* Get permissons status
     const finalStatus = await verifyPermissions();
 
-    /**
-     * If there's no notification permissions, show an error
-     */
-    if (finalStatus !== 'granted') {
-        console.log('No se cuenta con permisos para lanzar notificaciones push.');
-        return;
-    } else {
-        //* Get an expo token
-        token = await Notifications.getExpoPushTokenAsync({
-            projectId: Constants.expoConfig.extra.eas.projectId,
-        });
-        return token.data;
+    let expoPushToken = await AsyncStorage.getItem('expo-push-token');
+
+    if (!expoPushToken) {
+        /**
+         * If there's no notification permissions, show an error
+         */
+        if (finalStatus !== 'granted') {
+            console.log('No se cuenta con permisos para lanzar notificaciones push.');
+            return;
+        } else {
+            //* Get an expo token
+            token = await Notifications.getExpoPushTokenAsync({
+                projectId: Constants.expoConfig.extra.eas.projectId,
+            });
+            await AsyncStorage.setItem('expo-push-token', token.data);
+        }
     }
 }
 
 export const useNotification = () => {
-    const [expoPushToken, setExpoPushToken] = useState('');
-
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+        registerForPushNotificationsAsync();
     }, []);
-
-    return expoPushToken;
 }

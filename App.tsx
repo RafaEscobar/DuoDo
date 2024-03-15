@@ -4,8 +4,7 @@ import { CustomNavigation } from './src/navigation/CustomNavigation';
 import React from 'react';
 
 export default function App(){
-  const expoPushToken = useNotification();
-  console.log(expoPushToken);
+  useNotification();
   return (
       <AuthProvider>
         <CustomNavigation />
