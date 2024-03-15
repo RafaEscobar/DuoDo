@@ -5,6 +5,7 @@ import { ModalSheetScreen } from "../component/ModalSheetScreen";
 import React from "react";
 import { TopTapGroup } from "./Stacts/TopTapGroup";
 import { TopTapChat } from "./Stacts/TopTapChat";
+import { ModalProfile } from "../component/ModalProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,6 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
           height: 60,
         }
       }
-    
     }>
       <Tab.Screen name="Inicio" component={Dashboard}
         options={{
@@ -36,18 +36,6 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
           tabBarLabel: () => null,
         }}
       />
-      {/* <Tab.Screen name="Calendario" component={Calendar}
-        options={{
-          headerShown: false,
-          tabBarIcon: () => (
-            <Image
-              source="https://kaihatsu-code.com/assets/calendar.png"
-              style={{ width: 40, height: 40 }}
-            />
-          ),
-          tabBarLabel: () => null,
-        }}
-      /> */}
       <Tab.Screen
         name="ChatStack"
         component={TopTapGroup}
@@ -75,7 +63,6 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
           tabBarButton: () => (<ModalSheetScreen navigate={navigate} />),
         }}
       />
-
       <Tab.Screen
         name="Creación"
         component={TopTapChat}
@@ -91,20 +78,12 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileModal"
+        component={MiddleBtn}
         options={{
-          headerShown: false,
-          tabBarIcon: () => (
-            <Image
-              source="https://kaihatsu-code.com/assets/menu.png"
-              style={{ width: 40, height: 40 }}
-            />
-          ),
-          tabBarLabel: () => null,
+          tabBarButton: () => (<ModalProfile navigate={navigate} />),
         }}
       />
     </Tab.Navigator>
-
   );
 };
