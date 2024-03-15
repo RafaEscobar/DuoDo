@@ -4,11 +4,9 @@ import tw from 'twrnc';
 import { Poppins_400Regular, Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import { Image } from 'expo-image';
-import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-
-
-export const List = () => {
+export const List = ({ navigation }: any) => {
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -41,7 +39,14 @@ export const List = () => {
   return (
     <SafeAreaView style={tw`bg-gray-900 h-full`}>
       <View style={tw`flex pt-10 ml-5 w-90`}>
-        <Text style={[tw`text-white text-3xl text-center`, { fontFamily: "Poppins_700Bold" }]}>Amigos</Text>
+        <View>
+          <View style={tw`flex flex-row items-center`}>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={tw`bg-gray-600 w-10 h-10 items-center rounded-full`}>
+              <AntDesign name="close" size={30} color="white" style={tw`top-1`} />
+            </TouchableOpacity>
+            <Text style={[tw`text-white text-center text-xl left-27`, { fontFamily: "Poppins_700Bold" }]}>Amigos</Text>
+          </View>
+        </View>
         <View style={{
           marginTop: 10, borderTopWidth: 1, borderTopColor: '#FAF8F4', paddingTop: 10
         }}>

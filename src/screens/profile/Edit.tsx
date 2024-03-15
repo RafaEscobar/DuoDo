@@ -25,7 +25,7 @@ export const Edit = ({ navigation }: any) => {
           <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={tw`bg-gray-600 w-10 h-10 items-center rounded-full`}>
             <AntDesign name="close" size={30} color="white" style={tw`top-1`} />
           </TouchableOpacity>
-          <Text style={[tw`text-white text-2xl text-center ml-10`, { fontFamily: "Poppins_700Bold" }]}>Cuenta</Text>
+          <Text style={[tw`text-white text-2xl text-center ml-8`, { fontFamily: "Poppins_700Bold" }]}>Cuenta</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={tw`bg-neutral-500 p-2 rounded-xl`}>
             <Text style={[tw`text-white text-sm text-center`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
           </TouchableOpacity>
