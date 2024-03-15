@@ -9,6 +9,10 @@ import { GroupMessage } from '../screens/chat/GroupMessage';
 import { DetailsWorkspace } from '../screens/create/DetailsWorkspace';
 import { Members } from '../screens/create/Members';
 import { AddWorkspace } from '../screens/create/AddWorkspace';
+import { Edit } from '../screens/profile/Edit';
+import { List } from '../screens/profile/friends/List';
+import { Add } from '../screens/profile/friends/Add';
+import { Manage } from '../screens/profile/Manage';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +21,10 @@ export const DashboardStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} options={{ headerShown: false }} />
       <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+      <Stack.Screen name="Edit" component={Edit} options={{ headerShown: false }} />
+      <Stack.Screen name="ListFriends" component={List} options={{ headerShown: false }} />
+      <Stack.Screen name="AddFriend" component={Add} options={{ headerShown: false }} />
+      <Stack.Screen name="Manage" component={Manage} options={{ headerShown: false }} />
       <Stack.Screen name="Calendar" component={Calendar} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Add" component={AddTask} options={{ headerShown: false }} />

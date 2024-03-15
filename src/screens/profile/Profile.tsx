@@ -1,5 +1,4 @@
 import { AuthContext } from '../../context/AuthContext';
-import { Entypo } from '@expo/vector-icons';
 import { Image, SafeAreaView, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { Poppins_400Regular, Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
@@ -54,7 +53,7 @@ export const Profile = ({ navigation }: any) => {
                     <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigation')} style={tw`bg-gray-600 w-10 h-10 items-center rounded-full`}>
                         <AntDesign name="close" size={30} color="white" style={tw`top-1`} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={tw`bg-gray-600 w-10 h-10 items-center rounded-full`}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Edit')} style={tw`bg-gray-600 w-10 h-10 items-center rounded-full`}>
                         <MaterialCommunityIcons name="account-edit" size={30} color="white" style={tw`top-1`} />
                     </TouchableOpacity>
                 </View>
@@ -76,7 +75,7 @@ export const Profile = ({ navigation }: any) => {
                 <View style={tw`mt-4`}>
                     <View style={tw`flex flex-row justify-between items-center`}>
                         <Text style={[tw`text-white text-xl`, { fontFamily: "Poppins_700Bold" }]}>Lista de amigos</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('ListFriends')}>
                             <Text style={[tw`text-sky-400 text-base`, { fontFamily: "Poppins_600SemiBold" }]}>Ver todos</Text>
                         </TouchableOpacity>
                     </View>
@@ -106,13 +105,13 @@ export const Profile = ({ navigation }: any) => {
                         <Text style={[tw`text-white`, { fontFamily: "Poppins_600SemiBold" }]}>Resumen de actividad:</Text>
                         <Text style={[tw`text-white`, { fontFamily: "Poppins_600SemiBold" }]}>¡Mide tu progreso!</Text>
                         <View style={tw`w-full flex items-center mt-2`}>
-                            <TouchableOpacity style={tw`bg-blue-600 text-white py-1 px-4 rounded-lg text-xl w-6/12`}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Manage')} style={tw`bg-blue-600 text-white py-1 px-4 rounded-lg text-xl w-6/12`}>
                                 <Text style={[tw`text-center text-white text-lg`, { fontFamily: "Poppins_600SemiBold" }]}>Ver resumen</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AddFriend')}>
                     <View style={tw`flex flex-row bg-gray-800 p-4 mt-4 rounded-xl items-center justify-center gap-3`}>
                         <Octicons name="person-add" size={30} color="white" />
                         <Text style={[tw`text-white text-xl`, { fontFamily: "Poppins_700Bold" }]}>AGREGAR AMIGOS</Text>
