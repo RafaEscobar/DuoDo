@@ -5,7 +5,6 @@ import React, { useContext } from 'react';
 
 export const MainStackNavigation = () => {
     const { avatar }:any = useContext(AuthContext);
-    console.log(avatar);
     return (
         (avatar == true) ?
         <DashboardStack /> :

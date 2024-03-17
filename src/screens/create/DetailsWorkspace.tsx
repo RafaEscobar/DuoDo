@@ -29,7 +29,6 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   const { id } = route.params;
 
   const data = (workspaceData.filter((element) => element.id == id));
-  // console.log(JSON.parse(data));
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,

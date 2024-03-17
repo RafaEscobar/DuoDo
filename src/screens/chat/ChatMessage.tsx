@@ -15,7 +15,7 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
 
   const handleSendMessage = () => {
     // Aquí va la lógica para enviar el mensaje
-    console.log(message);
+    // console.log(message);
     setMessages(prevMessages => [...prevMessages, message]);
     setMessage(''); // Limpiar el input después de enviar el mensaje
   };
