@@ -16,10 +16,11 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
     const [description, setDescription] = useState('')
     const [select, setSelect] = useState([]);
 
-    const { baseUrl, token }:any = useContext(AuthContext);
+    const { baseUrl, token, user }:any = useContext(AuthContext);
 
     const handleSaveWorkspace = async() => {
-        const response = await StoreWorkspace(name, description, select, token, baseUrl);
+        let external_identifier = JSON.parse(user).external_identifier;
+        const response = await StoreWorkspace(name, description, select, token, baseUrl, external_identifier);
         console.log(response);
     };
 
