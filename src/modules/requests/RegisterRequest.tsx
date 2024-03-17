@@ -1,5 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export const RegisterRequest = async (name:any, last_name:any, email:any, password:any, birthdate:any, authUrl:any) => {
     try {
+        const expoPushToken = await AsyncStorage.getItem('expo-push-token');
         const url = `${authUrl}/register`;
         const params = {
             name,
@@ -7,6 +10,7 @@ export const RegisterRequest = async (name:any, last_name:any, email:any, passwo
             email,
             password,
             birthdate,
+            expo_push_token: expoPushToken,
         }
         const response = await fetch(url, {
             method: 'POST',
@@ -18,6 +22,6 @@ export const RegisterRequest = async (name:any, last_name:any, email:any, passwo
         const res = await response.json();
         console.log(res);
     } catch (error) {
-        // TODO: Tratar errores
+        console.log(error);
     }
 };

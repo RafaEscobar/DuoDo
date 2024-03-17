@@ -10,10 +10,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, useColorScheme, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
+import { VerifyAvatarProcedure } from '../../modules/procedures/VerifyAvatarProcedure';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
-import { VerifyAvatarProcedure } from '../../modules/procedures/VerifyAvatarProcedure';
 
 export const Login = ({ navigation: {navigate} }: any) => {
   const { setUser, setToken }:any = useContext(AuthContext);
