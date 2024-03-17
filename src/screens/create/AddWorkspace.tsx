@@ -8,17 +8,28 @@ import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins"
 import { useFonts } from 'expo-font';
 import { StoreWorkspace } from '../../modules/requests/workspaces/Index';
 import { AuthContext } from '../../context/AuthContext';
+import { LoadingComponent } from '../../component/LoadingComponent';
 
 export const AddWorkspace = ({ navigation: { navigate } }: any) => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [select, setSelect] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [modalText, setModalText] = useState('');
 
     const { baseUrl, token }:any = useContext(AuthContext);
 
     const handleSaveWorkspace = async() => {
         const response = await StoreWorkspace(name, description, select, token, baseUrl);
+        console.log(response);
+        if (response == 200) {
+            setLoading(true);
+            setModalText('Espacio de trabajo creado correctamente.');
+        } else {
+            setLoading(true);
+            setModalText('Error en el servidor, intentalo más tarde.');
+        }
     };
 
     const [fontsLoaded] = useFonts({
@@ -83,6 +94,10 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            <LoadingComponent
+                modalVisible={loading}
+                modalText={modalText}
+            />
         </View>
     )
 }
