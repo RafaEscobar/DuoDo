@@ -24,10 +24,8 @@ export const AuthProvider = ({ children }:AuthProviderProps) => {
   const [token, setToken] = useState('');
   const [status, setStatus] = useState('checking');
   const [user, setUser] = useState('');
-  // const [authUrl, setAuthUrl] = useState('https://kaihatsu-code.com/dou-do/public/api');
-  // const [baseUrl, setBaseUrl] = useState('https://kaihatsu-code.com/dou-do/public/api/v1');
-  const [authUrl, setAuthUrl] = useState('https://e0d0-2806-2f0-9f00-ffaf-2039-e35b-a917-16f1.ngrok-free.app/api');
-  const [baseUrl, setBaseUrl] = useState('https://e0d0-2806-2f0-9f00-ffaf-2039-e35b-a917-16f1.ngrok-free.app/api/v1');
+  const [authUrl, setAuthUrl] = useState('https://kaihatsu-code.com/dou-do/public/api');
+  const [baseUrl, setBaseUrl] = useState('https://kaihatsu-code.com/dou-do/public/api/v1');
   const [avatar, setAvatar] = useState(false);
 
   /**
