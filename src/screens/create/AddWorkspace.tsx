@@ -38,7 +38,7 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
             <View style={tw`flex ml-4 mt-10 sm:ml-4 sm:mt-5`}>
                 <View style={tw`flex flex-row items-center gap-5`}>
                     <TouchableOpacity
-                        onPress={() => { navigate('Workspace') }}
+                        onPress={() => { navigate('BottomTabNavigation') }}
                     >
                         <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`}/>
                     </TouchableOpacity>

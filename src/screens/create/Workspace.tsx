@@ -44,10 +44,10 @@ export const Workspace = ({ navigation: { navigate }, route }: any) => {
                         <View style={tw`justify-start ml-4 mt-2`}>
                             <Image
                                 source={{ uri: "https://www.w3schools.com/w3images/avatar2.png" }}
-                                style={tw`w-15 h-15 rounded-furll`}
+                                style={tw`w-15 h-15 rounded-full`}
                             />
                             <Text style={[tw`text-white mt-1 text-base w-30`, { fontFamily: "Poppins_700Bold" }]}>{workspace.name}</Text>
-                            <Text style={[tw`text-white opacity-50 text-xs mt-1`, { fontFamily: "Poppins_700Bold" }]}>{workspace.description}</Text>
+                            <Text style={[tw`text-white opacity-50 text-xs mt-1`, { fontFamily: "Poppins_700Bold" }]}>{ workspace.description.substring(0, 38) }...</Text>
                             <View style={tw`flex flex-row gap-1 items-center mt-3`}>
                                 <Progress.Bar progress={(workspace.advance*100)} width={100} height={10} color='#0dac4a' borderRadius={20}
                                 />
