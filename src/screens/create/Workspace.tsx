@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
@@ -7,19 +7,28 @@ import { Image } from 'expo-image';
 import { IndexWorkspace } from '../../modules/requests/workspaces/Index';
 import { AuthContext } from '../../context/AuthContext';
 import * as Progress from 'react-native-progress';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const Workspace = ({ navigation: { navigate }, route }: any) => {
   const [workspaces, setWorkspaces] = useState(null);
   const {token, baseUrl, user}:any = useContext(AuthContext);
 
+  const handleLoadWorkspaces = async() => {
+    let external_identifier = JSON.parse(user).external_identifier;
+    let data:any = await IndexWorkspace(external_identifier, token, baseUrl);
+    setWorkspaces(data);
+  }
+
   useEffect(() => {
-    const handleLoadWorkspaces = async() => {
-      let external_identifier = JSON.parse(user).external_identifier;
-      let data:any = await IndexWorkspace(external_identifier, token, baseUrl);
-      setWorkspaces(data);
-    }
     handleLoadWorkspaces();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("Refresh...");
+     handleLoadWorkspaces();
+    }, [])
+  )
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -46,7 +55,7 @@ export const Workspace = ({ navigation: { navigate }, route }: any) => {
                                 source={{ uri: "https://www.w3schools.com/w3images/avatar2.png" }}
                                 style={tw`w-15 h-15 rounded-full`}
                             />
-                            <Text style={[tw`text-white mt-1 text-base w-30`, { fontFamily: "Poppins_700Bold" }]}>{workspace.name}</Text>
+                            <Text style={[tw`text-white mt-1 text-base w-30`, { fontFamily: "Poppins_700Bold" }]}>{workspace.name.substring(0, 12)}</Text>
                             <Text style={[tw`text-white opacity-50 text-xs mt-1`, { fontFamily: "Poppins_700Bold" }]}>{ workspace.description.substring(0, 38) }...</Text>
                             <View style={tw`flex flex-row gap-1 items-center mt-3`}>
                                 <Progress.Bar progress={(workspace.advance*100)} width={100} height={10} color='#0dac4a' borderRadius={20}
