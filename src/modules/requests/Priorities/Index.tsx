@@ -1,0 +1,1 @@
+export { IndexPriorities } from "./IndexPriorities";

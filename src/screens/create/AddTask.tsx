@@ -4,10 +4,11 @@ import { todosData } from '../../data/todos';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
 import { AntDesign } from '@expo/vector-icons';
-
+import { AuthContext } from '../../context/AuthContext';
+import { IndexPriorities } from '../../modules/requests/Priorities/IndexPriorities';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
@@ -18,6 +19,25 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [select, setSelect] = useState([]);
+  const [priorities, setPriorities] = useState({});
+  const [workspaces, setWorkspaces] = useState({});
+
+  const { user, token, baseUrl }:any = useContext(AuthContext);
+
+  const loadSelectData = async() => {
+    let external_identifier = JSON.parse(user).external_identifier;
+    let priorities_res = IndexPriorities(token, baseUrl);
+    setPriorities(priorities_res);
+  }
+
+  useEffect(() => {
+    loadSelectData();
+    if (priorities.data) {
+      priorities.data.map((nose:any) => {
+        console.log(nose);
+      });
+    }
+  }, []);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -70,8 +90,8 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Asignar a:</Text>
           <SelectList
-            data={todosData.map((item) => item.text)}
-            setSelected={setSelect}
+            data={priorities.data}
+            setSelected={setPriorities}
             save='value'
             search={false}
             inputStyles={tw`text-white`}

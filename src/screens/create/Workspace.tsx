@@ -26,6 +26,7 @@ export const Workspace = ({ navigation: { navigate } }: any) => {
   useFocusEffect(
     React.useCallback(() => {
       console.log("Refresh...");
+      console.log(workspaces);
      handleLoadWorkspaces();
     }, [])
   )
