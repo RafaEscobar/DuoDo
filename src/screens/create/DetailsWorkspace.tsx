@@ -7,6 +7,7 @@ import { workspaceData } from '../../data/workspaceData'
 import { CheckList } from '../../component/workspace/CheckList';
 import { todosData } from '../../data/todos';
 import { FontAwesome } from '@expo/vector-icons';
+import { Workspace } from './Workspace';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
 
@@ -15,6 +16,9 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   );
 
   const [isHidden, setIsHidden] = useState(false);
+
+  const { workspace } = route.params;
+  console.log(workspace.name);
 
   const handleHidePress = () => {
     if (isHidden) {
@@ -25,10 +29,6 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
     setIsHidden(!isHidden);
     setLocalData(localData.filter(todo => !todo.isCompleted));
   };
-
-  const { id } = route.params;
-
-  const data = (workspaceData.filter((element) => element.id == id));
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -44,7 +44,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
       <View style={tw`flex pt-10 ml-3.5 w-90`}>
         <View style={tw`flex flex-row justify-between`}>
           <Text style={[tw`text-sky-400 text-2xl `, { fontFamily: "Poppins_700Bold" }]}>
-            Nombre del equipo
+            {workspace.name}
           </Text>
           <TouchableOpacity onPress={() => navigate('Members')}>
             <FontAwesome name="group" size={24} color="white" />
@@ -52,10 +52,10 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
         </View>
         <View style={tw`mt-3`}>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
-            Tareas: {data[0].projects.length}
+            Tareas: X
           </Text>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
-            Miembros: {data[0].members.length}
+            Miembros: X
           </Text>
         </View>
         <View style={tw`mt-3`}>
@@ -63,7 +63,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
             Descripcion
           </Text>
           <Text style={[tw`text-white text-base opacity-50`, { fontFamily: "Poppins_400Regular" }]}>
-            Este espacio esta designado para el seguimiento de las tareas para el proyecto integrador para el quinto cuatrimestre de la UTVT.
+            {workspace.description}
           </Text>
         </View>
         <View style={tw`flex flex-row justify-between mt-2 items-center`}>

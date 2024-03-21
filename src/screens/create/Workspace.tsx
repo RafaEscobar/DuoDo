@@ -1,15 +1,15 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
-import tw from 'twrnc';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
+import { AuthContext } from '../../context/AuthContext';
 import { Image } from 'expo-image';
 import { IndexWorkspace } from '../../modules/requests/workspaces/Index';
-import { AuthContext } from '../../context/AuthContext';
-import * as Progress from 'react-native-progress';
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFocusEffect } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import * as Progress from 'react-native-progress';
+import React, { useContext, useEffect, useState } from 'react'
+import tw from 'twrnc';
 
-export const Workspace = ({ navigation: { navigate }, route }: any) => {
+export const Workspace = ({ navigation: { navigate } }: any) => {
   const [workspaces, setWorkspaces] = useState(null);
   const {token, baseUrl, user}:any = useContext(AuthContext);
 
@@ -49,7 +49,7 @@ export const Workspace = ({ navigation: { navigate }, route }: any) => {
               {workspaces && workspaces.data.map((workspace:any) => (
                 <View style={tw`w-1/2 mt-3`} key={workspace.id}>
                   <View style={tw`bg-[#100323] w-44 h-44 rounded-2xl `}>
-                    <TouchableOpacity onPress={() => navigate('DetailsWorkspace', {id: workspace.id})} >
+                    <TouchableOpacity onPress={() => navigate('DetailsWorkspace', {workspace})} >
                         <View style={tw`justify-start ml-4 mt-2`}>
                             <Image
                                 source={{ uri: "https://www.w3schools.com/w3images/avatar2.png" }}
