@@ -6,7 +6,6 @@ export const IndexPriorities = async(token:any, baseUrl:any) => {
             'Authorization': `Bearer ${token}`
         }
     })
-
     const res = await response.json();
-    console.log(res);
+    return res.data;
 }

@@ -1,14 +1,14 @@
-import { SelectList } from 'react-native-dropdown-select-list'
-import { Text, View, TextInput, TouchableOpacity, Switch } from 'react-native';
-import { todosData } from '../../data/todos';
+import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../context/AuthContext';
+import { IndexPriorities } from '../../modules/requests/Priorities/IndexPriorities';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { SelectList } from 'react-native-dropdown-select-list'
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { todosData } from '../../data/todos';
 import { useFonts } from 'expo-font';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
-import { AntDesign } from '@expo/vector-icons';
-import { AuthContext } from '../../context/AuthContext';
-import { IndexPriorities } from '../../modules/requests/Priorities/IndexPriorities';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
@@ -19,25 +19,24 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [select, setSelect] = useState([]);
-  const [priorities, setPriorities] = useState({});
+  const [priorities, setPriorities] = useState([]);
   const [workspaces, setWorkspaces] = useState({});
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
 
   const loadSelectData = async() => {
     let external_identifier = JSON.parse(user).external_identifier;
-    let priorities_res = IndexPriorities(token, baseUrl);
+    let priorities_res = await IndexPriorities(token, baseUrl);
     setPriorities(priorities_res);
   }
 
   useEffect(() => {
     loadSelectData();
-    if (priorities.data) {
-      priorities.data.map((nose:any) => {
-        console.log(nose);
-      });
-    }
   }, []);
+
+  useEffect(() => {
+    console.log(priorities);
+  }, [priorities]);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -51,7 +50,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
 
   const handleDateChange = (event: any, selectedDate: Date | undefined) => {
     setSelectedDate(selectedDate);
-    setIsDatePickerVisible(false); // Cerrar el DateTimePicker
+    setIsDatePickerVisible(false);
   };
 
   return (
@@ -90,7 +89,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Asignar a:</Text>
           <SelectList
-            data={priorities.data}
+            data={priorities.map((item:any) => item.priority)}
             setSelected={setPriorities}
             save='value'
             search={false}
