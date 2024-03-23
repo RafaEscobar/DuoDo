@@ -21,7 +21,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [select, setSelect] = useState([]);
   const [priorities, setPriorities] = useState([]);
-  const [workspaces, setWorkspaces] = useState({});
+  const [workspaces, setWorkspaces] = useState([]);
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
 
@@ -105,7 +105,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
           <SelectList
             data={workspaces.map((item:any) => item.name)}
-            setSelected={setSelect}
+            setSelected={setWorkspaces}
             save='value'
             search={false}
             inputStyles={tw`text-white`}
