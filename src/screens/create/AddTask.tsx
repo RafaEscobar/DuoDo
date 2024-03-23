@@ -4,7 +4,6 @@ import { IndexPriorities } from '../../modules/requests/Priorities/IndexPrioriti
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { SelectList } from 'react-native-dropdown-select-list'
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { todosData } from '../../data/todos';
 import { useFonts } from 'expo-font';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useContext, useEffect, useState } from 'react'
@@ -66,23 +65,23 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`} />
 
           </TouchableOpacity>
-          <Text style={[tw`text-2xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Crear Tarea</Text>
+          <Text style={[tw`text-2xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nueva Tarea</Text>
         </View>
         <View>
           <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
           <TextInput
             style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-            placeholder="nombre de la tarea"
+            placeholder="¿Qué deseas haces?"
             placeholderTextColor={'#58b4ff'}
             onChangeText={(text) => { setName(text) }}
           />
         </View>
         <View>
-          <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripcion:</Text>
+          <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripción:</Text>
           <TextInput
             style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-            placeholder="descripcion de la tarea"
             placeholderTextColor={'#58b4ff'}
+            placeholder='¿Qué detalles de la tarea debes recordar?'
             onChangeText={(text) => { setDescription(text) }}
             multiline={true}
             underlineColorAndroid={'transparent'}
@@ -90,7 +89,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           />
         </View>
         <View style={tw`w-90`}>
-          <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Asignar a:</Text>
+          <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
           <SelectList
             data={priorities.map((item:any) => item.priority)}
             setSelected={setPriorities}
@@ -99,10 +98,11 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             inputStyles={tw`text-white`}
             dropdownTextStyles={tw`text-white`}
             fontFamily='Poppins_400Regular'
+            placeholder='- Selecciona el nivel de prioridad -'
           />
         </View>
         <View style={tw`w-90`}>
-          <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
+          <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Espacio de trabajo:</Text>
           <SelectList
             data={workspaces.map((item:any) => item.name)}
             setSelected={setWorkspaces}
@@ -111,14 +111,15 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             inputStyles={tw`text-white`}
             dropdownTextStyles={tw`text-white`}
             fontFamily='Poppins_400Regular'
+            placeholder='- Selecciona el espacio de trabajo -'
           />
         </View>
         <View>
-          <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha:</Text>
+          <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha límite:</Text>
           <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
             <TextInput
               style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-              placeholder='Añadir fecha'
+              placeholder='Establece la fecha límite'
               placeholderTextColor={'#58b4ff'}
               value={selectedDate?.toString() || ''}
               editable={false}
