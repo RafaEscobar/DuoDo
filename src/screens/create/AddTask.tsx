@@ -9,18 +9,18 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
 import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
+import { StoreTask } from '../../modules/requests/Priorities/StoreTask';
+import { PriorityMapper } from '../../mappers/Tasks/Index';
+import { WorkspaceMapper } from '../../mappers/Tasks/WorkspaceMapper';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
-  const [name, setName] = useState('')
+  const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [date, setDate] = useState(new Date())
-  const [isToday, setIsToday] = useState(false)
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-  const [select, setSelect] = useState([]);
   const [priorities, setPriorities] = useState([]);
+  const [priority, setPriority] = useState('');
   const [workspaces, setWorkspaces] = useState([]);
+  const [workspace, setWorkspace] = useState('');
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
 
@@ -28,17 +28,21 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     let external_identifier = JSON.parse(user).external_identifier;
     let priorities_res = await IndexPriorities(token, baseUrl);
     let workspace_res = await IndexWorkspace(external_identifier, token, baseUrl);
-    setPriorities(priorities_res);
-    setWorkspaces(workspace_res.data);
+    setPriorities(PriorityMapper(priorities_res));
+    setWorkspaces(WorkspaceMapper(workspace_res.data));
+  }
+
+  const handleSaveTask = async() => {
+    const response = await StoreTask(title, description, null, priority, workspace, date, token, baseUrl);
   }
 
   useEffect(() => {
     loadSelectData();
   }, []);
 
-  useEffect(() => {
-    console.log(workspaces);
-  }, [workspaces]);
+  // useEffect(() => {
+  //   console.log(workspaces);
+  // }, [workspaces]);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -49,11 +53,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     return null;
   }
 
-
-  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
-    setSelectedDate(selectedDate);
-    setIsDatePickerVisible(false);
-  };
+  
 
   return (
     <View style={tw`bg-gray-900 h-full`}>
@@ -71,9 +71,9 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
           <TextInput
             style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-            placeholder="¿Qué deseas haces?"
+            placeholder="¿Qué deseas hacer?"
             placeholderTextColor={'#58b4ff'}
-            onChangeText={(text) => { setName(text) }}
+            onChangeText={(text) => { setTitle(text) }}
           />
         </View>
         <View>
@@ -91,9 +91,9 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
           <SelectList
-            data={priorities.map((item:any) => item.priority)}
-            setSelected={setPriorities}
-            save='value'
+            data={priorities}
+            setSelected={(item:any) => setPriority(item)}
+            save='key'
             search={false}
             inputStyles={tw`text-white`}
             dropdownTextStyles={tw`text-white`}
@@ -104,9 +104,9 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Espacio de trabajo:</Text>
           <SelectList
-            data={workspaces.map((item:any) => item.name)}
-            setSelected={setWorkspaces}
-            save='value'
+            data={workspaces}
+            setSelected={(item:any) => setWorkspace(item)}
+            save='key'
             search={false}
             inputStyles={tw`text-white`}
             dropdownTextStyles={tw`text-white`}
@@ -114,28 +114,10 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             placeholder='- Selecciona el espacio de trabajo -'
           />
         </View>
-        <View>
-          <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha límite:</Text>
-          <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
-            <TextInput
-              style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-              placeholder='Establece la fecha límite'
-              placeholderTextColor={'#58b4ff'}
-              value={selectedDate?.toString() || ''}
-              editable={false}
-            />
-          </TouchableOpacity>
-          {isDatePickerVisible && (
-            <DateTimePicker
-              value={selectedDate || new Date()}
-              mode="date"
-              display="default"
-              onChange={handleDateChange}
-            />
-          )}
-        </View>
+        
+
         <View style={tw`mt-20 justify-center items-center`}>
-          <TouchableOpacity onPress={() => navigate('Task')} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
+          <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
             <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
           </TouchableOpacity>
         </View>
