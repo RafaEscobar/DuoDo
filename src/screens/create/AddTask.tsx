@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
+import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
@@ -27,7 +28,9 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const loadSelectData = async() => {
     let external_identifier = JSON.parse(user).external_identifier;
     let priorities_res = await IndexPriorities(token, baseUrl);
+    let workspace_res = await IndexWorkspace(external_identifier, token, baseUrl);
     setPriorities(priorities_res);
+    setWorkspaces(workspace_res.data);
   }
 
   useEffect(() => {
@@ -35,8 +38,8 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(priorities);
-  }, [priorities]);
+    console.log(workspaces);
+  }, [workspaces]);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -101,7 +104,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
         <View style={tw`w-90`}>
           <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
           <SelectList
-            data={todosData.map((item) => item.text)}
+            data={workspaces.map((item:any) => item.name)}
             setSelected={setSelect}
             save='value'
             search={false}

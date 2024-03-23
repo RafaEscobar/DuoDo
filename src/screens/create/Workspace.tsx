@@ -57,7 +57,7 @@ export const Workspace = ({ navigation: { navigate } }: any) => {
                                 style={tw`w-15 h-15 rounded-full`}
                             />
                             <Text style={[tw`text-white mt-1 text-base w-30`, { fontFamily: "Poppins_700Bold" }]}>{workspace.name.substring(0, 12)}</Text>
-                            <Text style={[tw`text-white opacity-50 text-xs mt-1`, { fontFamily: "Poppins_700Bold" }]}>{ workspace.description.substring(0, 38) }...</Text>
+                            <Text style={[tw`text-white opacity-50 text-xs mt-1`, { fontFamily: "Poppins_700Bold" }]}>{ workspace.description.substring(0, 34) }...</Text>
                             <View style={tw`flex flex-row gap-1 items-center mt-3`}>
                                 <Progress.Bar progress={(workspace.advance*100)} width={100} height={10} color='#0dac4a' borderRadius={20}
                                 />
