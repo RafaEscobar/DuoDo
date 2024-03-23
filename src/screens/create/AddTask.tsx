@@ -60,12 +60,12 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
       <View style={tw`flex ml-4 mt-10 sm:ml-4 sm:mt-5`}>
         <View style={tw`flex flex-row items-center gap-5`}>
           <TouchableOpacity
-            onPress={() => { navigate('Task') }}
+            onPress={() => { navigate('BottomTabNavigation') }}
           >
             <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`} />
 
           </TouchableOpacity>
-          <Text style={[tw`text-2xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nueva Tarea</Text>
+          <Text style={[tw`text-xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nueva Tarea</Text>
         </View>
         <View>
           <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>

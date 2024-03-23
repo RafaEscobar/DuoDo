@@ -42,13 +42,13 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                     >
                         <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`}/>
                     </TouchableOpacity>
-                    <Text style={[tw`text-2xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Crear espacio de trabajo</Text>
+                    <Text style={[tw`text-xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nuevo espacio de trabajo</Text>
                 </View>
                 <View>
                     <Text style={[tw`leading-8 text-xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
                     <TextInput
                         style={[tw`w-90 border-b border-gray-400 text-base mb-5 text-white`, { fontFamily: "Poppins_400Regular", }]}
-                        placeholder="nombre de la tarea"
+                        placeholder="¿Qué proyecto gestionarás?"
                         placeholderTextColor={'#58b4ff'}
                         onChangeText={(text) => { setName(text) }}
                     />
@@ -57,7 +57,7 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                     <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripcion:</Text>
                     <TextInput
                         style={[tw`w-90 border-b border-gray-400 text-base mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-                        placeholder="descripcion de la tarea"
+                        placeholder="Los detalles de tu proyecto..."
                         placeholderTextColor={'#58b4ff'}
                         onChangeText={(text) => { setDescription(text) }}
                         multiline={true}
@@ -66,7 +66,7 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                     />
                 </View>
                 <View style={tw`w-90`}>
-                    <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Asignar a:</Text>
+                    <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Color:</Text>
                     <SelectList
                         data={todosData.map((item) => item.text)}
                         setSelected={setSelect}
@@ -75,6 +75,7 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                         inputStyles={tw`text-white`}
                         dropdownTextStyles={tw`text-white`}
                         fontFamily='Poppins_400Regular'
+                        placeholder='- Selecciona un color -'
                     />
                 </View>
                 <View style={tw`mt-20 justify-center items-center`}>
