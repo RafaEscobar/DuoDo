@@ -12,6 +12,7 @@ import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace
 import { StoreTask } from '../../modules/requests/Priorities/StoreTask';
 import { PriorityMapper } from '../../mappers/Tasks/Index';
 import { WorkspaceMapper } from '../../mappers/Tasks/WorkspaceMapper';
+import Checkbox from 'expo-checkbox';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
@@ -21,6 +22,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [priority, setPriority] = useState(null);
   const [workspaces, setWorkspaces] = useState([]);
   const [workspace, setWorkspace] = useState(null);
+  const [thereIsResponsable, setThereIsResponsable] = useState(false);
 
   const [date, setDate] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
@@ -31,6 +33,17 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
+
+  const options = [
+    {
+      key: 1,
+      value: 'Si'
+    },
+    {
+      key: 2,
+      value: 'No'
+    }
+  ];
 
   const loadSelectData = async() => {
     let external_identifier = JSON.parse(user).external_identifier;
@@ -146,6 +159,20 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
               dropdownTextStyles={tw`text-white`}
               fontFamily='Poppins_400Regular'
               placeholder='- Selecciona el espacio de trabajo -'
+              notFoundText="No tienes espacios de trabajo, crea uno antes."
+            />
+          </View>
+          <View>
+            <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>¿Deseas asignar a alguien más esta tarea?</Text>
+            <SelectList
+              data={options}
+              setSelected={(item:any) => setThereIsResponsable(item)}
+              save='key'
+              search={false}
+              inputStyles={tw`text-white`}
+              dropdownTextStyles={tw`text-white`}
+              fontFamily='Poppins_400Regular'
+              placeholder='- Elige una opción -'
               notFoundText="No tienes espacios de trabajo, crea uno antes."
             />
           </View>
