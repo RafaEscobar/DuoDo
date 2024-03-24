@@ -8,6 +8,7 @@ export const StoreWorkspace = async(name:any, description:any, color:any, token:
             description,
             color,
             user_id,
+            rol_id: 1,
         }),
         headers: {
             'Accept': 'application/json',
