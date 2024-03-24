@@ -22,6 +22,10 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [workspaces, setWorkspaces] = useState([]);
   const [workspace, setWorkspace] = useState('');
 
+  const [date, setDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+
   const { user, token, baseUrl }:any = useContext(AuthContext);
 
   const loadSelectData = async() => {
@@ -53,7 +57,15 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     return null;
   }
 
-  
+  const buildDate = (date:any) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
+
+  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
+    setDate(buildDate(selectedDate));
+    setSelectedDate(selectedDate);
+    setIsDatePickerVisible(false);
+  };
 
   return (
     <View style={tw`bg-gray-900 h-full`}>
@@ -114,7 +126,26 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             placeholder='- Selecciona el espacio de trabajo -'
           />
         </View>
-        
+        <View>
+          <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha:</Text>
+          <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
+            <TextInput
+              style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+              placeholder='Añadir fecha'
+              placeholderTextColor={'#58b4ff'}
+              value={date}
+              editable={false}
+            />
+          </TouchableOpacity>
+          {isDatePickerVisible && (
+            <DateTimePicker
+              value={selectedDate || new Date()}
+              mode="date"
+              display="default"
+              onChange={handleDateChange}
+            />
+          )}
+        </View>
 
         <View style={tw`mt-20 justify-center items-center`}>
           <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
