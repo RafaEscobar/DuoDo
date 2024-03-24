@@ -1,17 +1,20 @@
+import { AntDesign } from '@expo/vector-icons';
 import { AuthContext } from '../../context/AuthContext';
-import { Image, SafeAreaView, Text, View, TouchableOpacity, FlatList } from 'react-native';
-import { Poppins_400Regular, Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
+import { Image, SafeAreaView, Text, View, TouchableOpacity, FlatList, Modal, StyleSheet, Pressable, Alert, TextInput } from 'react-native';
 import { LoadingComponent } from '../../component/LoadingComponent';
 import { LogoutAction } from '../../component/actions/LogoutAction';
-import React, { useContext, useState } from 'react';
-import tw from 'twrnc';
-import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import { Poppins_400Regular, Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { ScrollView } from '@gluestack-ui/themed';
+import { useFonts } from 'expo-font';
+import React, { useContext, useState } from 'react';
+import tw from 'twrnc';
+import * as Clipboard from 'expo-clipboard';
 
 export const Profile = ({ navigation }: any) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [friendCode, setFriendCode] = useState('');
 
     const friendList = [
         {
@@ -47,6 +50,10 @@ export const Profile = ({ navigation }: any) => {
         return null;
     }
 
+    const copyToClipboard = async () => {
+        await Clipboard.setStringAsync(currentUser.external_identifier);
+    };
+
     return (
         <ScrollView style={tw`bg-gray-900 h-full`}>
             <SafeAreaView style={tw`bg-gray-900 h-full pb-10`}>
@@ -72,7 +79,12 @@ export const Profile = ({ navigation }: any) => {
                             </View>
                         </View>
                         <Text style={[tw`text-center text-white text-xl`, { fontFamily: "Poppins_600SemiBold" }]}>Desarrollador Web</Text>
-                        <Text style={[tw`text-white text-lg font-semibold text-center opacity-50`, { fontFamily: "Poppins_400Regular" }]}>{currentUser.email}</Text>
+                        <TouchableOpacity onPress={copyToClipboard}>
+                            <Text style={[tw`text-white text-sm font-semibold opacity-70 text-center`, { fontFamily: "Poppins_400Regular" }]}>
+                                <AntDesign name="copy1" size={18} color="white" />
+                                <Text>Código de usuario</Text>
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={tw`mt-4`}>
                         <View style={tw`flex flex-row justify-between items-center`}>
@@ -113,7 +125,7 @@ export const Profile = ({ navigation }: any) => {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate('AddFriend')}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <View style={tw`flex flex-row bg-gray-800 p-4 mt-4 rounded-xl items-center justify-center gap-3`}>
                             <Octicons name="person-add" size={30} color="white" />
                             <Text style={[tw`text-white text-xl`, { fontFamily: "Poppins_700Bold" }]}>AGREGAR AMIGOS</Text>
@@ -124,7 +136,70 @@ export const Profile = ({ navigation }: any) => {
                         <LoadingComponent modalVisible={loading} modalText='Saliendo' />
                     </View>
                 </View>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <View style={tw`w-full`}>
+                                <Text style={tw`mb-4`}>Enviar solicitud de amistad a:</Text>
+                                <TextInput
+                                    style={[tw`border-b border-gray-400 text-xs mb-4 text-white`, { fontFamily: "Poppins_400Regular" }]}
+                                    placeholderTextColor={'#58b4ff'}
+                                    placeholder='El código de tu amigo.'
+                                    onChangeText={(text) => { setFriendCode(text) }}
+                                    multiline={true}
+                                    underlineColorAndroid={'transparent'}
+                                    numberOfLines={1}
+                                />
+                            </View>
+                            <View style={[{flexDirection: 'row', justifyContent: 'flex-end'}, tw`w-[65%]`]}>
+                                <TouchableOpacity
+                                    style={[styles.button, tw`bg-gray-900 mr-2`]}
+                                    onPress={() => setModalVisible(!modalVisible)}>
+                                    <Text style={tw`text-white font-semibold`}>Cerrar</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.button, tw`bg-blue-600`]}
+                                    onPress={() => setModalVisible(!modalVisible)}>
+                                    <Text style={tw`text-white font-semibold`}>Enviar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      margin: 10,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      padding: 30,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+  });

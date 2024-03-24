@@ -44,29 +44,6 @@ export const Add = ({ navigation }: any) => {
           <Text style={[tw`text-white text-center text-xl mt-5`, { fontFamily: "Poppins_700Bold" }]}>Solicitudes de amistad</Text>
           <Text style={[tw`text-white text-center text-sm mt-2`, { fontFamily: "Poppins_400Regular" }]}>No tienes solicitudes de amistad</Text>
         </View>
-        <View>
-          <Text style={[tw`text-white text-xl mt-5`, { fontFamily: "Poppins_700Bold" }]}>Sugerencias</Text>
-          <FlatList
-            data={userData}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) =>
-              <View style={tw`flex w-40 rounded-xl pl-2 p-2 mt-2 h-40 border-2 border-neutral-500 rounded-xl mr-2`}>
-                <View style={tw`justify-center items-center mt-2`}>
-                  <Image
-                    source={{ uri: item.avatar }}
-                    style={tw`w-14 h-14 rounded-2xl mr-2`}
-                  />
-                  <Text style={[tw`text-xl text-white`, { fontFamily: "Poppins_700Bold" }]}>{item.name}</Text>
-                  <TouchableOpacity style={tw`bg-sky-500 w-20 items-center p-2 rounded-xl`}>
-                    <Text style={[tw`text-white text-center text-base`, { fontFamily: "Poppins_400Regular" }]}>Seguir</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            }
-          />
-        </View>
       </View>
     </SafeAreaView>
   )
