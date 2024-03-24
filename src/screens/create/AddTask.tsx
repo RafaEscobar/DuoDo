@@ -26,6 +26,10 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
+  const [time, setTime] = useState('');
+  const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
+  const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
+
   const { user, token, baseUrl }:any = useContext(AuthContext);
 
   const loadSelectData = async() => {
@@ -61,10 +65,20 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
 
+  const buildTime = (date:any) => {
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  }
+
   const handleDateChange = (event: any, selectedDate: Date | undefined) => {
     setDate(buildDate(selectedDate));
     setSelectedDate(selectedDate);
     setIsDatePickerVisible(false);
+  };
+
+  const handleTimeChange = (event: any, selectedDate: Date | undefined) => {
+    setTime(buildTime(selectedDate));
+    setSelectedTime(selectedDate);
+    setIsTimePickerVisible(false);
   };
 
   return (
@@ -131,7 +145,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
             <TextInput
               style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-              placeholder='Añadir fecha'
+              placeholder='Establecer fecha'
               placeholderTextColor={'#58b4ff'}
               value={date}
               editable={false}
@@ -145,9 +159,26 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
               onChange={handleDateChange}
             />
           )}
+          <Text style={[tw`leading-8 text-2xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Hora:</Text>
+          <TouchableOpacity onPress={() => setIsTimePickerVisible(true)}>
+            <TextInput
+              style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+              placeholder='Establecer hora'
+              placeholderTextColor={'#58b4ff'}
+              value={time}
+              editable={false}
+            />
+          </TouchableOpacity>
+          {isTimePickerVisible && (
+            <DateTimePicker
+              value={selectedTime || new Date()}
+              mode="time"
+              display="default"
+              onChange={handleTimeChange}
+            />
+          )}
         </View>
-
-        <View style={tw`mt-20 justify-center items-center`}>
+        <View style={tw`mt-10 justify-center items-center`}>
           <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
             <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
           </TouchableOpacity>
