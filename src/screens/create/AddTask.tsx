@@ -41,7 +41,10 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   }
 
   const handleSaveTask = async() => {
-    const response = await StoreTask(title, description, null, priority, workspace, date, token, baseUrl);
+    let formatedDate = `${date} ${time}`;
+    const response = await StoreTask(title, description, null, priority, workspace, formatedDate, token, baseUrl);
+    console.log(response); // {"message": "Tarea creada.", "status": 200}
+    navigate('BottomTabNavigation');
   }
 
   useEffect(() => {
