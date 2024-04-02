@@ -3,6 +3,7 @@ import { useNotification } from './src/hooks/useNotification';
 import { CustomNavigation } from './src/navigation/CustomNavigation';
 import React from 'react';
 
+
 export default function App(){
   useNotification();
   return (

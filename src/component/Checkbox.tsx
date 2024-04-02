@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import tw from 'twrnc';
 
-
 export const Checkbox = ({
     id,
     text,
