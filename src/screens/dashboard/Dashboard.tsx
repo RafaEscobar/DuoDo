@@ -43,16 +43,6 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         />
                     </View>
                 </View>
-                <Button
-                        title={'toast notification'}
-                        onPress={() =>
-                            Toast.show({
-                            type: ALERT_TYPE.WARNING,
-                            title: 'Success',
-                            textBody: 'Congrats! this is toast notification success',
-                            })
-                        }
-                    />
                 <View>
                     <View>
                         <View style={tw`flex flex-row justify-between items-center w-90 ml-3`}>

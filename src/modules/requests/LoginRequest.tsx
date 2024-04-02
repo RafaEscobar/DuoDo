@@ -12,11 +12,9 @@ export const LoginRequest = async (email:string, password:string, authUrl:any) =
       },
       body: JSON.stringify({ email, password })
   });
-  if (response.ok) {
-    console.log('Inicio de sesión valido');
-  } else{
-    throw new Error('Error al iniciar sesión');
-  }
   const res = await response.json();
-  return res;
+    return {
+      'body': res,
+      'status': response.status
+    };
 };
