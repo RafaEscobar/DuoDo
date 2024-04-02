@@ -1,7 +1,10 @@
+import { ALERT_TYPE, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../context/AuthContext';
 import { Button, SafeAreaView, ScrollView } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
+import { LoadingComponent } from '../../component/LoadingComponent';
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { RegisterRequest } from '../../modules/requests/RegisterRequest';
 import { useFonts } from 'expo-font';
@@ -9,8 +12,6 @@ import { View, Text, Pressable, TextInput, Platform } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
-import { AuthContext } from '../../context/AuthContext';
-import { LoadingComponent } from '../../component/LoadingComponent';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
   /**
@@ -101,15 +102,40 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   const handleRegister = async() => {
     try {
       setLoading(true);
-      await RegisterRequest(name, last_name, email, password, birthdate, authUrl);
-      setLoading(false);
-      navigate('Login');
+      if ( name.length>0 && last_name.length>0 && email.length>0 && password.length>0 && birthdate.length>0 ) {
+        const response = await RegisterRequest(name, last_name, email, password, birthdate, authUrl);
+        setLoading(false);
+        if (response.status == 200) {
+          navigate('Login');
+        } else {
+          Toast.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Hay un problema...',
+            textBody: response.body.message,
+          });
+        }
+      } else {
+        setLoading(false);
+        Toast.show({
+          type: ALERT_TYPE.WARNING,
+          title: 'Campos incompletos',
+          textBody: 'Debes proporcionar todos los datos indicados.',
+        });
+      }
     } catch (error) {
-      // TODO: TRATAR ERROR
+      console.log(error);
+      setLoading(false);
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error interno',
+        textBody: 'Error desconocido, intentalo más tarde.',
+      });
     }
+
   }
 
   return (
+    <AlertNotificationRoot>
      <SafeAreaView>
       <ScrollView style={tw`mb-6`}>
         <View style={tw`flex-1 items-center pt-10`}>
@@ -226,6 +252,6 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
       />
       </ScrollView>
      </SafeAreaView>
-
+    </AlertNotificationRoot>
   )
 }

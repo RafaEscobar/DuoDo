@@ -1,4 +1,4 @@
-import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+import { ALERT_TYPE, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 import { AntDesign } from '@expo/vector-icons';
 import { AuthContext } from '../../context/AuthContext';
 import { Button, ScrollView } from "@gluestack-ui/themed";
@@ -47,7 +47,6 @@ export const Login = ({ navigation: {navigate} }: any) => {
         });
       }
     } catch (error) {
-      setLoading(false);
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error interno',

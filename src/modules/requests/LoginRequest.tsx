@@ -13,8 +13,8 @@ export const LoginRequest = async (email:string, password:string, authUrl:any) =
       body: JSON.stringify({ email, password })
   });
   const res = await response.json();
-    return {
-      'body': res,
-      'status': response.status
-    };
+  return {
+    'body': res,
+    'status': response.status
+  };
 };
