@@ -11,6 +11,7 @@ import { useFonts } from 'expo-font';
 import React, { useContext, useState } from 'react';
 import tw from 'twrnc';
 import * as Clipboard from 'expo-clipboard';
+import { FriendRequestStore } from '../../modules/requests/FriendRequests/FriendRequestStore';
 
 export const Profile = ({ navigation }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -34,7 +35,7 @@ export const Profile = ({ navigation }: any) => {
         }
     ];
 
-    const { user }: any = useContext(AuthContext);
+    const { user,  baseUrl, token }: any = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
     const currentUser = JSON.parse(user);
@@ -53,6 +54,10 @@ export const Profile = ({ navigation }: any) => {
     const copyToClipboard = async () => {
         await Clipboard.setStringAsync(currentUser.external_identifier);
     };
+
+    const handleFriendRequest = async() => {
+        FriendRequestStore(currentUser.external_identifier, friendCode, baseUrl, token);
+    }
 
     return (
         <ScrollView style={tw`bg-gray-900 h-full`}>
@@ -146,7 +151,7 @@ export const Profile = ({ navigation }: any) => {
                             <View style={tw`w-full`}>
                                 <Text style={tw`mb-4`}>Enviar solicitud de amistad a:</Text>
                                 <TextInput
-                                    style={[tw`border-b border-gray-400 text-xs mb-4 text-white`, { fontFamily: "Poppins_400Regular" }]}
+                                    style={[tw`border-b border-gray-400 text-xs mb-4 text-black`, { fontFamily: "Poppins_400Regular" }]}
                                     placeholderTextColor={'#58b4ff'}
                                     placeholder='El código de tu amigo.'
                                     onChangeText={(text) => { setFriendCode(text) }}
@@ -163,7 +168,10 @@ export const Profile = ({ navigation }: any) => {
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={[styles.button, tw`bg-blue-600`]}
-                                    onPress={() => setModalVisible(!modalVisible)}>
+                                    onPress={() => {
+                                        handleFriendRequest();
+                                        setModalVisible(!modalVisible);
+                                    }}>
                                     <Text style={tw`text-white font-semibold`}>Enviar</Text>
                                 </TouchableOpacity>
                             </View>
