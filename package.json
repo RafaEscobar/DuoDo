@@ -27,6 +27,7 @@
     "@types/react-native-dotenv": "^0.2.2",
     "expo": "~50.0.5",
     "expo-checkbox": "~2.7.0",
+    "expo-clipboard": "~5.0.1",
     "expo-constants": "~15.4.5",
     "expo-device": "~5.9.3",
     "expo-font": "~11.10.2",
@@ -38,6 +39,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "^0.73.4",
+    "react-native-alert-notification": "^0.4.0",
     "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-config": "^1.5.1",
     "react-native-dotenv": "^3.4.10",
@@ -52,8 +54,7 @@
     "react-native-swiper-flatlist": "^3.2.3",
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.6",
-    "twrnc": "^3.6.8",
-    "expo-clipboard": "~5.0.1"
+    "twrnc": "^3.6.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
