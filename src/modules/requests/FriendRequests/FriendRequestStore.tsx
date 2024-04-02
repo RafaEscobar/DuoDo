@@ -9,5 +9,5 @@ export const FriendRequestStore = async(origin_user_id:any, target_user_id:any, 
         }
     });
     const res = await response.json();
-    console.log(res);
+    return res;
 }
