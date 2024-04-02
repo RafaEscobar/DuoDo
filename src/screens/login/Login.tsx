@@ -15,6 +15,7 @@ import { VerifyAvatarProcedure } from '../../modules/procedures/VerifyAvatarProc
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {  useContext, useState } from 'react';
 import tw from "twrnc";
+import { useAlert } from '../../hooks/useAlert';
 
 export const Login = ({ navigation: {navigate} }: any) => {
   const { setUser, setToken }:any = useContext(AuthContext);
@@ -23,35 +24,33 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const { authUrl, setAvatar  }:any = useContext(AuthContext);
 
   const handleLogin = async() => {
     try {
-      setLoading(true);
-      const response = await LoginRequest(email, password, authUrl);
-      if (response.status == 200) {
-        await AsyncStorage.setItem('u-token', response.body.token);
-        await AsyncStorage.setItem('user', JSON.stringify(response.body.user));
-        VerifyAvatarProcedure(response.body.user, setAvatar, 'login');
-        setToken(response.body.token);
-        setUser(JSON.stringify(response.body.user));
-        setLoading(false);
-        navigate('MainStackNavigation');
+      if (password.length>=8) {
+        setLoading(true);
+        const response = await LoginRequest(email, password, authUrl);
+        if (response.status == 200) {
+          await AsyncStorage.setItem('u-token', response.body.token);
+          await AsyncStorage.setItem('user', JSON.stringify(response.body.user));
+          VerifyAvatarProcedure(response.body.user, setAvatar, 'login');
+          setToken(response.body.token);
+          setUser(JSON.stringify(response.body.user));
+          setLoading(false);
+          navigate('MainStackNavigation');
+        } else {
+          setLoading(false);
+          useAlert(ALERT_TYPE.WARNING, 'Hay un problema...', response.body.message);
+        }
       } else {
-        setLoading(false);
-        Toast.show({
-          type: ALERT_TYPE.WARNING,
-          title: 'Hay un problema...',
-          textBody: response.body.message,
-        });
+        useAlert(ALERT_TYPE.WARNING, 'Contraseña incompleta', 'La contraseña debe tener más de 8 caracteres.');
       }
     } catch (error) {
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error interno',
-        textBody: 'Error desconocido, intentalo más tarde.',
-      });
+      setLoading(false);
+      useAlert(ALERT_TYPE.WARNING, 'Error interno', 'Error desconocido, intentalo más tarde.');
     }
   }
 
@@ -78,8 +77,10 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const validateEmail = () => {
     const re = /\S+@\S+\.\S+/;
     if (!re.test(email)) {
+      setBtnDisabled(true);
       setEmailError('Formato de correo inválido');
     } else {
+      setBtnDisabled(false);
       setEmailError('');
     }
   };
@@ -89,9 +90,11 @@ export const Login = ({ navigation: {navigate} }: any) => {
    *  @returns void
    */
   const validatePassword = () => {
-    if (password.length <= 6) {
+    if (password.length <= 8) {
+      setBtnDisabled(true);
       setPasswordError('La contraseña debe tener al menos 8 caracteres');
     } else {
+      setBtnDisabled(false);
       setPasswordError('');
     }
   };
@@ -149,7 +152,9 @@ export const Login = ({ navigation: {navigate} }: any) => {
             </FormControl>
           </View>
           <TouchableOpacity
-            onPress={() => handleLogin()} style={[styles.button]}>
+            onPress={() => handleLogin()} style={[styles.button]}
+            disabled={btnDisabled}
+            >
             <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
           </TouchableOpacity>
           <View style={styles.contex}>
