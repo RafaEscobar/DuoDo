@@ -8,7 +8,7 @@ import { LoadingComponent } from '../../component/LoadingComponent';
 import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { RegisterRequest } from '../../modules/requests/RegisterRequest';
 import { useFonts } from 'expo-font';
-import { View, Text, Pressable, TextInput, Platform } from 'react-native'
+import { View, Text, Pressable, TextInput, Platform, TouchableOpacity } from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
@@ -23,10 +23,13 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const {authUrl}:any = useContext(AuthContext);
 
@@ -48,6 +51,30 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
       setEmailError('Formato de correo inválido');
     } else {
       setEmailError('');
+    }
+  }
+
+/**
+   ** Function to validate the email
+   * @returns void
+   */
+   const validateName = () => {
+    if (name.length < 4) {
+      setNameError('El nombre debe tener por lo menos 4 caracteres');
+    } else {
+      setNameError('');
+    }
+  }
+
+  /**
+   ** Function to validate the email
+   * @returns void
+   */
+   const validateLastName = () => {
+    if (last_name.length < 4) {
+      setLastNameError('Los apellidos deben tener por lo menos 4 caracteres');
+    } else {
+      setLastNameError('');
     }
   }
 
@@ -161,10 +188,12 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                 <InputField
                   value={name}
                   onChangeText={setName}
+                  onEndEditing={validateName}
                   type='text'
                   placeholder="Admin"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
                 />
+                {nameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{nameError}</Text> : null}
               </Input>
               <FormControlLabel>
                 <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
@@ -175,12 +204,13 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                 <InputField
                   value={last_name}
                   onChangeText={setLastName}
+                  onEndEditing={validateLastName}
                   type='text'
                   placeholder="Admin DuoDo"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
                 />
+                {lastNameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{lastNameError}</Text> : null}
               </Input>
-
               <View>
                 <Text style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>Fecha de nacimiento</Text>
                 {showPicker && (
@@ -240,10 +270,13 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                 {passwordError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{passwordError}</Text> : null}
               </Input>
             </FormControl>
-            <Button
-              onPress={() =>  handleRegister() } style={[tw`flex justify-center items-center mt-4`]}>
+            <TouchableOpacity
+              onPress={() =>  handleRegister() }
+              style={[tw`flex justify-center items-center mt-4`]}
+              disabled={btnDisabled}
+            >
               <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
-            </Button>
+            </TouchableOpacity>
           </View>
         </View>
         <LoadingComponent
