@@ -54,6 +54,7 @@
     "react-native-swiper-flatlist": "^3.2.3",
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.6",
+    "reanimated-color-picker": "^3.0.3",
     "twrnc": "^3.6.8"
   },
   "devDependencies": {
