@@ -43,7 +43,11 @@ export const Login = ({ navigation: {navigate} }: any) => {
           navigate('MainStackNavigation');
         } else {
           setLoading(false);
-          useAlert(ALERT_TYPE.WARNING, 'Hay un problema...', response.body.message);
+          if (response.status == 422) {
+            useAlert(ALERT_TYPE.WARNING, 'Hay un problema...', "Revisa que tu correo electrónico tenga un formato válido.");
+          } else {
+            useAlert(ALERT_TYPE.WARNING, 'Hay un problema...', response.body.message);
+          }
         }
       } else {
         useAlert(ALERT_TYPE.WARNING, 'Contraseña incompleta', 'La contraseña debe tener más de 8 caracteres.');
