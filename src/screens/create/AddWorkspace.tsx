@@ -1,14 +1,13 @@
+import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../context/AuthContext';
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { SelectList } from 'react-native-dropdown-select-list';
+import { StoreWorkspace } from '../../modules/requests/workspaces/Index';
+import { todosData } from '../../data/todos';
+import { useFonts } from 'expo-font';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
-import { SelectList } from 'react-native-dropdown-select-list';
-import { todosData } from '../../data/todos';
-import { AntDesign } from '@expo/vector-icons';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
-import { StoreWorkspace } from '../../modules/requests/workspaces/Index';
-import { AuthContext } from '../../context/AuthContext';
-import { LoadingComponent } from '../../component/LoadingComponent';
 
 export const AddWorkspace = ({ navigation: { navigate } }: any) => {
 
