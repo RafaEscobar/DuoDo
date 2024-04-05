@@ -12,6 +12,7 @@ import { View, Text, Pressable, TextInput, Platform, TouchableOpacity } from 're
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
+import { useAlert } from '../../hooks/useAlert';
 
 export const SignUp = ({ navigation: { navigate } }: any) => {
   /**
@@ -29,7 +30,6 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const {authUrl}:any = useContext(AuthContext);
 
@@ -132,35 +132,33 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
       if ( name.length>0 && last_name.length>0 && email.length>0 && password.length>0 && birthdate.length>0 ) {
         const response = await RegisterRequest(name, last_name, email, password, birthdate, authUrl);
         setLoading(false);
-        if (response.status == 200) {
-          navigate('Login');
+        console.log(response);
+        if (response.status == 201) {
+          useAlert(ALERT_TYPE.SUCCESS, 'Registro', 'Cuenta creada con exito 🎉🎉');
+          setTimeout(() => {
+            navigate('Login');
+          }, 2000);
         } else {
-          Toast.show({
-            type: ALERT_TYPE.WARNING,
-            title: 'Hay un problema...',
-            textBody: response.body.message,
-          });
+          if (response.status == 422) {
+            if (response.body.message == 'The email has already been taken.') {
+              useAlert(ALERT_TYPE.WARNING, 'Correo previamente usado', 'El correo electrónico que proporcionaste ya ha sido utilizado.');
+            } else {
+              useAlert(ALERT_TYPE.WARNING, 'Hay un problema...', 'Revisa el formato de los datos que indicaste.');
+            }
+          } else {
+            useAlert(ALERT_TYPE.WARNING, 'Hay un problema...', response.body.message);
+          }
         }
       } else {
         setLoading(false);
-        Toast.show({
-          type: ALERT_TYPE.WARNING,
-          title: 'Campos incompletos',
-          textBody: 'Debes proporcionar todos los datos indicados.',
-        });
+        useAlert(ALERT_TYPE.WARNING, 'Campos incompletos', 'Debes proporcionar todos los datos indicados.');
       }
     } catch (error) {
       console.log(error);
       setLoading(false);
-      Toast.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error interno',
-        textBody: 'Error desconocido, intentalo más tarde.',
-      });
+      useAlert(ALERT_TYPE.DANGER, 'Error interno', 'Error desconocido, intentalo más tarde.');
     }
-
   }
-
   return (
     <AlertNotificationRoot>
      <SafeAreaView>
@@ -190,8 +188,9 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onChangeText={setName}
                   onEndEditing={validateName}
                   type='text'
-                  placeholder="Admin"
+                  placeholder="Ingreza tu nombre"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  maxLength={18}
                 />
                 {nameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{nameError}</Text> : null}
               </Input>
@@ -206,8 +205,9 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onChangeText={setLastName}
                   onEndEditing={validateLastName}
                   type='text'
-                  placeholder="Admin DuoDo"
+                  placeholder="Ingresa tus apellidos"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  maxLength={28}
                 />
                 {lastNameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{lastNameError}</Text> : null}
               </Input>
@@ -227,7 +227,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   >
                     <TextInput
                       style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
-                      placeholder='Selecciona tu fecha de nacimiento'
+                      placeholder='Ingresa tu fecha de nacimiento'
                       value={birthdate}
                       editable={false}
                       onChangeText={setDateOfBirth}
@@ -248,8 +248,9 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onEndEditing={validateEmail}
                   value={email}
                   keyboardType="email-address"
-                  placeholder="admin@duo.com"
+                  placeholder="micorreo@ejemplo.com"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  maxLength={34}
                 />
                 {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
               </Input>
@@ -266,6 +267,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   placeholder="*********"
                   secureTextEntry
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  maxLength={16}
                 />
                 {passwordError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{passwordError}</Text> : null}
               </Input>
@@ -273,7 +275,6 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
             <TouchableOpacity
               onPress={() =>  handleRegister() }
               style={[tw`flex justify-center items-center mt-4`]}
-              disabled={btnDisabled}
             >
               <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
             </TouchableOpacity>

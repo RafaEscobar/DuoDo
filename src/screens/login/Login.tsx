@@ -131,8 +131,9 @@ export const Login = ({ navigation: {navigate} }: any) => {
                   onEndEditing={validateEmail}
                   value={email}
                   keyboardType="email-address"
-                  placeholder="admin@duo.com"
+                  placeholder="micorreo@ejemplo.com"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+                  maxLength={34}
                 />
                 {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
               </Input>
@@ -149,6 +150,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
                   placeholder="*********"
                   secureTextEntry
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+                  maxLength={16}
                 />
                 {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
               </Input>

@@ -13,7 +13,8 @@ export const RegisterRequest = async (name:any, last_name:any, email:any, passwo
     const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(params),
     });
