@@ -137,7 +137,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
           useAlert(ALERT_TYPE.SUCCESS, 'Registro', 'Cuenta creada con exito 🎉🎉');
           setTimeout(() => {
             navigate('Login');
-          }, 2000);
+          }, 1000);
         } else {
           if (response.status == 422) {
             if (response.body.message == 'The email has already been taken.') {

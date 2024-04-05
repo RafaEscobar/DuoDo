@@ -6,7 +6,6 @@ import { View, Text, Image, StyleSheet, Platform, ScrollView, TouchableOpacity }
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext, useEffect, useState } from 'react';
 import tw from 'twrnc';
-import { useNavigation } from '@react-navigation/native';
 
 export const SelectAvatar = ({ navigation: {navigate} }: any) => {
     const [avatars, setAvatars] = useState([]);
@@ -35,7 +34,7 @@ export const SelectAvatar = ({ navigation: {navigate} }: any) => {
         SetAvatarRequest(authUrl, currentUser.external_identifier, selectedId);
         await procedures();
         setLoading(false);
-        navigate('BottomTabNavigation');
+        navigate('DashboardStack');
     }
 
     const procedures = async() => {
