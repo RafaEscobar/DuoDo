@@ -12,12 +12,13 @@ export const StoreTask = async(title:any, description:any, responsable_id:any, p
         }),
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
         }
     });
     const res = await response.json();
     return {
-        message: res.message,
-        status: response.status
+        'body': res,
+        'status': response.status
     };
 }
