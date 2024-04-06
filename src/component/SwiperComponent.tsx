@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, Dimensions, StyleSheet, View, Image, SafeAreaView, Animated, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
@@ -42,16 +42,23 @@ const ANCHO_CONTENEDOR = width * 0.7;
 // const ESPACIO_LATERAL = (width - ANCHO_CONTENEDOR) / 2;
 const ESPACIO = 10;
 
-export const SwiperComponent = () => {
+export const SwiperComponent = (props:any) => {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
   });
 
+  const { workspaces } = props;
+
+  useEffect(() => {
+    console.log(workspaces);
+  }, [workspaces]);
+
   if (!fontsLoaded) {
     return null;
   }
   const scollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <SafeAreaView>
       <Animated.FlatList
@@ -59,17 +66,15 @@ export const SwiperComponent = () => {
           [{ nativeEvent: { contentOffset: { x: scollX } } }],
           { useNativeDriver: true }
         )}
-        data={slide1}
+        data={workspaces}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 50,
-          // paddingHorizontal: ESPACIO_LATERAL
         }}
         decelerationRate={0}
         snapToInterval={ANCHO_CONTENEDOR}
         scrollEventThrottle={16}
-        // keyExtractor={(element: any) => element}
         renderItem={({ item, index }) => {
           const inputRange = [
             (index - 1) * ANCHO_CONTENEDOR,
@@ -97,21 +102,21 @@ export const SwiperComponent = () => {
                 }}
               >
                 <Text style={{ fontSize: 24, fontFamily: "Poppins_700Bold" }}>{item.title}</Text>
-                <Text style={{ fontSize: 18, color: '#7749de', fontFamily: "Poppins_700Bold" }}>{item.team}</Text>
+                <Text style={{ fontSize: 12, color: '#7749de', fontFamily: "Poppins_700Bold" }}>{item.description.slice(0, 70)}...</Text>
                 <View style={tw`flex flex-row gap-1`}>
-                  <Image
+                  {/* <Image
                     style={tw`w-10 h-10 rounded-full`}
                     source={{ uri: item.image }}
                   />
                   <Image
                     style={tw`w-10 h-10 rounded-full`}
                     source={{ uri: item.avatar }}
-                  />
+                  /> */}
                 </View>
                 <View style={tw`flex flex-row mt-3 gap-1`}>
-                  <Progress.Bar progress={.9} width={200} height={20} color='#0dac4a' borderRadius={20}
+                  <Progress.Bar progress={(item.advance/100)} width={200} height={20} color='#0dac4a' borderRadius={20}
                   />
-                  <Text style={{ fontSize: 12, fontFamily: "Poppins_700Bold" }}>80%</Text>
+                  <Text style={{ fontSize: 12, fontFamily: "Poppins_700Bold" }}>{item.advance}%</Text>
                 </View>
 
 

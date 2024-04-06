@@ -5,16 +5,39 @@ import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins"
 import { SwiperComponent } from '../../component/SwiperComponent';
 import { TaskComponent } from '../../component/TaskComponent';
 import { useFonts } from 'expo-font';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
-import React, { useContext } from 'react';
+import { View, Text, TouchableOpacity, Button, FlatList } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 import tw from 'twrnc';
 import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
+import { WorkspaceListMapper } from '../../mappers/Dashboard/WorkspaceListMapper';
+import { TasksListMapper } from '../../mappers/Dashboard/TasksListMapper';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
-    const { user }: any = useContext(AuthContext);
+    const { user, token, baseUrl }: any = useContext(AuthContext);
+    const [workspaces, setWorkspaces] = useState([]);
+    const [tasks, setTask] = useState([]);
+
     const currentUser = JSON.parse(user);
 
     let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
+
+    const loadData = async() => {
+        const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
+        if (workpaces_res.status == 200) {
+            setWorkspaces(WorkspaceListMapper(workpaces_res.body.data));
+            setTask(TasksListMapper(workpaces_res.body.data));
+        }
+    }
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    // useEffect(() => {
+    //     console.log(workspaces);
+    //     console.log(tasks);
+    // }, [workspaces, tasks]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -52,7 +75,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <SwiperComponent />
+                    <SwiperComponent workspaces={workspaces} />
                 </View>
                 <View style={tw`flex ml-3 mt-6 sm:ml-4 sm:mt-5`}>
                     <View>
