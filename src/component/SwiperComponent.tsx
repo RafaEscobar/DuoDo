@@ -1,45 +1,15 @@
-import React, { useEffect } from 'react';
-import { Text, Dimensions, StyleSheet, View, Image, SafeAreaView, Animated, FlatList } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { StatusBar } from 'expo-status-bar';
+import { Text, Dimensions, View, Image, SafeAreaView, Animated } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as Progress from 'react-native-progress';
+import React, { useEffect } from 'react';
 import tw from 'twrnc';
-
-
-const slide1 = [
-  {
-    title: 'Terminar el slide',
-    team: 'Desarrollador Web',
-    avatar: 'http://github.com/AlexisSM377.png',
-    image: 'https://kaihatsu-code.com/assets/logo_solid.png'
-
-  },
-  {
-    title: 'Integrar con la app',
-    team: 'Desarrollador Web',
-    avatar: 'https://kaihatsu-code.com/assets/logo_solid.png',
-    image: 'http://github.com/AlexisSM377.png'
-  },
-  {
-    title: 'Integrar la app',
-    team: 'Desarrollador Web',
-    avatar: 'http://github.com/AlexisSM377.png',
-    image: 'https://kaihatsu-code.com/assets/logo_solid.png'
-  },
-  {
-    title: 'Integrar la app',
-    team: 'Desarrollador Web',
-    avatar: 'https://kaihatsu-code.com/assets/logo_solid.png',
-    image: 'http://github.com/AlexisSM377.png'
-  }
-];
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const ANCHO_CONTENEDOR = width * 0.7;
-// const ESPACIO_LATERAL = (width - ANCHO_CONTENEDOR) / 2;
 const ESPACIO = 10;
 
 export const SwiperComponent = (props:any) => {
@@ -130,20 +100,3 @@ export const SwiperComponent = (props:any) => {
     </SafeAreaView>
   );
 }
-
-
-
-const styles = StyleSheet.create({
-
-  posterImage: {
-    width: 50,
-    height: 50,
-    resizeMode: "cover",
-    borderRadius: 24,
-    margin: 0,
-    marginBottom: 10,
-  }
-});
-
-
-
