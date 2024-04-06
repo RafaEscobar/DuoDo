@@ -24,7 +24,6 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const { authUrl, setAvatar  }:any = useContext(AuthContext);
 
@@ -81,10 +80,8 @@ export const Login = ({ navigation: {navigate} }: any) => {
   const validateEmail = () => {
     const re = /\S+@\S+\.\S+/;
     if (!re.test(email)) {
-      setBtnDisabled(true);
       setEmailError('Formato de correo inválido');
     } else {
-      setBtnDisabled(false);
       setEmailError('');
     }
   };
@@ -95,10 +92,8 @@ export const Login = ({ navigation: {navigate} }: any) => {
    */
   const validatePassword = () => {
     if (password.length <= 8) {
-      setBtnDisabled(true);
       setPasswordError('La contraseña debe tener al menos 8 caracteres');
     } else {
-      setBtnDisabled(false);
       setPasswordError('');
     }
   };
@@ -159,7 +154,6 @@ export const Login = ({ navigation: {navigate} }: any) => {
           </View>
           <TouchableOpacity
             onPress={() => handleLogin()} style={[styles.button]}
-            disabled={btnDisabled}
             >
             <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Iniciar</Text>
           </TouchableOpacity>

@@ -15,7 +15,9 @@ export const StoreWorkspace = async(name:any, description:any, color:any, token:
             'Authorization': `Bearer ${token}`
         }
     });
-    console.log(response.status);
-    const res = await response.json();
-    return response.status
+    let res = await response.json();
+    return {
+        'body': res,
+        'status': response.status
+    };
 }

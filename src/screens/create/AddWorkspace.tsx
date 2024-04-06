@@ -29,9 +29,14 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                 let external_identifier = JSON.parse(user).external_identifier;
                 const response = await StoreWorkspace(name, description, color, token, baseUrl, external_identifier);
                 setLoading(false);
+                if (response.status == 200) {
+                    useAlert(ALERT_TYPE.SUCCESS, 'Registro exitoso 🎉', response.body.message);
+                } else {
+                    useAlert(ALERT_TYPE.WARNING, 'Advertencia', response.body.message);
+                }
             } else {
                 setLoading(false);
-                useAlert(ALERT_TYPE.INFO, 'Indicación', 'Atiende a las especificaciones de tamaño para el nombre y descripción del espacio de trabajo.');
+                useAlert(ALERT_TYPE.INFO, 'Indicación', 'Atienda las especificaciones de tamaño para el nombre y la descripción.');
             }
         } else {
             setLoading(false);
