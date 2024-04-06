@@ -1,6 +1,5 @@
 export const StoreWorkspace = async(name:any, description:any, color:any, token:any, baseUrl:any, user_id:any) => {
     const url = `${baseUrl}/workspaces`;
-    console.log();
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -16,5 +15,9 @@ export const StoreWorkspace = async(name:any, description:any, color:any, token:
             'Authorization': `Bearer ${token}`
         }
     });
-    return response.status
+    let res = await response.json();
+    return {
+        'body': res,
+        'status': response.status
+    };
 }

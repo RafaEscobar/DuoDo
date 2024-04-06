@@ -57,8 +57,8 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     if (title != null && description != null && priority != null && workspace != null && date != null && time != null) {
       let formatedDate = `${date} ${time}`;
       const response = await StoreTask(title, description, null, priority, workspace, formatedDate, token, baseUrl);
-      console.log(response); // {"message": "Tarea creada.", "status": 200}
-      navigate('BottomTabNavigation');
+      console.log(response);
+      // navigate('BottomTabNavigation');
     } else {
       console.log("Llena todos los campos.");
     }
@@ -215,7 +215,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             )}
           </View>
           <View style={tw`mt-10 justify-center items-center`}>
-            <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
+            <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl text-white`}>
               <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
             </TouchableOpacity>
           </View>
