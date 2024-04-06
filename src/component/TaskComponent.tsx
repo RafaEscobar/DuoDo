@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, SafeAreaView, Animated, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import tw from 'twrnc';
 
-
-
-export const TaskComponent = () => {
+export const TaskComponent = (props:any) => {
     const [task, setTask] = useState([
         {
             id: '1',
@@ -18,7 +16,6 @@ export const TaskComponent = () => {
         },
         {
             id: '2',
-            
             title: 'Integrar con la app',
             description: 'Hacer un slide que me permita mostrar info',
             hours: '9:00 am',
@@ -26,7 +23,6 @@ export const TaskComponent = () => {
         },
         {
             id: '3',
-            
             title: 'Integrar la app',
             description: 'Hacer un slide que me permita mostrar info',
             hours: '9:00 am',
@@ -67,8 +63,14 @@ export const TaskComponent = () => {
             hours: '9:00 am',
             completed: false
         }
-    ])
-    
+    ]);
+
+    const { tasks } = props;
+
+    useEffect(() => {
+        console.log(tasks);
+    }, [tasks])
+
     const CheckMark = ({ id, completed }: any) => {
         return (
             <Pressable
@@ -107,7 +109,7 @@ export const TaskComponent = () => {
     return (
         <View>
             <FlatList
-                data={task}
+                data={tasks}
                 keyExtractor={(item) => item.id}
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}

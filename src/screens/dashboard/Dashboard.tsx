@@ -1,17 +1,17 @@
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 import { AuthContext } from '../../context/AuthContext';
 import { Image } from "expo-image";
+import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
 import { Ionicons } from '@expo/vector-icons';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { SwiperComponent } from '../../component/SwiperComponent';
 import { TaskComponent } from '../../component/TaskComponent';
+import { TasksListMapper } from '../../mappers/Dashboard/TasksListMapper';
 import { useFonts } from 'expo-font';
-import { View, Text, TouchableOpacity, Button, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { WorkspaceListMapper } from '../../mappers/Dashboard/WorkspaceListMapper';
 import React, { useContext, useEffect, useState } from 'react';
 import tw from 'twrnc';
-import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
-import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
-import { WorkspaceListMapper } from '../../mappers/Dashboard/WorkspaceListMapper';
-import { TasksListMapper } from '../../mappers/Dashboard/TasksListMapper';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user, token, baseUrl }: any = useContext(AuthContext);
@@ -87,7 +87,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         </View>
                     </View>
                     <View style={tw`w-92 h-85`}>
-                        <TaskComponent />
+                        <TaskComponent tasks={tasks} />
                     </View>
                 </View>
             </View>
