@@ -50,7 +50,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     let priorities_res = await IndexPriorities(token, baseUrl);
     let workspace_res = await IndexWorkspace(external_identifier, token, baseUrl);
     setPriorities(PriorityMapper(priorities_res));
-    setWorkspaces(WorkspaceMapper(workspace_res.data));
+    setWorkspaces(WorkspaceMapper(workspace_res.body.data));
   }
 
   const handleSaveTask = async() => {
@@ -67,6 +67,11 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   useEffect(() => {
     loadSelectData();
   }, []);
+
+  useEffect(() => {
+    console.log(priorities);
+    console.log(workspaces);
+  }, [priorities, workspaces]);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
