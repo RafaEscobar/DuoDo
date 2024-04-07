@@ -5,6 +5,12 @@ import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins"
 import { useFonts } from 'expo-font';
 import tw from 'twrnc';
 
+const formatDate = (date:any) => {
+    const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric',   hour12: true});
+    return newDate.charAt(0).toUpperCase() + newDate.slice(1);
+}
+
+
 export const TaskComponent = (props:any) => {
     const [task, setTask] = useState([
         {
@@ -124,9 +130,9 @@ export const TaskComponent = (props:any) => {
                         <View style={tw`flex-row items-center grow gap-2`}>
                             <CheckMark id={item.id} completed={item.completed} />
                             <View style={tw`flex flex-col`}>
-                                <Text style={[tw`text-2xl`, { fontFamily: "Poppins_700Bold" }]}>{item.title}</Text>
-                                <Text style={[tw`w-60 text-base`, { fontFamily: "Poppins_400Regular" }]}>{item.description}</Text>
-                                <Text style={[tw`text-base opacity-60 text-violet-800`, { fontFamily: "Poppins_700Bold" }]}>{item.hours}</Text>
+                                <Text style={[tw`text-xl`, { fontFamily: "Poppins_700Bold" }]}>{item.title.slice(0, 26)}</Text>
+                                <Text style={[tw`w-60 text-sm`, { fontFamily: "Poppins_400Regular" }]}>{item.description.slice(0, 76)}...</Text>
+                                <Text style={[tw`text-xs opacity-60 text-violet-800`, { fontFamily: "Poppins_700Bold" }]}>{formatDate(item.due_date)}</Text>
                             </View>
                         </View>
                         {isDeleteActive && (
