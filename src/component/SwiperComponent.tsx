@@ -20,10 +20,6 @@ export const SwiperComponent = (props:any) => {
 
   const { workspaces } = props;
 
-  useEffect(() => {
-    console.log(workspaces);
-  }, [workspaces]);
-
   if (!fontsLoaded) {
     return null;
   }

@@ -16,7 +16,7 @@ export const Workspace = ({ navigation: { navigate } }: any) => {
   const handleLoadWorkspaces = async() => {
     let external_identifier = JSON.parse(user).external_identifier;
     let data:any = await IndexWorkspace(external_identifier, token, baseUrl);
-    setWorkspaces(data);
+    setWorkspaces(data.body);
   }
 
   useEffect(() => {

@@ -10,7 +10,6 @@ const formatDate = (date:any) => {
     return newDate.charAt(0).toUpperCase() + newDate.slice(1);
 }
 
-
 export const TaskComponent = (props:any) => {
     const [task, setTask] = useState([
         {
@@ -72,10 +71,6 @@ export const TaskComponent = (props:any) => {
     ]);
 
     const { tasks } = props;
-
-    useEffect(() => {
-        console.log(tasks);
-    }, [tasks])
 
     const CheckMark = ({ id, completed }: any) => {
         return (

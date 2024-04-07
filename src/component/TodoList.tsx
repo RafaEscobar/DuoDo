@@ -1,13 +1,13 @@
 import React from "react";
-// import { todosData } from '../data/todos';
 import { FlatList } from "react-native";
 import { Todo } from "./Todo";
-import tw from 'twrnc';
 
-export const TodoList = ({ todosData }: any) => {
+export const TodoList = (props:any) => {
+    const { tasks } = props;
+    console.log(tasks);
     return (
         <FlatList
-            data={todosData}
+            data={tasks}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) =>
                 <Todo {...item} />

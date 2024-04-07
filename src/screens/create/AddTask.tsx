@@ -68,10 +68,6 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     loadSelectData();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(workspaces);
-  // }, [workspaces]);
-
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold
