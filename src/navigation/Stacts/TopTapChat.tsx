@@ -17,6 +17,7 @@ export const TopTapChat = () => {
     if (!fontsLoaded) {
         return null;
     }
+    
     return (
         <TopTap.Navigator
             screenOptions={({ route }) => ({

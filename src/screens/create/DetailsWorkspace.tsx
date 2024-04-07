@@ -1,24 +1,19 @@
+import { CheckList } from '../../component/workspace/CheckList';
+import { FontAwesome } from '@expo/vector-icons';
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { todosData } from '../../data/todos';
+import { useFonts } from 'expo-font';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react'
 import tw from 'twrnc';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
-import { workspaceData } from '../../data/workspaceData'
-import { CheckList } from '../../component/workspace/CheckList';
-import { todosData } from '../../data/todos';
-import { FontAwesome } from '@expo/vector-icons';
-import { Workspace } from './Workspace';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
-
   const [localData, setLocalData] = useState(
     todosData.sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted))
   );
 
   const [isHidden, setIsHidden] = useState(false);
-
   const { workspace } = route.params;
-  console.log(workspace.name);
 
   const handleHidePress = () => {
     if (isHidden) {
@@ -52,7 +47,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
         </View>
         <View style={tw`mt-3`}>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
-            Tareas: X
+            Tareas: {workspace.tasks.length}
           </Text>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
             Miembros: X
@@ -74,9 +69,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <CheckList
-          todosData={localData.filter(todo => todo.isToday)}
-        />
+        <CheckList tasks={workspace.tasks} />
       </View>
     </SafeAreaView>
   )
