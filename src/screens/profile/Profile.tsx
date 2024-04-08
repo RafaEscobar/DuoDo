@@ -12,6 +12,8 @@ import React, { useContext, useState } from 'react';
 import tw from 'twrnc';
 import * as Clipboard from 'expo-clipboard';
 import { FriendRequestStore } from '../../modules/requests/FriendRequests/FriendRequestStore';
+import { ALERT_TYPE } from 'react-native-alert-notification';
+import { useAlert } from '../../hooks/useAlert';
 
 export const Profile = ({ navigation }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -57,6 +59,7 @@ export const Profile = ({ navigation }: any) => {
 
     const handleFriendRequest = async() => {
         FriendRequestStore(currentUser.external_identifier, friendCode, baseUrl, token);
+        useAlert(ALERT_TYPE.SUCCESS, 'Enviado', "Solicitud de amistad enviada exitosamente.");
     }
 
     return (

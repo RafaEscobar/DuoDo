@@ -8,6 +8,9 @@ export const FriendRequestStore = async(origin_user_id:any, target_user_id:any, 
             'Content-Type': 'application/json'
         }
     });
+    console.log(response.status);
+    console.log(response);
     const res = await response.json();
-    return res;
+    console.log(res);
+    // return res;
 }
