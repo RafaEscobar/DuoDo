@@ -12,22 +12,26 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { WorkspaceListMapper } from '../../mappers/Dashboard/WorkspaceListMapper';
 import React, { useContext, useEffect, useState } from 'react';
 import tw from 'twrnc';
+import LottieView from 'lottie-react-native';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user, token, baseUrl }: any = useContext(AuthContext);
     const [workspaces, setWorkspaces] = useState([]);
     const [tasks, setTask] = useState([]);
+    const [load, setLoad] = useState(false);
 
     const currentUser = JSON.parse(user);
 
     let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
 
     const loadData = async() => {
+        setLoad(true);
         const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
         if (workpaces_res.status == 200) {
             setWorkspaces(WorkspaceListMapper(workpaces_res.body.data));
             setTask(TasksListMapper(workpaces_res.body.data));
         }
+        setLoad(false);
     }
 
     useEffect(() => {
@@ -66,7 +70,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         />
                     </View>
                 </View>
-                <View>
+                <View style={tw`h-[30%] mb-6`}>
                     <View>
                         <View style={tw`flex flex-row justify-between items-center w-90 ml-3`}>
                             <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Workspace</Text>
@@ -75,20 +79,42 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <SwiperComponent workspaces={workspaces} />
+                    {
+                        load ?
+                            <View style={tw`flex justify-center items-center h-full`}>
+                                <LottieView
+                                    source={require('../../../assets/animations/load.json')}
+                                    style={{width: "50%", height: "50%"}}
+                                    autoPlay
+                                    loop
+                                />
+                            </View>
+                        :
+                        <SwiperComponent workspaces={workspaces} />
+                    }
                 </View>
-                <View style={tw`flex ml-3 mt-6 sm:ml-4 sm:mt-5`}>
+                <View style={tw`flex h-[45%] px-4 w-full`}> 
                     <View>
-                        <View style={tw`flex flex-row justify-between items-center w-90`}>
+                        <View style={tw`flex flex-row justify-between items-center`}>
                             <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
                             <TouchableOpacity onPress={() => navigate('Task')}>
                                 <Text style={[tw`text-base text-sky-500`, { fontFamily: "Poppins_700Bold" }]}>Ver todas</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={tw`w-92 h-85`}>
+                    {
+                        load ?
+                            <View style={tw`flex justify-center items-center h-full`}>
+                                <LottieView
+                                    source={require('../../../assets/animations/load.json')}
+                                    style={{width: "35%", height: "35%"}}
+                                    autoPlay
+                                    loop
+                                />
+                            </View>
+                        :
                         <TaskComponent tasks={tasks} />
-                    </View>
+                    }
                 </View>
             </View>
         </AlertNotificationRoot>
