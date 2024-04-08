@@ -73,7 +73,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                 <View style={tw`h-[30%] mb-6`}>
                     <View>
                         <View style={tw`flex flex-row justify-between items-center w-90 ml-3`}>
-                            <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Workspace</Text>
+                            <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Espacios de trabajo</Text>
                             <TouchableOpacity onPress={() => navigate('Workspace')}>
                                 <Text style={[tw`text-base text-sky-500`, { fontFamily: "Poppins_700Bold" }]}>Ver todas</Text>
                             </TouchableOpacity>
@@ -90,13 +90,24 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                                 />
                             </View>
                         :
-                        <SwiperComponent workspaces={workspaces} />
+                            (workspaces.length > 0) ?
+                                <SwiperComponent workspaces={workspaces} />
+                            :
+                                <View style={tw`mt-10 flex justify-center items-center`}>
+                                    <Text style={tw`text-white text-center font-semibold`}>No tienes espacios de trabajo para mostrar.</Text>
+                                    <LottieView
+                                        source={require('../../../assets/animations/empty.json')}
+                                        style={{width: "80%", height: "80%"}}
+                                        autoPlay
+                                        loop
+                                    />
+                                </View>
                     }
                 </View>
-                <View style={tw`flex h-[45%] px-4 w-full`}> 
+                <View style={tw`flex h-[45%] px-4 w-full`}>
                     <View>
                         <View style={tw`flex flex-row justify-between items-center`}>
-                            <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
+                            <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
                             <TouchableOpacity onPress={() => navigate('Task')}>
                                 <Text style={[tw`text-base text-sky-500`, { fontFamily: "Poppins_700Bold" }]}>Ver todas</Text>
                             </TouchableOpacity>
@@ -113,7 +124,18 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                                 />
                             </View>
                         :
-                        <TaskComponent tasks={tasks} />
+                            (tasks.length > 0) ?
+                                <TaskComponent tasks={tasks} />
+                                :
+                                <View style={tw`mt-10 flex justify-center items-center`}>
+                                    <Text style={tw`text-white text-center font-semibold`}>No tienes tareas para mostrar.</Text>
+                                    <LottieView
+                                        source={require('../../../assets/animations/empty.json')}
+                                        style={{width: "80%", height: "80%"}}
+                                        autoPlay
+                                        loop
+                                    />
+                                </View>
                     }
                 </View>
             </View>
