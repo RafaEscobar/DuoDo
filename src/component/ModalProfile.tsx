@@ -84,7 +84,10 @@ export const ModalProfile = ({ navigate }: any) => {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ borderTopWidth: 1, borderTopColor: '#FAF8F4', paddingTop: 10, paddingBottom: 5 }}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    setModalVisible(false);
+                                    navigate('Notification');
+                                }}>
                                     <View style={tw`flex flex-row items-center gap-3 ml-10`}>
                                         <MaterialCommunityIcons name="bell" size={30} color="#ecc233" />
                                         <Text style={[tw`text-xl text-white`, { fontFamily: 'Poppins_700Bold' }]}>Notificaciones</Text>
