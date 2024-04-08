@@ -7,7 +7,7 @@ import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins"
 import { SwiperComponent } from '../../component/SwiperComponent';
 import { TaskComponent } from '../../component/TaskComponent';
 import { useFonts } from 'expo-font';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Touchable } from 'react-native';
 import React, { useContext } from 'react';
 import tw from 'twrnc';
 
@@ -36,7 +36,9 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                     </View>
                 </View>
                 <View style={tw`flex flex-row-reverse items-center -top-15 -left-5 gap-2`}>
-                    <Ionicons name="notifications" size={25} color="black" style={tw`bg-orange-400 p-2 rounded-2xl mb-4`} />
+                    <TouchableOpacity onPress={() => navigate('Notification')}>
+                        <Ionicons name="notifications" size={25} color="black" style={tw`bg-orange-400 p-2 rounded-2xl mb-4`} />
+                    </TouchableOpacity>
                     <Image
                         style={tw`w-15 h-15 rounded-full`}
                         source={urlImage}
