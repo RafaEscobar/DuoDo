@@ -13,6 +13,7 @@ import { WorkspaceListMapper } from '../../mappers/Dashboard/WorkspaceListMapper
 import React, { useContext, useEffect, useState } from 'react';
 import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user, token, baseUrl }: any = useContext(AuthContext);
@@ -37,6 +38,12 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
     useEffect(() => {
         loadData();
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+         loadData();
+        }, [])
+    )
 
     // useEffect(() => {
     //     console.log(workspaces);

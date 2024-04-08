@@ -8,11 +8,13 @@ import { useFonts } from 'expo-font';
 import { AuthContext } from '../../context/AuthContext';
 import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
 import { TasksListMapper } from '../../mappers/Dashboard/TasksListMapper';
+import LottieView from 'lottie-react-native';
 
 export const AllTask = ({ navigation: { navigate }, route }: any) => {
   const { user, token, baseUrl }: any = useContext(AuthContext);
   const currentUser = JSON.parse(user);
   const [tasks, setTask] = useState([]);
+  const [load, setLoad] = useState(false);
 
   let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
 
@@ -54,15 +56,33 @@ export const AllTask = ({ navigation: { navigate }, route }: any) => {
 
   return (
     <View style={tw`bg-[#271C3A] h-full`}>
-      <SafeAreaView style={tw`flex pt-10 ml-2.5`}>
-        <View style={tw`flex flex-row justify-between -top-6 w-88 ml-2.5`}>
-          <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas de hoy</Text>
-          <TouchableOpacity onPress={handleHidePress}>
-            <Text style={{ color: '#3478f6', fontFamily: "Poppins_400Regular", fontSize: 18 }}>{isHidden ? "Visualisar" : "Ocultar"}</Text>
-          </TouchableOpacity>
-        </View>
-        <TodoList tasks={tasks} />
-      </SafeAreaView>
+      <View style={tw`flex pt-3 ml-2.5`}>
+        <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
+        {
+            load ?
+              <View style={tw`flex justify-center items-center h-full`}>
+                  <LottieView
+                      source={require('../../../assets/animations/load.json')}
+                      style={{width: "50%", height: "50%"}}
+                      autoPlay
+                      loop
+                  />
+              </View>
+            :
+              (tasks.length > 0) ?
+                <TodoList tasks={tasks} />
+              :
+                <View style={tw`mt-10 flex justify-center items-center`}>
+                    <Text style={tw`text-white text-center font-semibold`}>No tienes tareas para mostrar.</Text>
+                    <LottieView
+                        source={require('../../../assets/animations/empty.json')}
+                        style={{width: "80%", height: "80%"}}
+                        autoPlay
+                        loop
+                    />
+                </View>
+        }
+      </View>
     </View>
   )
 }
