@@ -117,7 +117,7 @@ export const TaskComponent = () => {
                         onLongPress={() => setIsDeleteActive(true)}
                         onPress={() => setIsDeleteActive(false)}
                         activeOpacity={0.5}
-                        style={tw`bg-[#c4bbf7] p-4 rounded-2xl mt-3`}
+                        style={tw`bg-[#c4bbf7] p-2 rounded-2xl mt-3`}
                     >
                         <View style={tw`flex-row items-center grow gap-2`}>
                             <CheckMark id={item.id} completed={item.completed} />

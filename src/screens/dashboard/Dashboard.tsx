@@ -27,7 +27,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
     }
 
     return (
-        <View style={tw`bg-[#271C3A]`}>
+        <View style={tw`bg-[#271C3A] h-full`}>
             <View style={tw`flex ml-3 mt-10 sm:ml-4 sm:mt-5`}>
                 <View>
                     <View>
@@ -56,7 +56,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                 </View>
                 <SwiperComponent />
             </View>
-            <View style={tw`flex ml-3 mt-6 sm:ml-4 sm:mt-5`}>
+            <View style={tw`flex ml-3 mt-3 sm:ml-4 sm:mt-5`}>
                 <View>
                     <View style={tw`flex flex-row justify-between items-center w-90`}>
                         <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
@@ -65,7 +65,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={tw`w-92 h-85`}>
+                <View style={tw`w-92 h-80`}>
                     <TaskComponent />
                 </View>
             </View>
