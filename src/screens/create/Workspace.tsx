@@ -18,12 +18,16 @@ export const Workspace = ({ navigation: { navigate } }: any) => {
   const handleLoadWorkspaces = async() => {
     let external_identifier = JSON.parse(user).external_identifier;
     let data:any = await IndexWorkspace(external_identifier, token, baseUrl);
-    setWorkspaces(data.body);
+    setWorkspaces(data.body.data);
   }
 
   useEffect(() => {
     handleLoadWorkspaces();
   }, []);
+
+  useEffect(() => {
+    console.log(workspaces);
+  }, [workspaces]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -58,7 +62,7 @@ export const Workspace = ({ navigation: { navigate } }: any) => {
               (workspaces.length > 0) ?
                 <ScrollView style={tw`h-[90%]`}>
                     <View style={tw`flex-row flex-wrap`}>
-                      {workspaces && workspaces.data.map((workspace:any) => (
+                      {workspaces && workspaces.map((workspace:any) => (
                         <View style={tw`w-1/2 mt-3`} key={workspace.id}>
                           <View style={tw`bg-[#100323] w-44 h-44 rounded-2xl `}>
                             <TouchableOpacity onPress={() => navigate('DetailsWorkspace', {workspace})} >
