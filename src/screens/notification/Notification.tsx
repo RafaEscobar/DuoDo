@@ -78,7 +78,6 @@ export const Notification = ({ navigation }: any) => {
                             ))}
                     </ScrollView>
                 </View>
-
             </View>
         </SafeAreaView>
     )

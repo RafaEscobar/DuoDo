@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Button } from 'react-native'
 import React, { useState } from 'react'
 import tw from 'twrnc';
 import { userData } from '../data/user';
@@ -22,7 +22,7 @@ export const ChatList = ({ navigate }: any) => {
     const [searchText, setSearchText] = useState('');
 
     const filteredData = userData.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()));
-
+    
     return (
         <View>
             <View style={tw`flex justify-center items-center mt-2`}>
@@ -36,6 +36,7 @@ export const ChatList = ({ navigate }: any) => {
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
                 decelerationRate={3}
+                style={tw`h-[90%] mt-3`}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) =>
                     <TouchableOpacity onPress={() => { navigate('ChatMessage', { name: item.name }) }}>

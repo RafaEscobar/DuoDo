@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform
 import React, { useState } from 'react'
 import tw from 'twrnc';
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Comfortaa_700Bold, Comfortaa_500Medium } from "@expo-google-fonts/comfortaa";
 import { useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -53,7 +52,7 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
       </View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={tw`flex-1 justify-end`}>
-        <ScrollView>
+        <ScrollView style={tw`h-80`}>
           <View>
             {messages.map((message, index) => (
               <View key={index} style={tw`flex-row justify-end`}>
@@ -66,9 +65,9 @@ export const ChatMessage = ({ navigation: { navigate }, route }: any) => {
         </ScrollView>
         <View style={tw`flex-row items-center -top-3 pl-2`}>
           <TextInput
-            style={[tw`bg-[#1C1D22] flex-1 pl-4 mr-2 h-14 w-80 rounded-2xl text-base text-white`, { fontFamily: "Comfortaa_500Medium" }]}
+            style={[tw`bg-white flex-1 pl-4 mr-2 h-14 w-80 rounded-2xl text-base text-black`, { fontFamily: "Comfortaa_500Medium" }]}
             placeholder="Escribe un mensaje.."
-            placeholderTextColor="#fff"
+            placeholderTextColor="#A0A0A0"
             multiline
             value={message}
             onChangeText={text => setMessage(text)}
