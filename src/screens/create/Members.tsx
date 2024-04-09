@@ -1,4 +1,4 @@
-import { AntDesign, Octicons } from '@expo/vector-icons';
+import { AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
@@ -74,9 +74,18 @@ export const Members = () => {
                     <TouchableOpacity
                     onPress={() => navigation.goBack() }
                     >
-                        <AntDesign name="left" size={30} color="black" style={tw`bg-neutral-300 w-10 h-10 rounded-xl p-1`} />
+                        <AntDesign name="left" size={26} color="black" style={tw`bg-neutral-300 w-9 h-9 rounded-xl p-1`} />
                     </TouchableOpacity>
-                    <Text style={[tw`text-center text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Miembros</Text>
+                    <View style={tw`flex flex-row w-[80%] justify-between`}>
+                        <View style={tw``}>
+                            <Text style={[tw`text-center text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Miembros</Text>
+                        </View>
+                        <View style={tw``}>
+                            <TouchableOpacity onPress={() => setModalVisible(true)}>
+                                <AntDesign name="addusergroup" size={28} color="white" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
                 <ScrollView>
                     {members.map((item) => (
@@ -92,12 +101,6 @@ export const Members = () => {
                         </View>
                     ))}
                 </ScrollView>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
-                    <View style={tw`flex flex-row bg-gray-800 p-4 mt-4 rounded-xl items-center justify-center gap-3`}>
-                        <Octicons name="person-add" size={30} color="white" />
-                        <Text style={[tw`text-white text-xl`, { fontFamily: "Poppins_700Bold" }]}>AGREGAR MIEMBRO</Text>
-                    </View>
-                </TouchableOpacity>
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -105,7 +108,7 @@ export const Members = () => {
                     >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <View style={tw`w-full`}>
+                            <View style={tw`w-[80%] mb-4`}>
                                 <Text style={tw`mb-4`}>Invitar a un amigo:</Text>
                                 <SelectList
                                     data={friends}
@@ -116,6 +119,7 @@ export const Members = () => {
                                     dropdownTextStyles={tw`text-black`}
                                     fontFamily='Poppins_400Regular'
                                     placeholder='- Eligue a un amigo -'
+                                    notFoundText="No tienes espacios de trabajo, crea uno antes."
                                 />
                             </View>
                             <View style={[{flexDirection: 'row', justifyContent: 'flex-end'}, tw`w-[65%]`]}>
