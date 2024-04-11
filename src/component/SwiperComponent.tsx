@@ -68,7 +68,7 @@ export const SwiperComponent = (props:any) => {
                 }}
               >
                 <Text style={[styles.title, tw`text-white shadow-2xl`]}>{item.title}</Text>
-                <Text style={ styles.subtitle }>{item.description.slice(0, 70)}...</Text>
+                <Text style={ styles.subtitle }>{item.description.slice(0, 68)}...</Text>
                 <View style={tw`flex flex-row gap-1`}>
                   {/* <Image
                     style={tw`w-10 h-10 rounded-full`}
@@ -82,7 +82,7 @@ export const SwiperComponent = (props:any) => {
                 <View style={tw`flex flex-row mt-3 gap-1`}>
                   <Progress.Bar progress={(item.advance/100)} width={200} height={20} color='#0dac4a' borderRadius={20}
                   />
-                  <Text style={{ fontSize: 12, fontFamily: "Poppins_700Bold" }}>{item.advance}%</Text>
+                  <Text style={styles.advance}>{item.advance}%</Text>
                 </View>
 
 
@@ -109,6 +109,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontFamily: "Poppins_700Bold",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+  advance: {
+    fontSize: 12,
+    fontFamily: "Poppins_700Bold",
+    color: 'white',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
