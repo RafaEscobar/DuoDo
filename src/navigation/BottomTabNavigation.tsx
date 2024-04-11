@@ -11,7 +11,7 @@ import { CustomBottomTab } from "../component/CustomBottomTab";
 export type BottomTabParamList = {
   Inicio: undefined;
   ChatStack: undefined;
-  Add: undefined;
+  AddModal: undefined;
   Creación: undefined;
   ProfileModal: undefined;
 };
@@ -68,7 +68,7 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
         }}
       />
       <Tab.Screen
-        name="Add"
+        name="AddModal"
         component={MiddleBtn}
         options={{
           tabBarButton: () => (<ModalSheetScreen navigate={navigate} />),

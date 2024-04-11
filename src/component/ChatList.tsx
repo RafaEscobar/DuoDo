@@ -36,7 +36,7 @@ export const ChatList = ({ navigate }: any) => {
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
                 decelerationRate={3}
-                style={tw`h-[90%] mt-3`}
+                style={tw`h-[85%] mt-3`}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) =>
                     <TouchableOpacity onPress={() => { navigate('ChatMessage', { name: item.name }) }}>

@@ -31,7 +31,7 @@ export const ModalSheetScreen = ({ navigate }: any) => {
       >
         <Image
           source={{ uri: 'https://kaihatsu-code.com/assets/add-removebg-preview.png' }}
-          style={{ width: 40, height: 40 }}
+          style={{ width: 30, height: 30 }}
         />
       </TouchableOpacity>
       <View>

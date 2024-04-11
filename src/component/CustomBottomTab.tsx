@@ -68,7 +68,7 @@ export const CustomBottomTab = ({ state, descriptors, navigation }: BottomTabBar
             onLongPress={onLongPress}
             style={{ flex: 1 }}>
             <View style={styles.contentContainer}>
-              <BottomTabIcon route={route.name} isFocused={isFocused} />
+              <BottomTabIcon route={route.name} isFocused={isFocused} navigation={navigation}  />
             </View>
           </Pressable>
         );
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     position: 'absolute',
     alignSelf: 'center',
-    backgroundColor: '#111827',
+    backgroundColor: '#131F24',
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'space-around',

@@ -31,11 +31,11 @@ export const ModalProfile = ({ navigate }: any) => {
         <View>
             <TouchableOpacity
                 onPress={() => { setModalVisible(true) }}
-                style={{ marginTop: 10, marginRight: 10 }}
+                style={{ marginTop: 4, marginLeft: 6, marginRight: 6 }}
             >
                 <Image
                     source="https://kaihatsu-code.com/assets/menu.png"
-                    style={{ width: 40, height: 40 }}
+                    style={{ width: 35, height: 35 }}
                 />
             </TouchableOpacity>
             <View>

@@ -25,7 +25,7 @@ export const Todo = ({
     return (
 
         <ScrollView>
-            <View style={tw`mb-4 flex flex-row w-80`}>
+            <View style={tw`mb-4 flex flex-row`}>
                 <Checkbox
                     id={id}
                     text={text}
