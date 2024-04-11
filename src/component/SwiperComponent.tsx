@@ -1,6 +1,6 @@
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
-import { Text, Dimensions, View, Image, SafeAreaView, Animated } from 'react-native';
+import { Text, Dimensions, View, Image, SafeAreaView, Animated, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as Progress from 'react-native-progress';
 import React, { useEffect } from 'react';
@@ -62,13 +62,13 @@ export const SwiperComponent = (props:any) => {
                   marginHorizontal: ESPACIO,
                   padding: ESPACIO,
                   borderRadius: 25,
-                  backgroundColor: '#c4bbf7',
+                  backgroundColor: item.color,
                   paddingLeft: 20,
                   transform: [{ translateY }],
                 }}
               >
-                <Text style={{ fontSize: 24, fontFamily: "Poppins_700Bold" }}>{item.title}</Text>
-                <Text style={{ fontSize: 12, color: '#7749de', fontFamily: "Poppins_700Bold" }}>{item.description.slice(0, 70)}...</Text>
+                <Text style={[styles.title, tw`text-white shadow-2xl`]}>{item.title}</Text>
+                <Text style={ styles.subtitle }>{item.description.slice(0, 70)}...</Text>
                 <View style={tw`flex flex-row gap-1`}>
                   {/* <Image
                     style={tw`w-10 h-10 rounded-full`}
@@ -96,3 +96,21 @@ export const SwiperComponent = (props:any) => {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    fontFamily: "Poppins_700Bold",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+  subtitle: {
+    fontSize: 12,
+    color: 'white',
+    fontFamily: "Poppins_700Bold",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  }
+})
