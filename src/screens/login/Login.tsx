@@ -83,11 +83,11 @@ export const Login = ({ navigation: {navigate} }: any) => {
   };
 
   return (
-    <ScrollView style={tw`h-full`}>
-      <View style={[[styles.container, themeContainerStyle], tw`h-full py-10`]}>
+    <ScrollView style={tw`bg-[#271C3A] h-full`}>
+      <View style={tw`flex-1 pt-10`}>
         <Button
           onPress={() => { navigate('Landing') }}
-          style={tw`absolute top-0 left-0 mt-16 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
+          style={tw`absolute top-0 left-0 mt-16 ml-6 bg-neutral-300 w-10 h-10 rounded-xl p-1 hover:bg-orange-200 z-10`}
         >
           <AntDesign name="left" size={30} color="black" />
         </Button>
@@ -110,7 +110,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
                 value={email}
                 keyboardType="email-address"
                 placeholder="admin@duo.com"
-                style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+                style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`, {fontFamily: "Poppins_400Regular"}]}
               />
               {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
             </Input>
@@ -126,7 +126,7 @@ export const Login = ({ navigation: {navigate} }: any) => {
                 value={password}
                 placeholder="*********"
                 secureTextEntry
-                style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+                style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`, {fontFamily: "Poppins_400Regular"}]}
               />
               {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
             </Input>

@@ -2,7 +2,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Button, SafeAreaView, ScrollView } from "@gluestack-ui/themed";
 import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField } from '@gluestack-ui/themed';
 import { Image } from "expo-image";
-import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
+import { Poppins_700Bold, Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { RegisterRequest } from '../../modules/requests/RegisterRequest';
 import { useFonts } from 'expo-font';
 import { View, Text, Pressable, TextInput, Platform } from 'react-native'
@@ -34,8 +34,12 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
    */
   const [fontsLoaded] = useFonts({
     Poppins_700Bold,
-    Poppins_600SemiBold
+    Poppins_400Regular
   });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   /**
    ** Function to validate the email
@@ -110,24 +114,24 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   }
 
   return (
-     <SafeAreaView>
-      <ScrollView style={tw`mb-6`}>
-        <View style={tw`flex-1 items-center pt-10`}>
+    <SafeAreaView style={tw`flex-1`}>
+      <ScrollView style={tw`bg-[#271C3A] flex-1`}>
+        <View style={tw`flex-1 items-center pt-15`}>
           <Button
             onPress={() => { navigate('Login') }}
-            style={tw`absolute top-0 left-0 mt-13 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
+            style={tw`absolute top-0 left-0 mt-13 ml-6 bg-neutral-300 p-1 rounded-xl hover:bg-orange-200 z-10`}
           >
             <AntDesign name="left" size={30} color="black" />
           </Button>
           <Image
-            style={{ width: 370, height: 200, alignSelf: "center", borderRadius: 20 }}
+            style={{ width: '80%', height: 160, alignSelf: "center", borderRadius: 20 }}
             source="https://kaihatsu-code.com/assets/logo_solid.png"
           />
-          <Text style={[tw`text-3xl mt-4`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
+          <Text style={[tw`text-3xl mt-3 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
           <View style={tw`flex justify-center items-center`}>
             <FormControl>
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Nombre
                 </FormControlLabelText>
               </FormControlLabel>
@@ -136,12 +140,12 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   value={name}
                   onChangeText={setName}
                   type='text'
-                  placeholder="Admin"
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  placeholder='Admin'
+                  style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`, { fontFamily: "Poppins_400Regular" }]}
                 />
               </Input>
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Apellidos
                 </FormControlLabelText>
               </FormControlLabel>
@@ -151,12 +155,12 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onChangeText={setLastName}
                   type='text'
                   placeholder="Admin DuoDo"
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`, { fontFamily: "Poppins_400Regular" }]}
                 />
               </Input>
 
               <View>
-                <Text style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>Fecha de nacimiento</Text>
+                <Text style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha de nacimiento</Text>
                 {showPicker && (
                   <DateTimePicker
                     mode="date"
@@ -170,7 +174,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                     onPress={toggleDatepicker}
                   >
                     <TextInput
-                      style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                      style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-sm text-black`, { fontFamily: "Poppins_400Regular" }]}
                       placeholder='Selecciona tu fecha de nacimiento'
                       value={birthdate}
                       editable={false}
@@ -182,7 +186,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
               </View>
 
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Correo electrónico
                 </FormControlLabelText>
               </FormControlLabel>
@@ -193,12 +197,12 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   value={email}
                   keyboardType="email-address"
                   placeholder="admin@duo.com"
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`, { fontFamily: "Poppins_400Regular" }]}
                 />
                 {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
               </Input>
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Contraseña
                 </FormControlLabelText>
               </FormControlLabel>
@@ -209,23 +213,22 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   value={password}
                   placeholder="*********"
                   secureTextEntry
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`}
                 />
                 {passwordError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{passwordError}</Text> : null}
               </Input>
             </FormControl>
             <Button
-              onPress={() =>  handleRegister() } style={[tw`flex justify-center items-center mt-4`]}>
-              <Text style={[tw`text-center text-xl bg-indigo-500 p-2 rounded-3xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
+              onPress={() => handleRegister()} style={[tw`flex justify-center items-center mt-4`]}>
+              <Text style={[tw`text-center text-2xl bg-indigo-500 p-2 rounded-2xl w-64 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrarme</Text>
             </Button>
           </View>
         </View>
         <LoadingComponent
           modalVisible={loading}
           modalText='Registrando'
-      />
+        />
       </ScrollView>
-     </SafeAreaView>
-
+    </SafeAreaView>
   )
 }
