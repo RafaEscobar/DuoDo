@@ -40,10 +40,6 @@ export const Members = ({ route }: any) => {
         loadData();
     }, []);
 
-    // useEffect(() => {
-    //     console.log(friends);
-    // }, [friends]);
-
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_700Bold
