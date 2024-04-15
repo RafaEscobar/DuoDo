@@ -38,8 +38,11 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
    */
   const [fontsLoaded] = useFonts({
     Poppins_700Bold,
-    Poppins_600SemiBold
   });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   /**
    ** Function to validate the email
@@ -162,23 +165,23 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   return (
     <AlertNotificationRoot>
      <SafeAreaView>
-      <ScrollView style={tw`mb-6`}>
+      <ScrollView style={tw`mb-6 bg-[#271C3A] h-full`}>
         <View style={tw`flex-1 items-center pt-10`}>
           <Button
             onPress={() => { navigate('Login') }}
-            style={tw`absolute top-0 left-0 mt-13 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}
+            style={tw`absolute top-0 left-0 mt-13 ml-6 bg-neutral-300 p-1 rounded-xl hover:bg-orange-200 z-10`}
           >
             <AntDesign name="left" size={30} color="black" />
           </Button>
           <Image
-            style={{ width: 370, height: 200, alignSelf: "center", borderRadius: 20 }}
+            style={{ width: '80%', height: 160, alignSelf: "center", borderRadius: 20 }}
             source="https://kaihatsu-code.com/assets/logo_solid.png"
           />
-          <Text style={[tw`text-3xl mt-4`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
+          <Text style={[tw`text-3xl mt-3 text-white`, { fontFamily: "Poppins_700Bold" }]}>Registrar</Text>
           <View style={tw`flex justify-center items-center`}>
             <FormControl>
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Nombre
                 </FormControlLabelText>
               </FormControlLabel>
@@ -188,14 +191,14 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onChangeText={setName}
                   onEndEditing={validateName}
                   type='text'
-                  placeholder="Ingreza tu nombre"
+                  placeholder="Ingresa tu nombre"
                   style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
                   maxLength={18}
                 />
                 {nameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{nameError}</Text> : null}
               </Input>
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Apellidos
                 </FormControlLabelText>
               </FormControlLabel>
@@ -212,7 +215,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                 {lastNameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{lastNameError}</Text> : null}
               </Input>
               <View>
-                <Text style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>Fecha de nacimiento</Text>
+                <Text style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha de nacimiento</Text>
                 {showPicker && (
                   <DateTimePicker
                     mode="date"
@@ -238,7 +241,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
               </View>
 
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Correo electrónico
                 </FormControlLabelText>
               </FormControlLabel>
@@ -255,7 +258,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                 {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
               </Input>
               <FormControlLabel>
-                <FormControlLabelText style={[tw`text-base mt-4`, { fontFamily: "Poppins_600SemiBold" }]}>
+                <FormControlLabelText style={[tw`text-base mt-4 text-white`, { fontFamily: "Poppins_700Bold" }]}>
                   Contraseña
                 </FormControlLabelText>
               </FormControlLabel>
@@ -283,7 +286,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
         <LoadingComponent
           modalVisible={loading}
           modalText='Registrando'
-      />
+        />
       </ScrollView>
      </SafeAreaView>
     </AlertNotificationRoot>

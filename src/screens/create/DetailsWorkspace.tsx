@@ -18,6 +18,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   const [isHidden, setIsHidden] = useState(false);
   const [collaborators, setCollaborators] = useState([]);
   const { workspace } = route.params;
+  console.log(workspace);
   const { baseUrl, token, user }:any = useContext(AuthContext);
 
   const handleHidePress = () => {
@@ -56,7 +57,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
       <View style={tw`flex pt-10 ml-3.5 w-90`}>
         <View style={tw`flex flex-row justify-between`}>
           <Text style={[tw`text-sky-400 text-2xl `, { fontFamily: "Poppins_700Bold" }]}>
-            {workspace.name}
+            {workspace.name.slice(0, 22)}...
           </Text>
           <TouchableOpacity onPress={() => navigate('Members', {workspace: workspace.id, collaborators: collaborators})}>
             <FontAwesome name="group" size={24} color="white" />

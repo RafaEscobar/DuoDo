@@ -8,9 +8,9 @@ import { SwiperComponent } from '../../component/SwiperComponent';
 import { TaskComponent } from '../../component/TaskComponent';
 import { TasksListMapper } from '../../mappers/Dashboard/TasksListMapper';
 import { useFonts } from 'expo-font';
-import { View, Text, TouchableOpacity } from 'react-native';
 import { WorkspaceListMapper } from '../../mappers/Dashboard/WorkspaceListMapper';
 import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Touchable } from 'react-native';
 import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -29,6 +29,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
         setLoad(true);
         const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
         if (workpaces_res.status == 200) {
+            // console.log(workpaces_res.body.data);
             setWorkspaces(WorkspaceListMapper(workpaces_res.body.data.reverse()));
             setTask(TasksListMapper(workpaces_res.body.data.reverse()));
         }
@@ -47,8 +48,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
 
     // useEffect(() => {
     //     console.log(workspaces);
-    //     console.log(tasks);
-    // }, [workspaces, tasks]);
+    // }, [workspaces]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -61,7 +61,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
 
     return (
         <AlertNotificationRoot>
-            <View style={tw`bg-[#271C3A]`}>
+            <View style={tw`bg-[#271C3A] h-full`}>
                 <View style={tw`flex ml-3 mt-10 sm:ml-4 sm:mt-5`}>
                     <View>
                         <View>
@@ -98,7 +98,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                             </View>
                         :
                             (workspaces.length > 0) ?
-                                <SwiperComponent workspaces={workspaces} />
+                                <SwiperComponent workspaces={workspaces} navigate={navigate} />
                             :
                                 <View style={tw`mt-10 flex justify-center items-center`}>
                                     <Text style={tw`text-white text-center font-semibold`}>No tienes espacios de trabajo para mostrar.</Text>

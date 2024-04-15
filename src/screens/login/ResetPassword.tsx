@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useContext, useState } from 'react'
 import tw from 'twrnc';
-import { Poppins_700Bold, Poppins_600SemiBold } from "@expo-google-fonts/poppins";
+import { Poppins_700Bold, Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
-import { Button, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, ScrollView } from '@gluestack-ui/themed';
-import { AntDesign } from '@expo/vector-icons';
+import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField, ScrollView } from '@gluestack-ui/themed';
 import { ForgotPasswordRequest } from '../../modules/requests/Index';
 import { ModalComponent } from '../../component/ModalComponent';
 import { LoadingComponent } from '../../component/LoadingComponent';
@@ -16,13 +15,6 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   const [email, setEmail] = useState('');
 
   const {authUrl}:any = useContext(AuthContext);
-  // Forma de colocar el tema de nuestro dispositivo, aun queda por definir el tema de la aplicacion
-  // const scheme = useColorScheme();
-
-  // const theme = {
-  //   backgroundColor: scheme === 'dark' ? '#fff' : '#271C3A',
-  //   color: scheme === 'dark' ? '#333' : '#fff',
-  // };
 
   const handleForgotPassword = async() => {
     setLoading(true);
@@ -35,7 +27,7 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
 
   const [fontsLoaded] = useFonts({
     Poppins_700Bold,
-    Poppins_600SemiBold
+    Poppins_400Regular
   });
 
   if (!fontsLoaded) {
@@ -43,20 +35,16 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
   }
 
   return (
-    <ScrollView>
-      <View style={tw`flex items-center pt-14`}>
-        <Button
-          onPress={() => { navigate('Login') }}
-          style={tw`absolute top-0 left-0 mt-14 ml-4 bg-indigo-400 p-2 rounded-full hover:bg-orange-200`}
-        >
-          <AntDesign name="left" size={30} color="black" />
-        </Button>
-        <Text style={[tw`text-2xl mt-20`, { fontFamily: "Poppins_700Bold" }]}>Restrablecer constraseña</Text>
-        <Text style={[tw`text-center mt-5 text-xl w-80`, { fontFamily: "Poppins_600SemiBold" }]}>Te enviaremos un correo electrónico con tu nueva contraseña</Text>
+    <ScrollView style={tw`bg-[#271C3A] h-full`}>
+      <View style={tw`flex items-center pt-20`}>
+        <Text style={[tw`text-3xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Restrablecer constraseña</Text>
+        <Text style={[tw`text-center mt-5 text-base w-80 text-white`, { fontFamily: "Poppins_400Regular" }]}>
+          Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña.
+        </Text>
 
         <FormControl style={tw`mt-8`}>
           <FormControlLabel>
-            <FormControlLabelText style={[tw`text-xl`, { fontFamily: "Poppins_600SemiBold" }]}>
+            <FormControlLabelText style={[tw`text-xl text-white`, { fontFamily: "Poppins_700Bold" }]}>
               Correo electrónico
             </FormControlLabelText>
           </FormControlLabel>
@@ -64,19 +52,19 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
             <InputField
               placeholder="admin@duo.com"
               keyboardType="email-address"
-              style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base`}
+              style={[tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black`, { fontFamily: "Poppins_400Regular" }]}
               value={email}
               onChangeText={setEmail}
             />
           </Input>
         </FormControl>
-        <View style={styles.btnContent}>
-          <View style={tw`w-4/12`}>
-            <TouchableOpacity
-                onPress={handleForgotPassword} style={[styles.button]}>
-                <Text style={[styles.buttTex, { fontFamily: "Poppins_700Bold" }]}>Enviar</Text>
+        <View style={tw`flex flex-row gap-5 items-center justify-center mt-10`}>
+            <TouchableOpacity style={tw`bg-[#106414] p-3 rounded-xl`} onPress={() => { navigate('Login') }}>
+              <Text style={[tw`text-base text-white`, { fontFamily: "Poppins_700Bold" }]}>Regresar</Text>
             </TouchableOpacity>
-          </View>
+            <TouchableOpacity style={tw`bg-sky-600 p-4 rounded-xl`} onPress={handleForgotPassword}>
+              <Text style={[tw`text-xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Enviar correo</Text>
+            </TouchableOpacity>
         </View>
       </View>
       <ModalComponent
@@ -91,9 +79,3 @@ export const  ResetPassword = ({ navigation: { navigate }, route }: any) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  btnContent: tw`mt-85`,
-  button: tw`bg-blue-500 py-1 px-4 rounded-2xl w-full`,
-  buttTex: tw`text-white text-2xl text-center`,
-});

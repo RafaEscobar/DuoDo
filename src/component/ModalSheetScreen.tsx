@@ -3,6 +3,8 @@ import Modal from 'react-native-modal';
 import React, { useState } from 'react';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
+import { MaterialIcons } from '@expo/vector-icons';
+import tw from 'twrnc';
 
 export const ModalSheetScreen = ({ navigate }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,7 +31,7 @@ export const ModalSheetScreen = ({ navigate }: any) => {
       >
         <Image
           source={{ uri: 'https://kaihatsu-code.com/assets/add-removebg-preview.png' }}
-          style={{ width: 40, height: 40 }}
+          style={{ width: 30, height: 30 }}
         />
       </TouchableOpacity>
       <View>
@@ -46,7 +48,7 @@ export const ModalSheetScreen = ({ navigate }: any) => {
             </View>
             <View style={{ marginTop: 25 }}>
               <View
-                style={{ backgroundColor: '#FAF8F4', paddingTop: 4, paddingBottom: 4, borderRadius: 20, marginBottom: 10 }}
+                style={{ marginTop: 5, borderTopWidth: 1, borderTopColor: '#FAF8F4', paddingTop: 10, paddingBottom: 10 }}
               >
                 <TouchableOpacity
                   onPress={() => {
@@ -54,11 +56,14 @@ export const ModalSheetScreen = ({ navigate }: any) => {
                     navigate('Add');
                   }}
                 >
-                  <Text style={styles.optionText}>Tarea</Text>
+                  <View style={tw`flex flex-row items-center gap-3 ml-10`}>
+                    <MaterialIcons name="add-task" size={30} color="#b0ffd2" />
+                    <Text style={styles.optionText}>Tarea</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View
-                style={{ backgroundColor: '#FAF8F4', paddingTop: 4, paddingBottom: 4, borderRadius: 20}}
+                style={{  borderTopWidth: 1, borderTopColor: '#FAF8F4', paddingTop: 10, paddingBottom: 5 , marginBottom: 8 }}
               >
                 <TouchableOpacity
                   onPress={() => {
@@ -66,7 +71,10 @@ export const ModalSheetScreen = ({ navigate }: any) => {
                     navigate('AddWorkspace');
                   }}
                 >
-                  <Text style={styles.optionText}>Espacio de trabajo</Text>
+                  <View style={tw`flex flex-row items-center gap-3 ml-10`}>
+                    <MaterialIcons name="workspaces" size={30} color="#8100f4" />
+                    <Text style={styles.optionText}>Espacio de trabajo</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -100,9 +108,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   optionText: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: "Poppins_700Bold",
     textAlign: 'center',
+    color: '#FAF8F4',
   }
 
 });

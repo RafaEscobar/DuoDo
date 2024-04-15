@@ -1,6 +1,6 @@
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
-import { Text, Dimensions, View, Image, SafeAreaView, Animated, StyleSheet } from 'react-native';
+import { Text, Dimensions, View, Image, SafeAreaView, Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as Progress from 'react-native-progress';
 import React, { useEffect } from 'react';
@@ -18,7 +18,7 @@ export const SwiperComponent = (props:any) => {
     Poppins_700Bold,
   });
 
-  const { workspaces } = props;
+  const { workspaces, navigate } = props;
 
   if (!fontsLoaded) {
     return null;
@@ -57,36 +57,40 @@ export const SwiperComponent = (props:any) => {
 
           return (
             <View style={{ width: 300 }}>
-              <Animated.View
-                style={{
-                  marginHorizontal: ESPACIO,
-                  padding: ESPACIO,
-                  borderRadius: 25,
-                  backgroundColor: item.color,
-                  paddingLeft: 20,
-                  transform: [{ translateY }],
-                }}
+              <TouchableOpacity
+                onPress={() => navigate('DetailsWorkspace', {workspace: item})}
               >
-                <Text style={[styles.title, tw`text-white shadow-2xl`]}>{item.title}</Text>
-                <Text style={ styles.subtitle }>{item.description.slice(0, 68)}...</Text>
-                <View style={tw`flex flex-row gap-1`}>
-                  {/* <Image
-                    style={tw`w-10 h-10 rounded-full`}
-                    source={{ uri: item.image }}
-                  />
-                  <Image
-                    style={tw`w-10 h-10 rounded-full`}
-                    source={{ uri: item.avatar }}
-                  /> */}
-                </View>
-                <View style={tw`flex flex-row mt-3 gap-1`}>
-                  <Progress.Bar progress={(item.advance/100)} width={200} height={20} color='#0dac4a' borderRadius={20}
-                  />
-                  <Text style={styles.advance}>{item.advance}%</Text>
-                </View>
+                <Animated.View
+                  style={{
+                    marginHorizontal: ESPACIO,
+                    padding: ESPACIO,
+                    borderRadius: 25,
+                    backgroundColor: item.color,
+                    paddingLeft: 20,
+                    transform: [{ translateY }],
+                  }}
+                >
+                  <Text style={[styles.title, tw`text-white shadow-xl`]}>{item.name}</Text>
+                  <Text style={ styles.subtitle }>{item.description.slice(0, 68)}...</Text>
+                  <View style={tw`flex flex-row gap-1`}>
+                    {/* <Image
+                      style={tw`w-10 h-10 rounded-full`}
+                      source={{ uri: item.image }}
+                    />
+                    <Image
+                      style={tw`w-10 h-10 rounded-full`}
+                      source={{ uri: item.avatar }}
+                    /> */}
+                  </View>
+                  <View style={tw`flex flex-row mt-3 gap-1`}>
+                    <Progress.Bar progress={(item.advance/100)} width={200} height={20} color='#0dac4a' borderRadius={20}
+                    />
+                    <Text style={styles.advance}>{item.advance}%</Text>
+                  </View>
 
 
-              </Animated.View>
+                </Animated.View>
+              </TouchableOpacity>
               <StatusBar style="auto" />
             </View>
           )
@@ -99,14 +103,14 @@ export const SwiperComponent = (props:any) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: "Poppins_700Bold",
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
   },
   subtitle: {
-    fontSize: 12,
+    fontSize: 10,
     color: 'white',
     fontFamily: "Poppins_700Bold",
     textShadowColor: 'rgba(0, 0, 0, 0.75)',

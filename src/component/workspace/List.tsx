@@ -20,7 +20,7 @@ export const List = ({ navigate }: any) => {
 
     return (
         <SafeAreaView>
-            <ScrollView style={tw`h-[90%]`}>
+            <ScrollView style={tw`h-[85%]`}>
                 <View style={tw`flex-row flex-wrap`}>
                     {workspaceData.map((item) => (
                         <View style={tw`w-1/2 mt-3`} key={item.id}>
