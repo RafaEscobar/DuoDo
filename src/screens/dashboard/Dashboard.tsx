@@ -46,9 +46,9 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
         }, [])
     )
 
-    useEffect(() => {
-        console.log(workspaces);
-    }, [workspaces]);
+    // useEffect(() => {
+    //     console.log(workspaces);
+    // }, [workspaces]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
