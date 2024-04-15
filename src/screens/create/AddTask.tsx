@@ -13,6 +13,8 @@ import { StoreTask } from '../../modules/requests/Priorities/StoreTask';
 import { PriorityMapper } from '../../mappers/Tasks/Index';
 import { WorkspaceMapper } from '../../mappers/Tasks/WorkspaceMapper';
 import Checkbox from 'expo-checkbox';
+import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
+import { FriendListMapper } from '../../mappers/Friends/FriendListMapper';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
@@ -27,12 +29,13 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [date, setDate] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-
+  const [friends, setFriends] = useState([]);
   const [time, setTime] = useState(null);
   const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
+  const currentUser = JSON.parse(user);
 
   const options = [
     {
@@ -64,14 +67,18 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     }
   }
 
+  const loadFriends = async() => {
+    const friends_res = await IndexFriends(currentUser.external_identifier, token, baseUrl);
+    setFriends(FriendListMapper(friends_res.body.data));
+  }
+
   useEffect(() => {
     loadSelectData();
   }, []);
 
   useEffect(() => {
-    console.log(priorities);
-    console.log(workspaces);
-  }, [priorities, workspaces]);
+    console.log(thereIsResponsable);
+  }, [thereIsResponsable]);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -165,6 +172,20 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
           </View>
           <View>
             <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>¿Deseas asignar a alguien más esta tarea?</Text>
+            <SelectList
+              data={options}
+              setSelected={(item:any) => setThereIsResponsable(item)}
+              save='key'
+              search={false}
+              inputStyles={tw`text-white`}
+              dropdownTextStyles={tw`text-white`}
+              fontFamily='Poppins_400Regular'
+              placeholder='- Elige una opción -'
+              notFoundText="No tienes espacios de trabajo, crea uno antes."
+            />
+          </View>
+          <View>
+            <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Responsable</Text>
             <SelectList
               data={options}
               setSelected={(item:any) => setThereIsResponsable(item)}

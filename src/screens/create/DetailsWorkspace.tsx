@@ -41,7 +41,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
           <Text style={[tw`text-sky-400 text-2xl `, { fontFamily: "Poppins_700Bold" }]}>
             {workspace.name}
           </Text>
-          <TouchableOpacity onPress={() => navigate('Members')}>
+          <TouchableOpacity onPress={() => navigate('Members', {workspace: workspace.id})}>
             <FontAwesome name="group" size={24} color="white" />
           </TouchableOpacity>
         </View>

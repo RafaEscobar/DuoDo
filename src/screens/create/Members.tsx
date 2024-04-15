@@ -10,12 +10,15 @@ import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
 import { AuthContext } from '../../context/AuthContext';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { FriendSelectMapper } from '../../mappers/Friends/FriendSelectMapper';
+import { AddCollaborator } from '../../modules/requests/workspaces/AddCollaborator';
 
-export const Members = () => {
+export const Members = ({ route }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [friendCode, setFriendCode] = useState('');
     const [friends, setFriends] = useState([]);
     const [friend, setFriend] = useState([]);
+
+    const { workspace } = route.params;
 
     const { baseUrl, token, user }:any = useContext(AuthContext);
 
@@ -27,13 +30,19 @@ export const Members = () => {
         }
     }
 
+    const handleCollaborationInvite = async() => {
+        let external_identifier = JSON.parse(user).external_identifier;
+        const res = await AddCollaborator(external_identifier, friend, workspace, token, baseUrl);
+        console.log(res);
+    }
+
     useEffect(() => {
         loadData();
     }, []);
 
-    useEffect(() => {
-        console.log(friends);
-    }, [friends]);
+    // useEffect(() => {
+    //     console.log(friends);
+    // }, [friends]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -131,6 +140,7 @@ export const Members = () => {
                                 <TouchableOpacity
                                     style={[styles.button, tw`bg-blue-600`]}
                                     onPress={() => {
+                                        handleCollaborationInvite()
                                         setModalVisible(!modalVisible);
                                     }}>
                                     <Text style={tw`text-white font-semibold`}>Invitar</Text>
