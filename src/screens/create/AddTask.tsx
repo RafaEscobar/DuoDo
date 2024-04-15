@@ -15,6 +15,12 @@ import { WorkspaceMapper } from '../../mappers/Tasks/WorkspaceMapper';
 import Checkbox from 'expo-checkbox';
 import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
 import { FriendListMapper } from '../../mappers/Friends/FriendListMapper';
+import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
+import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
+import { FriendSelectMapper } from '../../mappers/Friends/FriendSelectMapper';
+import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
+import { useAlert } from '../../hooks/useAlert';
+import { LoadingComponent } from '../../component/LoadingComponent';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
@@ -24,15 +30,17 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   const [priority, setPriority] = useState(null);
   const [workspaces, setWorkspaces] = useState([]);
   const [workspace, setWorkspace] = useState(null);
-  const [thereIsResponsable, setThereIsResponsable] = useState(false);
-
+  const [thereIsResponsable, setThereIsResponsable] = useState(0);
   const [date, setDate] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [friends, setFriends] = useState([]);
   const [time, setTime] = useState(null);
+  const [collaborators, setCollaborators] = useState([]);
+  const [collaborator, setCollaborator] = useState([]);
   const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
   const currentUser = JSON.parse(user);
@@ -58,27 +66,36 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
 
   const handleSaveTask = async() => {
     if (title != null && description != null && priority != null && workspace != null && date != null && time != null) {
+      setLoading(true);
       let formatedDate = `${date} ${time}`;
-      const response = await StoreTask(title, description, null, priority, workspace, formatedDate, token, baseUrl);
-      console.log(response);
-      // navigate('BottomTabNavigation');
+      const response = await StoreTask(title, description, collaborator, priority, workspace, formatedDate, token, baseUrl);
+      console.log(response.body.message)
+      if (response.status == 200) {
+        setLoading(false);
+        useAlert(ALERT_TYPE.SUCCESS, 'Tarea creada 🎉', response.body.message);
+        setTimeout(() => {
+          navigate('BottomTabNavigation');
+        }, 1000);
+      }
     } else {
       console.log("Llena todos los campos.");
     }
   }
 
-  const loadFriends = async() => {
-    const friends_res = await IndexFriends(currentUser.external_identifier, token, baseUrl);
-    setFriends(FriendListMapper(friends_res.body.data));
+  const loadCollaborators = async() => {
+    if (workspace != null) {
+      let response = await IndexCollaborators(workspace, token, baseUrl);
+      setCollaborators(FriendSelectMapper(response.body.data));
+    }
   }
 
   useEffect(() => {
     loadSelectData();
   }, []);
 
-  useEffect(() => {
-    console.log(thereIsResponsable);
-  }, [thereIsResponsable]);
+  // useEffect(() => {
+  //   console.log(collaborators);
+  // }, [collaborators]);
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -110,139 +127,137 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   };
 
   return (
-    <ScrollView style={tw`h-full`}>
-      <View style={tw`bg-gray-900 h-full pb-10`}>
-        <View style={tw`flex ml-4 mt-10 sm:ml-4 sm:mt-5`}>
-          <View style={tw`flex flex-row items-center gap-5`}>
-            <TouchableOpacity
-              onPress={() => { navigate('BottomTabNavigation') }}
-            >
-              <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`} />
+    <AlertNotificationRoot>
+      <ScrollView style={tw`h-full`}>
+        <View style={tw`bg-gray-900 h-full pb-10`}>
+          <View style={tw`flex ml-4 mt-10 sm:ml-4 sm:mt-5`}>
+            <View style={tw`flex flex-row items-center gap-5`}>
+              <TouchableOpacity
+                onPress={() => { navigate('BottomTabNavigation') }}
+              >
+                <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`} />
 
-            </TouchableOpacity>
-            <Text style={[tw`text-xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nueva Tarea</Text>
-          </View>
-          <View>
-            <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
-            <TextInput
-              style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-              placeholder="¿Qué deseas hacer?"
-              placeholderTextColor={'#58b4ff'}
-              onChangeText={(text) => { setTitle(text) }}
-            />
-          </View>
-          <View>
-            <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripción:</Text>
-            <TextInput
-              style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-              placeholderTextColor={'#58b4ff'}
-              placeholder='¿Qué detalles de la tarea debes recordar?'
-              onChangeText={(text) => { setDescription(text) }}
-              multiline={true}
-              underlineColorAndroid={'transparent'}
-              numberOfLines={4}
-            />
-          </View>
-          <View style={tw`w-90`}>
-            <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
-            <SelectList
-              data={priorities}
-              setSelected={(item:any) => setPriority(item)}
-              save='key'
-              search={false}
-              inputStyles={tw`text-white`}
-              dropdownTextStyles={tw`text-white`}
-              fontFamily='Poppins_400Regular'
-              placeholder='- Selecciona el nivel de prioridad -'
-            />
-          </View>
-          <View style={tw`w-90`}>
-            <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Espacio de trabajo:</Text>
-            <SelectList
-              data={workspaces}
-              setSelected={(item:any) => setWorkspace(item)}
-              save='key'
-              search={false}
-              inputStyles={tw`text-white`}
-              dropdownTextStyles={tw`text-white`}
-              fontFamily='Poppins_400Regular'
-              placeholder='- Selecciona el espacio de trabajo -'
-              notFoundText="No tienes espacios de trabajo, crea uno antes."
-            />
-          </View>
-          <View>
-            <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>¿Deseas asignar a alguien más esta tarea?</Text>
-            <SelectList
-              data={options}
-              setSelected={(item:any) => setThereIsResponsable(item)}
-              save='key'
-              search={false}
-              inputStyles={tw`text-white`}
-              dropdownTextStyles={tw`text-white`}
-              fontFamily='Poppins_400Regular'
-              placeholder='- Elige una opción -'
-              notFoundText="No tienes espacios de trabajo, crea uno antes."
-            />
-          </View>
-          <View>
-            <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Responsable</Text>
-            <SelectList
-              data={options}
-              setSelected={(item:any) => setThereIsResponsable(item)}
-              save='key'
-              search={false}
-              inputStyles={tw`text-white`}
-              dropdownTextStyles={tw`text-white`}
-              fontFamily='Poppins_400Regular'
-              placeholder='- Elige una opción -'
-              notFoundText="No tienes espacios de trabajo, crea uno antes."
-            />
-          </View>
-          <View>
-            <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha:</Text>
-            <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
+              </TouchableOpacity>
+              <Text style={[tw`text-xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nueva Tarea</Text>
+            </View>
+            <View>
+              <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
               <TextInput
                 style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-                placeholder='Establecer fecha límite'
+                placeholder="¿Qué deseas hacer?"
                 placeholderTextColor={'#58b4ff'}
-                value={date}
-                editable={false}
+                onChangeText={(text) => { setTitle(text) }}
               />
-            </TouchableOpacity>
-            {isDatePickerVisible && (
-              <DateTimePicker
-                value={selectedDate || new Date()}
-                mode="date"
-                display="default"
-                onChange={handleDateChange}
-              />
-            )}
-            <Text style={[tw`leading-8 text-2xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Hora:</Text>
-            <TouchableOpacity onPress={() => setIsTimePickerVisible(true)}>
+            </View>
+            <View>
+              <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripción:</Text>
               <TextInput
                 style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
-                placeholder='Establecer hora límite'
                 placeholderTextColor={'#58b4ff'}
-                value={time}
-                editable={false}
+                placeholder='¿Qué detalles de la tarea debes recordar?'
+                onChangeText={(text) => { setDescription(text) }}
+                multiline={true}
+                underlineColorAndroid={'transparent'}
+                numberOfLines={4}
               />
-            </TouchableOpacity>
-            {isTimePickerVisible && (
-              <DateTimePicker
-                value={selectedTime || new Date()}
-                mode="time"
-                display="default"
-                onChange={handleTimeChange}
+            </View>
+            <View style={tw`w-90`}>
+              <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
+              <SelectList
+                data={priorities}
+                setSelected={(item:any) => setPriority(item)}
+                save='key'
+                search={false}
+                inputStyles={tw`text-white`}
+                dropdownTextStyles={tw`text-white`}
+                fontFamily='Poppins_400Regular'
+                placeholder='- Selecciona el nivel de prioridad -'
               />
-            )}
-          </View>
-          <View style={tw`mt-10 justify-center items-center`}>
-            <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl text-white`}>
-              <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
-            </TouchableOpacity>
+            </View>
+            <View style={tw`w-90`}>
+              <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Espacio de trabajo:</Text>
+              <SelectList
+                data={workspaces}
+                setSelected={(item:any) => {
+                  setWorkspace(item)
+                  setThereIsResponsable(1)
+                  loadCollaborators()
+                }}
+                save='key'
+                search={false}
+                inputStyles={tw`text-white`}
+                dropdownTextStyles={tw`text-white`}
+                fontFamily='Poppins_400Regular'
+                placeholder='- Selecciona el espacio de trabajo -'
+                notFoundText="No tienes espacios de trabajo, crea uno antes."
+              />
+            </View>
+            {
+              (thereIsResponsable==1) ?
+                  <View>
+                    <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Responsable</Text>
+                    <SelectList
+                      data={collaborators}
+                      setSelected={(item:any) => setCollaborator(item)}
+                      save='key'
+                      search={false}
+                      inputStyles={tw`text-white`}
+                      dropdownTextStyles={tw`text-white`}
+                      fontFamily='Poppins_400Regular'
+                      placeholder='- Elige una opción -'
+                      notFoundText="No tienes colaboradores en este espacio de trabajo."
+                    />
+                  </View>
+                :
+                null
+            }
+            <View>
+              <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha:</Text>
+              <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
+                <TextInput
+                  style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+                  placeholder='Establecer fecha límite'
+                  placeholderTextColor={'#58b4ff'}
+                  value={date}
+                  editable={false}
+                />
+              </TouchableOpacity>
+              {isDatePickerVisible && (
+                <DateTimePicker
+                  value={selectedDate || new Date()}
+                  mode="date"
+                  display="default"
+                  onChange={handleDateChange}
+                />
+              )}
+              <Text style={[tw`leading-8 text-2xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Hora:</Text>
+              <TouchableOpacity onPress={() => setIsTimePickerVisible(true)}>
+                <TextInput
+                  style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+                  placeholder='Establecer hora límite'
+                  placeholderTextColor={'#58b4ff'}
+                  value={time}
+                  editable={false}
+                />
+              </TouchableOpacity>
+              {isTimePickerVisible && (
+                <DateTimePicker
+                  value={selectedTime || new Date()}
+                  mode="time"
+                  display="default"
+                  onChange={handleTimeChange}
+                />
+              )}
+            </View>
+            <View style={tw`mt-10 justify-center items-center`}>
+              <TouchableOpacity onPress={handleSaveTask} style={tw`bg-sky-500 p-3 w-50 rounded-xl text-white`}>
+                <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+        <LoadingComponent modalVisible={loading} modalText='Guardando...' />
+      </ScrollView>
+    </AlertNotificationRoot>
   )
 }
