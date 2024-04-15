@@ -15,6 +15,7 @@ import { Add } from '../screens/profile/friends/Add';
 import { Manage } from '../screens/profile/Manage';
 import App from '../../App';
 import { CollaborationMessage } from '../screens/messages/CollaborationMessage';
+import { Notification } from '../screens/notification/Notification';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export const DashboardStack = () => {
       <Stack.Screen name="DetailsWorkspace" component={DetailsWorkspace} options={{ presentation: "modal", headerShown: false }} />
       <Stack.Screen name="Members" component={Members} options={{ presentation: "modal", headerShown: false }} />
       <Stack.Screen name="CollaborationMessage" component={CollaborationMessage} options={{ presentation: "modal", headerShown: false }} />
+      <Stack.Screen name="Notification" component={Notification} options={{ presentation: "modal", headerShown: false }} />
     </Stack.Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import { Calendar, Dashboard, Profile } from "../screens";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { BottomTabBarProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
 import { ModalSheetScreen } from "../component/ModalSheetScreen";
 import React, { useEffect } from 'react';
@@ -7,8 +7,21 @@ import * as Notifications from 'expo-notifications';
 import { TopTapGroup } from "./Stacts/TopTapGroup";
 import { TopTapChat } from "./Stacts/TopTapChat";
 import { ModalProfile } from "../component/ModalProfile";
+import { CustomBottomTab } from "../component/CustomBottomTab";
 
-const Tab = createBottomTabNavigator();
+export type BottomTabParamList = {
+  Inicio: undefined;
+  ChatStack: undefined;
+  AddModal: undefined;
+  Creación: undefined;
+  ProfileModal: undefined;
+};
+
+const CustomBottomTabs = (props: BottomTabBarProps) => {
+  return <CustomBottomTab {...props} />;
+};
+
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const MiddleBtn = () => {
   return null;
@@ -23,15 +36,13 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
   }, []);
 
   return (
-    <Tab.Navigator screenOptions={
-      {
-        tabBarStyle: {
-          backgroundColor: '#271C3A',
-          borderTopColor: 'transparent',
-          height: 60,
+    <Tab.Navigator
+      tabBar={CustomBottomTabs}
+      screenOptions={
+        {
+          headerShown: false,
         }
-      }
-    }>
+      }>
       <Tab.Screen name="Inicio" component={Dashboard}
         options={{
           headerShown: false,
@@ -65,7 +76,7 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
         }}
       />
       <Tab.Screen
-        name="Add"
+        name="AddModal"
         component={MiddleBtn}
         options={{
           tabBarButton: () => (<ModalSheetScreen navigate={navigate} />),

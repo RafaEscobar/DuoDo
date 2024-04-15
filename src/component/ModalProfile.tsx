@@ -31,11 +31,11 @@ export const ModalProfile = ({ navigate }: any) => {
         <View>
             <TouchableOpacity
                 onPress={() => { setModalVisible(true) }}
-                style={{ marginTop: 10, marginRight: 10 }}
+                style={{ marginTop: 4, marginLeft: 6, marginRight: 6 }}
             >
                 <Image
                     source="https://kaihatsu-code.com/assets/menu.png"
-                    style={{ width: 40, height: 40 }}
+                    style={{ width: 35, height: 35 }}
                 />
             </TouchableOpacity>
             <View>
@@ -84,7 +84,10 @@ export const ModalProfile = ({ navigate }: any) => {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ borderTopWidth: 1, borderTopColor: '#FAF8F4', paddingTop: 10, paddingBottom: 5 }}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    setModalVisible(false);
+                                    navigate('Notification');
+                                }}>
                                     <View style={tw`flex flex-row items-center gap-3 ml-10`}>
                                         <MaterialCommunityIcons name="bell" size={30} color="#ecc233" />
                                         <Text style={[tw`text-xl text-white`, { fontFamily: 'Poppins_700Bold' }]}>Notificaciones</Text>

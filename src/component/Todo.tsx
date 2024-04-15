@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
@@ -26,7 +26,7 @@ export const Todo = (props:any) => {
     return (
 
         <ScrollView>
-            <View style={tw`mb-4 flex flex-row w-80`}>
+            <View style={tw`mb-4 flex flex-row`}>
                 <Checkbox
                     id={id}
                     text={title}
