@@ -14,34 +14,28 @@ import * as Clipboard from 'expo-clipboard';
 import { FriendRequestStore } from '../../modules/requests/FriendRequests/FriendRequestStore';
 import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
 import { useAlert } from '../../hooks/useAlert';
+import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
+import {useEffect} from 'react';
+import { FriendListMapper } from '../../mappers/Friends/FriendListMapper';
 
 export const Profile = ({ navigation }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [friendCode, setFriendCode] = useState('');
-
-    const friendList = [
-        {
-            id: 1,
-            name: 'Alexis',
-            avatar: 'https://i.postimg.cc/QxJGcqDZ/b.png'
-        },
-        {
-            id: 2,
-            name: 'Rafa',
-            avatar: 'https://i.postimg.cc/QxJGcqDZ/b.png'
-        },
-        {
-            id: 3,
-            name: 'Nelson',
-            avatar: 'https://i.postimg.cc/QxJGcqDZ/b.png'
-        }
-    ];
-
+    const [friends, setFriends] = useState([]);
     const { user,  baseUrl, token }: any = useContext(AuthContext);
-    const [loading, setLoading] = useState(false);
-
     const currentUser = JSON.parse(user);
     let urlImage = (currentUser.avatar.length > 0) ? currentUser.avatar[0].url : 'https://i.postimg.cc/FH8ZXxfK/default.png';
+
+    const loadContent = async() => {
+        const friends_res = await IndexFriends(currentUser.external_identifier, token, baseUrl);
+        setFriends(FriendListMapper(friends_res.body.data));
+    }
+
+    useEffect(() => {
+        loadContent();
+    }, []);
+
+    const [loading, setLoading] = useState(false);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -117,21 +111,26 @@ export const Profile = ({ navigation }: any) => {
                             </View>
                             <View>
                                 <View style={tw`flex flex-row bg-gray-800 p-3 rounded-xl mt-1`}>
-                                    <FlatList
-                                        data={friendList}
-                                        horizontal
-                                        showsHorizontalScrollIndicator={false}
-                                        keyExtractor={(item) => item.id.toString()}
-                                        renderItem={({ item }) =>
-                                            <View style={tw`flex flex-col items-center justify-center p-1`}>
-                                                <Image
-                                                    source={{ uri: item.avatar }}
-                                                    style={tw`border-2 border-blue-500 rounded-full w-14 h-14`}
-                                                />
-                                                <Text style={[tw`text-white`, { fontFamily: "Poppins_600SemiBold" }]}>{item.name}</Text>
-                                            </View>
-                                        }
-                                    />
+                                    {
+                                        (friends.length > 0) ?
+                                            <FlatList
+                                                data={friends}
+                                                horizontal
+                                                showsHorizontalScrollIndicator={false}
+                                                keyExtractor={(item:any) => item.id}
+                                                renderItem={({ item }) =>
+                                                    <View style={tw`flex flex-col items-center justify-center p-1`}>
+                                                        <Image
+                                                            source={{ uri: item.avatar }}
+                                                            style={tw`border-2 border-blue-500 rounded-full w-14 h-14`}
+                                                        />
+                                                        <Text style={[tw`text-white`, { fontFamily: "Poppins_600SemiBold" }]}>{item.name}</Text>
+                                                    </View>
+                                                }
+                                            />
+                                            :
+                                            <Text style={{color: 'white'}}>No tienes amigos que mostrar.</Text>
+                                    }
                                 </View>
                             </View>
                         </View>
