@@ -39,7 +39,7 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                 useAlert(ALERT_TYPE.INFO, 'Indicación', 'Atienda las especificaciones de tamaño para el nombre y la descripción.');
             }
             setTimeout(() => {
-                navigate('BottomTabNavigation');
+                navigate('BottomTabNavigation', { screen: 'Inicio' });
             }, 1000);
         } else {
             setLoading(false);

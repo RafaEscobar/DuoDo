@@ -38,7 +38,6 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
    */
   const [fontsLoaded] = useFonts({
     Poppins_700Bold,
-    Poppins_400Regular
   });
 
   if (!fontsLoaded) {
@@ -166,7 +165,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
   return (
     <AlertNotificationRoot>
      <SafeAreaView>
-      <ScrollView style={tw`mb-6`}>
+      <ScrollView style={tw`mb-6 bg-[#271C3A] h-full`}>
         <View style={tw`flex-1 items-center pt-10`}>
           <Button
             onPress={() => { navigate('Login') }}
