@@ -1,21 +1,19 @@
-import { AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
+import { AddCollaborator } from '../../modules/requests/workspaces/AddCollaborator';
+import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
+import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../context/AuthContext';
+import { FriendSelectMapper } from '../../mappers/Friends/FriendSelectMapper';
 import { Image } from 'expo-image';
+import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
+import { LoadingComponent } from '../../component/LoadingComponent';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { SelectList } from 'react-native-dropdown-select-list';
+import { useAlert } from '../../hooks/useAlert';
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Modal, TextInput, StyleSheet } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
-import { useNavigation } from '@react-navigation/native';
-import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
-import { AuthContext } from '../../context/AuthContext';
-import { SelectList } from 'react-native-dropdown-select-list';
-import { FriendSelectMapper } from '../../mappers/Friends/FriendSelectMapper';
-import { AddCollaborator } from '../../modules/requests/workspaces/AddCollaborator';
-import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
-import { useAlert } from '../../hooks/useAlert';
-import { LoadingComponent } from '../../component/LoadingComponent';
-import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
-import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
 
 export const Members = ({ route }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -106,7 +104,7 @@ export const Members = ({ route }: any) => {
                         </View>
                     </View>
                     <ScrollView>
-                        {collaborators && collaborators.map((item) => (
+                        {collaborators && collaborators.map((item:any) => (
                             <View style={tw`flex flex-row items-center mt-3 gap-3 bg-gray-800 p-2 rounded-xl`} key={item.id}>
                                 <Image
                                     source={{ uri: item.avatar }}

@@ -1,14 +1,14 @@
+import { AuthContext } from '../../context/AuthContext';
 import { CheckList } from '../../component/workspace/CheckList';
+import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
 import { FontAwesome } from '@expo/vector-icons';
+import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { todosData } from '../../data/todos';
 import { useFonts } from 'expo-font';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
-import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
-import { AuthContext } from '../../context/AuthContext';
-import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   const [localData, setLocalData] = useState(
