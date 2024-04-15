@@ -14,11 +14,14 @@ import { AddCollaborator } from '../../modules/requests/workspaces/AddCollaborat
 import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
 import { useAlert } from '../../hooks/useAlert';
 import { LoadingComponent } from '../../component/LoadingComponent';
+import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
+import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
 
 export const Members = ({ route }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [friendCode, setFriendCode] = useState('');
     const [friends, setFriends] = useState([]);
+    const [collaborators, setCollaborators] = useState([]);
     const [friend, setFriend] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -29,8 +32,13 @@ export const Members = ({ route }: any) => {
     const loadData = async() => {
         let external_identifier = JSON.parse(user).external_identifier;
         const friends_res = await IndexFriends(external_identifier, token, baseUrl);
+        const collaborators_res = await IndexCollaborators(workspace, token, baseUrl);
+        console.log(collaborators_res.body.data);
         if (friends_res.status== 200) {
             setFriends(FriendSelectMapper(friends_res.body.data));
+            if (collaborators_res.status == 200 && friends_res.body.data.length > 0) {
+                setCollaborators(CollaboratorsList(collaborators_res.body.data));
+            }
         }
     }
 
@@ -45,6 +53,10 @@ export const Members = ({ route }: any) => {
     useEffect(() => {
         loadData();
     }, []);
+
+    useEffect(() => {
+        console.log(collaborators)
+    }, [collaborators]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -100,7 +112,7 @@ export const Members = ({ route }: any) => {
                         </View>
                     </View>
                     <ScrollView>
-                        {members.map((item) => (
+                        {collaborators && collaborators.map((item) => (
                             <View style={tw`flex flex-row items-center mt-3 gap-3 bg-gray-800 p-2 rounded-xl`} key={item.id}>
                                 <Image
                                     source={{ uri: item.avatar }}
@@ -108,7 +120,7 @@ export const Members = ({ route }: any) => {
                                 />
                                 <View>
                                     <Text style={[tw`text-white text-xl`, { fontFamily: "Poppins_700Bold" }]}>{item.name}</Text>
-                                    <Text style={[tw`text-white text-base opacity-50`, { fontFamily: "Poppins_400Regular" }]}>{item.role}</Text>
+                                    <Text style={[tw`text-white text-base opacity-50`, { fontFamily: "Poppins_400Regular" }]}>{item.email}</Text>
                                 </View>
                             </View>
                         ))}

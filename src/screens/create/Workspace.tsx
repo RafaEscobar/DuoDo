@@ -25,9 +25,9 @@ export const Workspace = ({ navigation: { navigate } }: any) => {
     handleLoadWorkspaces();
   }, []);
 
-  useEffect(() => {
-    console.log(workspaces);
-  }, [workspaces]);
+  // useEffect(() => {
+  //   console.log(workspaces);
+  // }, [workspaces]);
 
   useFocusEffect(
     React.useCallback(() => {
