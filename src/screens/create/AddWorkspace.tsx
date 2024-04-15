@@ -38,6 +38,9 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                 setLoading(false);
                 useAlert(ALERT_TYPE.INFO, 'Indicación', 'Atienda las especificaciones de tamaño para el nombre y la descripción.');
             }
+            setTimeout(() => {
+                navigate('BottomTabNavigation');
+            }, 1000);
         } else {
             setLoading(false);
             useAlert(ALERT_TYPE.INFO, 'Campos faltantes', 'Rellena todos los campos.');
@@ -152,7 +155,6 @@ export const AddWorkspace = ({ navigation: { navigate } }: any) => {
                                 validateName();
                                 validateDescription();
                                 handleSaveWorkspace();
-                                // navigate('Workspace');
                             }} style={tw`bg-sky-500 p-3 w-50 rounded-xl`}>
                             <Text style={[tw`text-center text-2xl`, { fontFamily: "Poppins_700Bold" }]}>Guardar</Text>
                         </TouchableOpacity>

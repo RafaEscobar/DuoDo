@@ -1,24 +1,24 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react'
-import tw from 'twrnc';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
-import { workspaceData } from '../../data/workspaceData'
+import { AuthContext } from '../../context/AuthContext';
 import { CheckList } from '../../component/workspace/CheckList';
-import { todosData } from '../../data/todos';
+import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
 import { FontAwesome } from '@expo/vector-icons';
-import { Workspace } from './Workspace';
+import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { todosData } from '../../data/todos';
+import { useFonts } from 'expo-font';
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react'
+import tw from 'twrnc';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
-
   const [localData, setLocalData] = useState(
     todosData.sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted))
   );
 
   const [isHidden, setIsHidden] = useState(false);
-
+  const [collaborators, setCollaborators] = useState([]);
   const { workspace } = route.params;
-  console.log(workspace.name);
+  const { baseUrl, token, user }:any = useContext(AuthContext);
 
   const handleHidePress = () => {
     if (isHidden) {
@@ -29,6 +29,18 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
     setIsHidden(!isHidden);
     setLocalData(localData.filter(todo => !todo.isCompleted));
   };
+
+  const loadData = async() => {
+    const collaborators_res = await IndexCollaborators(workspace.id, token, baseUrl);
+    if (collaborators_res.status == 200) {
+      console.log(collaborators_res.body.data.length);
+      setCollaborators(CollaboratorsList(collaborators_res.body.data));
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, [])
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -46,16 +58,16 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
           <Text style={[tw`text-sky-400 text-2xl `, { fontFamily: "Poppins_700Bold" }]}>
             {workspace.name}
           </Text>
-          <TouchableOpacity onPress={() => navigate('Members')}>
+          <TouchableOpacity onPress={() => navigate('Members', {workspace: workspace.id, collaborators: collaborators})}>
             <FontAwesome name="group" size={24} color="white" />
           </TouchableOpacity>
         </View>
         <View style={tw`mt-3`}>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
-            Tareas: X
+            Tareas: {workspace.tasks.length}
           </Text>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
-            Miembros: X
+            Miembros: {collaborators.length}
           </Text>
         </View>
         <View style={tw`mt-3`}>
@@ -74,9 +86,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <CheckList
-          todosData={localData.filter(todo => todo.isToday)}
-        />
+        <CheckList tasks={workspace.tasks} />
       </View>
     </SafeAreaView>
   )

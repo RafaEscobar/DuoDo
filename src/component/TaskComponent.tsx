@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, SafeAreaView, Animated, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { useFonts } from 'expo-font';
 import tw from 'twrnc';
 
+const formatDate = (date:any) => {
+    const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric',   hour12: true});
+    return newDate.charAt(0).toUpperCase() + newDate.slice(1);
+}
 
-
-export const TaskComponent = () => {
+export const TaskComponent = (props:any) => {
     const [task, setTask] = useState([
         {
             id: '1',
@@ -18,7 +21,6 @@ export const TaskComponent = () => {
         },
         {
             id: '2',
-            
             title: 'Integrar con la app',
             description: 'Hacer un slide que me permita mostrar info',
             hours: '9:00 am',
@@ -26,7 +28,6 @@ export const TaskComponent = () => {
         },
         {
             id: '3',
-            
             title: 'Integrar la app',
             description: 'Hacer un slide que me permita mostrar info',
             hours: '9:00 am',
@@ -67,8 +68,10 @@ export const TaskComponent = () => {
             hours: '9:00 am',
             completed: false
         }
-    ])
-    
+    ]);
+
+    const { tasks } = props;
+
     const CheckMark = ({ id, completed }: any) => {
         return (
             <Pressable
@@ -107,7 +110,7 @@ export const TaskComponent = () => {
     return (
         <View>
             <FlatList
-                data={task}
+                data={tasks}
                 keyExtractor={(item) => item.id}
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
@@ -122,9 +125,9 @@ export const TaskComponent = () => {
                         <View style={tw`flex-row items-center grow gap-2`}>
                             <CheckMark id={item.id} completed={item.completed} />
                             <View style={tw`flex flex-col`}>
-                                <Text style={[tw`text-2xl`, { fontFamily: "Poppins_700Bold" }]}>{item.title}</Text>
-                                <Text style={[tw`w-60 text-base`, { fontFamily: "Poppins_400Regular" }]}>{item.description}</Text>
-                                <Text style={[tw`text-base opacity-60 text-violet-800`, { fontFamily: "Poppins_700Bold" }]}>{item.hours}</Text>
+                                <Text style={[tw`text-xl`, { fontFamily: "Poppins_700Bold" }]}>{item.title.slice(0, 26)}</Text>
+                                <Text style={[tw`w-60 text-sm`, { fontFamily: "Poppins_400Regular" }]}>{item.description.slice(0, 76)}...</Text>
+                                <Text style={[tw`text-xs opacity-60 text-violet-800`, { fontFamily: "Poppins_700Bold" }]}>{formatDate(item.due_date)}</Text>
                             </View>
                         </View>
                         {isDeleteActive && (

@@ -2,7 +2,8 @@ import { Calendar, Dashboard, Profile } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
 import { ModalSheetScreen } from "../component/ModalSheetScreen";
-import React from "react";
+import React, { useEffect } from 'react';
+import * as Notifications from 'expo-notifications';
 import { TopTapGroup } from "./Stacts/TopTapGroup";
 import { TopTapChat } from "./Stacts/TopTapChat";
 import { ModalProfile } from "../component/ModalProfile";
@@ -14,6 +15,13 @@ const MiddleBtn = () => {
 }
 
 export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
+
+  useEffect(() => {
+    Notifications.addNotificationResponseReceivedListener(response => {
+      navigate('CollaborationMessage', {workspace_id: response.notification.request.content.data.workspace});
+    });
+  }, []);
+
   return (
     <Tab.Navigator screenOptions={
       {

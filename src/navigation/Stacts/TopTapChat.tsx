@@ -17,11 +17,12 @@ export const TopTapChat = () => {
     if (!fontsLoaded) {
         return null;
     }
+
     return (
         <TopTap.Navigator
             screenOptions={({ route }) => ({
                 tabBarLabelStyle: {
-                    fontSize: 20,
+                    fontSize: 16,
                     textTransform: 'capitalize',
                     fontFamily: 'Poppins_700Bold',
                     color: '#58b4ff',
@@ -32,8 +33,8 @@ export const TopTapChat = () => {
                 },
             })}
         >
-            <TopTap.Screen name="Task" component={AllTask} />
-            <TopTap.Screen name="Workspace" component={Workspace} />
+            <TopTap.Screen name="Task" component={AllTask} options={{ tabBarLabel: 'Tareas' }} />
+            <TopTap.Screen name="Wor<kspace" component={Workspace} options={{ tabBarLabel: 'Espacios de trabajo' }} />
         </TopTap.Navigator>
     );
 }

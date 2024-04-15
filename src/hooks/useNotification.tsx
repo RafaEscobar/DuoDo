@@ -1,9 +1,11 @@
 import { Platform } from 'react-native';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 /**
  * Set configuration to background actions
@@ -37,6 +39,9 @@ const verifyPermissions = async() => {
 }
 
 const registerForPushNotificationsAsync = async() => {
+
+    Notifications.addNotificationReceivedListener(handleNotification);
+
     let token:any;
 
     //* Set configurations for an android device
@@ -68,6 +73,12 @@ const registerForPushNotificationsAsync = async() => {
             });
             await AsyncStorage.setItem('expo-push-token', token.data);
         }
+    }
+}
+
+const handleNotification = (notification:any) => {
+    if (notification.request.content.title === 'Solicitud de amistad.') {
+        console.log("Se recibio una notificación de amistad.");
     }
 }
 

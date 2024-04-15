@@ -13,6 +13,8 @@ import { Edit } from '../screens/profile/Edit';
 import { List } from '../screens/profile/friends/List';
 import { Add } from '../screens/profile/friends/Add';
 import { Manage } from '../screens/profile/Manage';
+import App from '../../App';
+import { CollaborationMessage } from '../screens/messages/CollaborationMessage';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,7 @@ export const DashboardStack = () => {
       <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ presentation: "modal", headerShown: false }} />
       <Stack.Screen name="DetailsWorkspace" component={DetailsWorkspace} options={{ presentation: "modal", headerShown: false }} />
       <Stack.Screen name="Members" component={Members} options={{ presentation: "modal", headerShown: false }} />
+      <Stack.Screen name="CollaborationMessage" component={CollaborationMessage} options={{ presentation: "modal", headerShown: false }} />
     </Stack.Navigator>
   );
 }
