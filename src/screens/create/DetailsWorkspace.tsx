@@ -4,8 +4,11 @@ import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins"
 import { todosData } from '../../data/todos';
 import { useFonts } from 'expo-font';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
+import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
+import { AuthContext } from '../../context/AuthContext';
+import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   const [localData, setLocalData] = useState(
@@ -13,7 +16,9 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   );
 
   const [isHidden, setIsHidden] = useState(false);
+  const [collaborators, setCollaborators] = useState([]);
   const { workspace } = route.params;
+  const { baseUrl, token, user }:any = useContext(AuthContext);
 
   const handleHidePress = () => {
     if (isHidden) {
@@ -24,6 +29,18 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
     setIsHidden(!isHidden);
     setLocalData(localData.filter(todo => !todo.isCompleted));
   };
+
+  const loadData = async() => {
+    const collaborators_res = await IndexCollaborators(workspace.id, token, baseUrl);
+    if (collaborators_res.status == 200) {
+      console.log(collaborators_res.body.data.length);
+      setCollaborators(CollaboratorsList(collaborators_res.body.data));
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, [])
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -41,7 +58,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
           <Text style={[tw`text-sky-400 text-2xl `, { fontFamily: "Poppins_700Bold" }]}>
             {workspace.name}
           </Text>
-          <TouchableOpacity onPress={() => navigate('Members', {workspace: workspace.id})}>
+          <TouchableOpacity onPress={() => navigate('Members', {workspace: workspace.id, collaborators: collaborators})}>
             <FontAwesome name="group" size={24} color="white" />
           </TouchableOpacity>
         </View>
@@ -50,7 +67,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
             Tareas: {workspace.tasks.length}
           </Text>
           <Text style={[tw`text-white text-lg`, { fontFamily: "Poppins_700Bold" }]}>
-            Miembros: X
+            Miembros: {collaborators.length}
           </Text>
         </View>
         <View style={tw`mt-3`}>

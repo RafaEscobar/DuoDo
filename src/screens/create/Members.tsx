@@ -21,24 +21,18 @@ export const Members = ({ route }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [friendCode, setFriendCode] = useState('');
     const [friends, setFriends] = useState([]);
-    const [collaborators, setCollaborators] = useState([]);
     const [friend, setFriend] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const { workspace } = route.params;
+    const { workspace, collaborators } = route.params;
 
     const { baseUrl, token, user }:any = useContext(AuthContext);
 
     const loadData = async() => {
         let external_identifier = JSON.parse(user).external_identifier;
         const friends_res = await IndexFriends(external_identifier, token, baseUrl);
-        const collaborators_res = await IndexCollaborators(workspace, token, baseUrl);
-        console.log(collaborators_res.body.data);
         if (friends_res.status== 200) {
             setFriends(FriendSelectMapper(friends_res.body.data));
-            if (collaborators_res.status == 200 && friends_res.body.data.length > 0) {
-                setCollaborators(CollaboratorsList(collaborators_res.body.data));
-            }
         }
     }
 
