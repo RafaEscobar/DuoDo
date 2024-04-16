@@ -8,6 +8,8 @@ import { TopTapGroup } from "./Stacts/TopTapGroup";
 import { TopTapChat } from "./Stacts/TopTapChat";
 import { ModalProfile } from "../component/ModalProfile";
 import { CustomBottomTab } from "../component/CustomBottomTab";
+import { CollaborationMessage } from "../screens/messages/CollaborationMessage";
+import { FriendMessage } from "../screens/messages/FriendMessage";
 
 export type BottomTabParamList = {
   Inicio: undefined;
@@ -34,13 +36,19 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
       let type = response.notification.request.content.data.type;
       switch (type) {
         case 'friend-request':
-          navigate('FriendMessage', {friend_request_id: response.notification.request.content.data.friend_request});
+          navigate('FriendMessage', {
+            friend_request_id: response.notification.request.content.data.friend_request,
+            friend_name: response.notification.request.content.data.friend_name,
+          });
         break;
         case 'friend-request-accepted':
           //
         break;
         case 'workspace-invite':
-          navigate('CollaborationMessage', {workspace_id: response.notification.request.content.data.workspace});
+          navigate('CollaborationMessage', {
+            workspace_id: response.notification.request.content.data.workspace,
+            workspace_name: response.notification.request.content.data.workspace_name
+          });
         break;
         case 'workspace-invite-accepted':
           //

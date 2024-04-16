@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const CollaborationMessage = ({ route }: any) => {
     const { baseUrl, token }:any = useContext(AuthContext);
-    const { workspace_id } = route.params;
+    const { workspace_id, workspace_name } = route.params;
 
     const navigation = useNavigation();
 
@@ -18,7 +18,7 @@ export const CollaborationMessage = ({ route }: any) => {
     }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>¿Aceptar invitación?</Text>
+      <Text style={styles.title}>¿Aceptar invitación de colaboración en {workspace_name}?</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
         onPress={() => handleAcceptInvitation()}
@@ -30,7 +30,7 @@ export const CollaborationMessage = ({ route }: any) => {
             onPress={() => navigation.goBack()}
             style={styles.button}
         >
-          <Text style={styles.buttonText}>No aceptar</Text>
+          <Text style={styles.buttonText}>Rechazar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -42,26 +42,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#271C3A',
   },
   title: {
-    fontSize: 24,
+    textAlign: 'center',
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 30,
+    color: 'white'
   },
   buttonContainer: {
     flexDirection: 'row',
   },
   button: {
-    backgroundColor: 'black',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
+    backgroundColor: 'white',
+    paddingVertical: 6,
+    paddingHorizontal: 20,
     marginHorizontal: 10,
     borderRadius: 5,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    color: '#271C3A',
+    fontSize: 14,
     fontWeight: 'bold',
   },
 });
