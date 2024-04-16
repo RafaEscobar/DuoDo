@@ -34,7 +34,7 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
       let type = response.notification.request.content.data.type;
       switch (type) {
         case 'friend-request':
-          //
+          navigate('FriendMessage', {friend_request_id: response.notification.request.content.data.friend_request});
         break;
         case 'friend-request-accepted':
           //
