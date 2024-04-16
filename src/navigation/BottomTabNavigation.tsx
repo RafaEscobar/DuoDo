@@ -31,7 +31,32 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
 
   useEffect(() => {
     Notifications.addNotificationResponseReceivedListener(response => {
-      navigate('CollaborationMessage', {workspace_id: response.notification.request.content.data.workspace});
+      let type = response.notification.request.content.data.type;
+      switch (type) {
+        case 'friend-request':
+          //
+        break;
+        case 'friend-request-accepted':
+          //
+        break;
+        case 'workspace-invite':
+          navigate('CollaborationMessage', {workspace_id: response.notification.request.content.data.workspace});
+        break;
+        case 'workspace-invite-accepted':
+          //
+        break;
+        case 'partner-finished-task':
+          //
+        break;
+        case 'task-assigned':
+          //
+        break;
+        case 'partner-left-team':
+          //
+        break;
+        default:
+        break;
+      }
     });
   }, []);
 
