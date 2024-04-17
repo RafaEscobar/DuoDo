@@ -20,22 +20,26 @@ import tw from 'twrnc';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
-  const [collaborator, setCollaborator] = useState([]);
-  const [collaborators, setCollaborators] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('')
+  const [priority, setPriority] = useState(null);
+  const [workspace, setWorkspace] = useState(null);
+  const [collaborator, setCollaborator] = useState(null);
   const [date, setDate] = useState(null);
-  const [description, setDescription] = useState(null)
+  const [time, setTime] = useState(null);
+
+  const [collaborators, setCollaborators] = useState([]);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [priorities, setPriorities] = useState([]);
-  const [priority, setPriority] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
-  const [thereIsResponsable, setThereIsResponsable] = useState(0);
-  const [time, setTime] = useState(null);
-  const [title, setTitle] = useState(null)
-  const [workspace, setWorkspace] = useState(null);
   const [workspaces, setWorkspaces] = useState([]);
+
+  const [titleError, setTitleError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
   const currentUser = JSON.parse(user);
@@ -49,20 +53,26 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
   }
 
   const handleSaveTask = async() => {
-    if (title != null && description != null && priority != null && workspace != null && date != null && time != null) {
-      setLoading(true);
-      let formatedDate = `${date} ${time}`;
-      const response = await StoreTask(title, description, collaborator, priority, workspace, formatedDate, token, baseUrl);
-      console.log(response.body.message)
-      if (response.status == 200) {
-        setLoading(false);
-        useAlert(ALERT_TYPE.SUCCESS, 'Tarea creada 🎉', response.body.message);
-        setTimeout(() => {
-          navigate('BottomTabNavigation');
-        }, 1000);
+    validateTitle();
+    validateDescription();
+    if (title.length > 0 && description.length > 0 && priority != null && workspace != null && collaborator != null && date != null && time != null) {
+      if (title.length >= 6) {
+        if (description.length >= 8) {
+          setLoading(true);
+          let formatedDate = `${date} ${time}`;
+          const response = await StoreTask(title, description, collaborator, priority, workspace, formatedDate, token, baseUrl);
+          console.log(response.body.message)
+          if (response.status == 200) {
+            setLoading(false);
+            useAlert(ALERT_TYPE.SUCCESS, 'Tarea creada 🎉', response.body.message);
+            setTimeout(() => {
+              navigate('BottomTabNavigation');
+            }, 1000);
+          }
+        }
       }
     } else {
-      console.log("Llena todos los campos.");
+      useAlert(ALERT_TYPE.INFO, 'Campos faltantes', "Llena todos los campos por favor.");
     }
   }
 
@@ -115,6 +125,21 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     await loadCollaborators(item);
   }
 
+  const validateTitle = () => {
+    if (title.length < 6) {
+      setTitleError('El titulo debe contener mínimo 6 caracteres.');
+    } else {
+      setTitleError('');
+    }
+  }
+
+  const validateDescription = () => {
+    if (description.length < 8) {
+      setDescriptionError('La descripción debe contener mínimo 8 caracteres.');
+    } else {
+      setDescriptionError('');
+    }
+  }
 
   return (
     <AlertNotificationRoot>
@@ -132,26 +157,30 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
             <View>
               <Text style={[tw`leading-8 text-2xl mt-10 text-white`, { fontFamily: "Poppins_700Bold" }]}>Nombre:</Text>
               <TextInput
-                style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+                style={[tw`w-90 border-b border-gray-400 text-sm text-white`, { fontFamily: "Poppins_400Regular" }]}
                 placeholder="¿Qué deseas hacer?"
                 placeholderTextColor={'#58b4ff'}
                 onChangeText={(text) => { setTitle(text) }}
+                onEndEditing={validateTitle}
               />
+              {titleError ? <Text style={tw`text-red-500 text-sm text-right font-bold`}>{titleError}</Text> : null}
             </View>
             <View>
-              <Text style={[tw`leading-8 text-xl mt-2 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripción:</Text>
+              <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Descripción:</Text>
               <TextInput
-                style={[tw`w-90 border-b border-gray-400 text-sm mb-5 text-white`, { fontFamily: "Poppins_400Regular" }]}
+                style={[tw`w-90 border-b border-gray-400 text-sm text-white`, { fontFamily: "Poppins_400Regular" }]}
                 placeholderTextColor={'#58b4ff'}
                 placeholder='¿Qué detalles de la tarea debes recordar?'
                 onChangeText={(text) => { setDescription(text) }}
                 multiline={true}
                 underlineColorAndroid={'transparent'}
                 numberOfLines={4}
+                onEndEditing={validateDescription}
               />
+              {descriptionError ? <Text style={tw`text-red-500 text-sm text-right font-bold`}>{descriptionError}</Text> : null}
             </View>
             <View style={tw`w-90`}>
-              <Text style={[tw`leading-8 text-2xl mt-1 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
+              <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Prioridad:</Text>
               <SelectList
                 data={priorities}
                 setSelected={(item:any) => setPriority(item)}
