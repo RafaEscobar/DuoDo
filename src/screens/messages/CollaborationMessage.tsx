@@ -22,10 +22,11 @@ export const CollaborationMessage = ({ route }: any) => {
       if (response.status == 200) {
         useAlert(ALERT_TYPE.SUCCESS, 'Bienvenido al equipo 🙌', response.body.message);
         setTimeout(() => {
-          navigation.goBack();
+          navigation.navigate('BottomTabNavigation');
         }, 1000);
       }
     }
+
   return (
     <AlertNotificationRoot>
       <View style={styles.container}>
