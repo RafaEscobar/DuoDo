@@ -1,15 +1,13 @@
-import { Calendar, Dashboard, Profile } from "../screens";
 import { BottomTabBarProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image } from "expo-image";
-import { ModalSheetScreen } from "../component/ModalSheetScreen";
-import React, { useEffect } from 'react';
-import * as Notifications from 'expo-notifications';
-import { TopTapGroup } from "./Stacts/TopTapGroup";
-import { TopTapChat } from "./Stacts/TopTapChat";
-import { ModalProfile } from "../component/ModalProfile";
 import { CustomBottomTab } from "../component/CustomBottomTab";
-import { CollaborationMessage } from "../screens/messages/CollaborationMessage";
-import { FriendMessage } from "../screens/messages/FriendMessage";
+import { Dashboard } from "../screens";
+import { Image } from "expo-image";
+import { ModalProfile } from "../component/ModalProfile";
+import { ModalSheetScreen } from "../component/ModalSheetScreen";
+import { TopTapChat } from "./Stacts/TopTapChat";
+import { TopTapGroup } from "./Stacts/TopTapGroup";
+import * as Notifications from 'expo-notifications';
+import React, { useEffect } from 'react';
 
 export type BottomTabParamList = {
   Inicio: undefined;

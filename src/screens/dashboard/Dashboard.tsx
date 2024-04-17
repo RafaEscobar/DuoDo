@@ -29,7 +29,6 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
         setLoad(true);
         const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
         if (workpaces_res.status == 200) {
-            // console.log(workpaces_res.body.data);
             setWorkspaces(WorkspaceListMapper(workpaces_res.body.data.reverse()));
             setTask(TasksListMapper(workpaces_res.body.data.reverse()));
         }
@@ -45,10 +44,6 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
          loadData();
         }, [])
     )
-
-    // useEffect(() => {
-    //     console.log(workspaces);
-    // }, [workspaces]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
