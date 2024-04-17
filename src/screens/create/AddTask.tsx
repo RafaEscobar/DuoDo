@@ -1,60 +1,44 @@
+import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
 import { AntDesign } from '@expo/vector-icons';
 import { AuthContext } from '../../context/AuthContext';
+import { FriendSelectMapper } from '../../mappers/Friends/FriendSelectMapper';
+import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
 import { IndexPriorities } from '../../modules/requests/Priorities/IndexPriorities';
+import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
+import { LoadingComponent } from '../../component/LoadingComponent';
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { PriorityMapper } from '../../mappers/Tasks/Index';
 import { SelectList } from 'react-native-dropdown-select-list'
+import { StoreTask } from '../../modules/requests/Priorities/StoreTask';
 import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { useAlert } from '../../hooks/useAlert';
 import { useFonts } from 'expo-font';
+import { WorkspaceMapper } from '../../mappers/Tasks/WorkspaceMapper';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
-import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
-import { StoreTask } from '../../modules/requests/Priorities/StoreTask';
-import { PriorityMapper } from '../../mappers/Tasks/Index';
-import { WorkspaceMapper } from '../../mappers/Tasks/WorkspaceMapper';
-import Checkbox from 'expo-checkbox';
-import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
-import { FriendListMapper } from '../../mappers/Friends/FriendListMapper';
-import { IndexCollaborators } from '../../modules/requests/Collaborators/IndexCollaborators';
-import { CollaboratorsList } from '../../mappers/Collaborators/CollaboratorsList';
-import { FriendSelectMapper } from '../../mappers/Friends/FriendSelectMapper';
-import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
-import { useAlert } from '../../hooks/useAlert';
-import { LoadingComponent } from '../../component/LoadingComponent';
 
 export const AddTask = ({ navigation: { navigate } }: any) => {
 
-  const [title, setTitle] = useState(null)
-  const [description, setDescription] = useState(null)
-  const [priorities, setPriorities] = useState([]);
-  const [priority, setPriority] = useState(null);
-  const [workspaces, setWorkspaces] = useState([]);
-  const [workspace, setWorkspace] = useState(null);
-  const [thereIsResponsable, setThereIsResponsable] = useState(0);
-  const [date, setDate] = useState(null);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-  const [friends, setFriends] = useState([]);
-  const [time, setTime] = useState(null);
-  const [collaborators, setCollaborators] = useState([]);
   const [collaborator, setCollaborator] = useState([]);
-  const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
+  const [collaborators, setCollaborators] = useState([]);
+  const [date, setDate] = useState(null);
+  const [description, setDescription] = useState(null)
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [priorities, setPriorities] = useState([]);
+  const [priority, setPriority] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [selectedTime, setSelectedTime] = useState<Date | undefined>(undefined);
+  const [thereIsResponsable, setThereIsResponsable] = useState(0);
+  const [time, setTime] = useState(null);
+  const [title, setTitle] = useState(null)
+  const [workspace, setWorkspace] = useState(null);
+  const [workspaces, setWorkspaces] = useState([]);
 
   const { user, token, baseUrl }:any = useContext(AuthContext);
   const currentUser = JSON.parse(user);
-
-  const options = [
-    {
-      key: 1,
-      value: 'Si'
-    },
-    {
-      key: 2,
-      value: 'No'
-    }
-  ];
 
   const loadSelectData = async() => {
     let external_identifier = JSON.parse(user).external_identifier;
@@ -82,9 +66,9 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     }
   }
 
-  const loadCollaborators = async() => {
-    if (workspace != null) {
-      let response = await IndexCollaborators(workspace, token, baseUrl);
+  const loadCollaborators = async(item:any) => {
+    if (item != null) {
+      let response = await IndexCollaborators(item, token, baseUrl);
       setCollaborators(FriendSelectMapper(response.body.data));
     }
   }
@@ -126,6 +110,12 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
     setIsTimePickerVisible(false);
   };
 
+  const handleLoadData = async(item:any) => {
+    setWorkspace(item);
+    await loadCollaborators(item);
+  }
+
+
   return (
     <AlertNotificationRoot>
       <ScrollView style={tw`h-full`}>
@@ -136,7 +126,6 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
                 onPress={() => { navigate('BottomTabNavigation') }}
               >
                 <AntDesign name="left" size={25} color="black" style={tw`bg-neutral-300 rounded-lg p-1`} />
-
               </TouchableOpacity>
               <Text style={[tw`text-xl text-center text-white`, { fontFamily: "Poppins_700Bold" }]}>Nueva Tarea</Text>
             </View>
@@ -179,9 +168,7 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
               <SelectList
                 data={workspaces}
                 setSelected={(item:any) => {
-                  setWorkspace(item)
-                  setThereIsResponsable(1)
-                  loadCollaborators()
+                  handleLoadData(item);
                 }}
                 save='key'
                 search={false}
@@ -192,25 +179,20 @@ export const AddTask = ({ navigation: { navigate } }: any) => {
                 notFoundText="No tienes espacios de trabajo, crea uno antes."
               />
             </View>
-            {
-              (thereIsResponsable==1) ?
-                  <View>
-                    <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Responsable</Text>
-                    <SelectList
-                      data={collaborators}
-                      setSelected={(item:any) => setCollaborator(item)}
-                      save='key'
-                      search={false}
-                      inputStyles={tw`text-white`}
-                      dropdownTextStyles={tw`text-white`}
-                      fontFamily='Poppins_400Regular'
-                      placeholder='- Elige una opción -'
-                      notFoundText="No tienes colaboradores en este espacio de trabajo."
-                    />
-                  </View>
-                :
-                null
-            }
+            <View>
+              <Text style={[tw`leading-8 text-xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Responsable</Text>
+              <SelectList
+                data={collaborators}
+                setSelected={(item:any) => setCollaborator(item)}
+                save='key'
+                search={false}
+                inputStyles={tw`text-white`}
+                dropdownTextStyles={tw`text-white`}
+                fontFamily='Poppins_400Regular'
+                placeholder='- Elige una opción -'
+                notFoundText="No tienes colaboradores en este espacio de trabajo."
+              />
+            </View>
             <View>
               <Text style={[tw`leading-8 text-2xl mt-6 text-white`, { fontFamily: "Poppins_700Bold" }]}>Fecha:</Text>
               <TouchableOpacity onPress={() => setIsDatePickerVisible(true)}>
