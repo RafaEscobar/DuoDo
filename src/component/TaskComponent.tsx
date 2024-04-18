@@ -75,7 +75,9 @@ export const TaskComponent = (props:any) => {
     const CheckMark = ({ id, completed }: any) => {
         return (
             <Pressable
-                onPress={() => toggleTodo(id)}
+                onPress={() => {
+                    toggleTodo(id)
+                }}
                 style={[tw`w-8 h-8 rounded-xl`, { backgroundColor: completed ? '#E9E9EF' : '#0EA5E9' }]}
             >
             </Pressable>
@@ -123,7 +125,7 @@ export const TaskComponent = (props:any) => {
                         style={tw`bg-[#c4bbf7] p-2 rounded-2xl mt-3`}
                     >
                         <View style={tw`flex-row items-center grow gap-2`}>
-                            <CheckMark id={item.id} completed={item.completed} />
+                            <CheckMark id={item.id} completed={item.status} />
                             <View style={tw`flex flex-col`}>
                                 <Text style={[tw`text-xl`, { fontFamily: "Poppins_700Bold" }]}>{item.title.slice(0, 26)}</Text>
                                 <Text style={[tw`w-60 text-sm`, { fontFamily: "Poppins_400Regular" }]}>{item.description.slice(0, 76)}...</Text>
