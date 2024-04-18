@@ -14,6 +14,7 @@ import { View, Text, TouchableOpacity, Touchable } from 'react-native';
 import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { Nose } from '../Nose';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user, token, baseUrl }: any = useContext(AuthContext);
