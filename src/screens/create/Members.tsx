@@ -10,7 +10,7 @@ import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins"
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useAlert } from '../../hooks/useAlert';
 import { useFonts } from 'expo-font';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Modal, TextInput, StyleSheet } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
@@ -46,6 +46,12 @@ export const Members = ({ route }: any) => {
         loadData();
     }, []);
 
+    useFocusEffect(
+        React.useCallback(() => {
+         loadData();
+        }, [])
+    )
+
     useEffect(() => {
         console.log(collaborators)
     }, [collaborators]);
@@ -58,27 +64,6 @@ export const Members = ({ route }: any) => {
     if (!fontsLoaded) {
         return null;
     }
-
-    const members = [
-        {
-            "id": 1,
-            "name": "Alejandro",
-            "avatar": "https://www.w3schools.com/w3images/avatar2.png",
-            "role": "Administrador"
-        },
-        {
-            "id": 2,
-            "name": "Juan",
-            "avatar": "https://www.w3schools.com/w3images/avatar2.png",
-            "role": "Miembro"
-        },
-        {
-            "id": 3,
-            "name": "Pedro",
-            "avatar": "https://www.w3schools.com/w3images/avatar2.png",
-            "role": "Miembro"
-        }
-    ];
 
     const navigation = useNavigation();
 

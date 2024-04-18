@@ -1,9 +1,9 @@
-import React from "react";
-import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
-import tw from 'twrnc';
-import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
-import { useFonts } from 'expo-font';
 import { Checkbox } from "./Checkbox";
+import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
+import { ScrollView, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+import React, { useState } from "react";
+import tw from 'twrnc';
 
 const formatDate = (date:any) => {
     const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric',   hour12: true});
@@ -11,20 +11,20 @@ const formatDate = (date:any) => {
 }
 
 export const Todo = (props:any) => {
-
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_700Bold
     });
 
+    const [localStatus, setLocalStatus] = useState(false);
+    
+    const {id, title, status, due_date} = props;
+
     if (!fontsLoaded) {
         return null;
     }
 
-    const {id, title, status, due_date} = props;
-
     return (
-
         <ScrollView>
             <View style={tw`mb-4 flex flex-row`}>
                 <Checkbox
@@ -48,6 +48,5 @@ export const Todo = (props:any) => {
                 </View>
             </View>
         </ScrollView>
-
     )
 }

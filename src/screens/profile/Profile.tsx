@@ -17,6 +17,7 @@ import { useAlert } from '../../hooks/useAlert';
 import { IndexFriends } from '../../modules/requests/Friends/IndexFriends';
 import {useEffect} from 'react';
 import { FriendListMapper } from '../../mappers/Friends/FriendListMapper';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const Profile = ({ navigation }: any) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -34,6 +35,12 @@ export const Profile = ({ navigation }: any) => {
     useEffect(() => {
         loadContent();
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+         loadContent();
+        }, [])
+    )
 
     const [loading, setLoading] = useState(false);
 

@@ -1,4 +1,4 @@
-import { AcceptInvitation } from '../../modules/requests/workspaces/AcceptInvitation';
+import { AcceptFriendRequest } from '../../modules/requests/Friends/AcceptFriendRequest';
 import { ALERT_TYPE, AlertNotificationRoot } from 'react-native-alert-notification';
 import { AuthContext } from '../../context/AuthContext';
 import { LoadingComponent } from '../../component/LoadingComponent';
@@ -7,37 +7,37 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useContext, useState } from 'react';
 import LottieView from 'lottie-react-native';
+import tw from 'twrnc';
 
-export const CollaborationMessage = ({ route }: any) => {
-    const { baseUrl, token }:any = useContext(AuthContext);
-    const { workspace_id, workspace_name } = route.params;
-    const [loading, setLoading] = useState(false);
+export const FriendMessage = ({ route }: any) => {
+  const [loading, setLoading] = useState(false);
+  const { baseUrl, token }:any = useContext(AuthContext);
+  const { friend_request_id, friend_name } = route.params;
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
-
-    const handleAcceptInvitation = async() => {
-      setLoading(true);
-      const response = await AcceptInvitation(workspace_id, token, baseUrl);
-      setLoading(false);
-      if (response.status == 200) {
-        useAlert(ALERT_TYPE.SUCCESS, 'Bienvenido al equipo 🙌', response.body.message);
-        setTimeout(() => {
-          navigation.navigate('BottomTabNavigation');
-        }, 1000);
-      }
+  const handleAcceptInvitation = async() => {
+    setLoading(true);
+    const response = await AcceptFriendRequest(friend_request_id, token, baseUrl);
+    setLoading(false);
+    if (response.status == 200) {
+      useAlert(ALERT_TYPE.SUCCESS, 'Un nuevo amigo ✨', response.body.message);
+      setTimeout(() => {
+        navigation.goBack();
+      }, 1000);
     }
+  }
 
   return (
     <AlertNotificationRoot>
       <View style={styles.container}>
         <LottieView
-          source={require('../../../assets/animations/gretting.json')}
-          style={{width: "60%", height: "60%"}}
-          autoPlay
-          loop
+            source={require('../../../assets/animations/gretting.json')}
+            style={{width: "60%", height: "60%"}}
+            autoPlay
+            loop
         />
-        <Text style={styles.title}>¿Aceptar invitación de colaboración en {workspace_name}?</Text>
-        <View style={styles.buttonContainer}>
+        <Text style={styles.title}>¿Aceptar solicitud de amistad de {friend_name}?</Text>
+        <View style={[styles.buttonContainer]}>
           <TouchableOpacity
           onPress={() => handleAcceptInvitation()}
               style={styles.button}
@@ -88,3 +88,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+

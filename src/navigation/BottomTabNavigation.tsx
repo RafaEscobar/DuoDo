@@ -1,13 +1,13 @@
-import { Calendar, Dashboard, Profile } from "../screens";
 import { BottomTabBarProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image } from "expo-image";
-import { ModalSheetScreen } from "../component/ModalSheetScreen";
-import React, { useEffect } from 'react';
-import * as Notifications from 'expo-notifications';
-import { TopTapGroup } from "./Stacts/TopTapGroup";
-import { TopTapChat } from "./Stacts/TopTapChat";
-import { ModalProfile } from "../component/ModalProfile";
 import { CustomBottomTab } from "../component/CustomBottomTab";
+import { Dashboard } from "../screens";
+import { Image } from "expo-image";
+import { ModalProfile } from "../component/ModalProfile";
+import { ModalSheetScreen } from "../component/ModalSheetScreen";
+import { TopTapChat } from "./Stacts/TopTapChat";
+import { TopTapGroup } from "./Stacts/TopTapGroup";
+import * as Notifications from 'expo-notifications';
+import React, { useEffect } from 'react';
 
 export type BottomTabParamList = {
   Inicio: undefined;
@@ -31,7 +31,38 @@ export const BottomTabNavigation = ({ navigation: { navigate } }: any) => {
 
   useEffect(() => {
     Notifications.addNotificationResponseReceivedListener(response => {
-      navigate('CollaborationMessage', {workspace_id: response.notification.request.content.data.workspace});
+      let type = response.notification.request.content.data.type;
+      switch (type) {
+        case 'friend-request':
+          navigate('FriendMessage', {
+            friend_request_id: response.notification.request.content.data.friend_request,
+            friend_name: response.notification.request.content.data.friend_name,
+          });
+        break;
+        case 'friend-request-accepted':
+          //
+        break;
+        case 'workspace-invite':
+          navigate('CollaborationMessage', {
+            workspace_id: response.notification.request.content.data.workspace,
+            workspace_name: response.notification.request.content.data.workspace_name
+          });
+        break;
+        case 'workspace-invite-accepted':
+          //
+        break;
+        case 'partner-finished-task':
+          //
+        break;
+        case 'task-assigned':
+          //
+        break;
+        case 'partner-left-team':
+          //
+        break;
+        default:
+        break;
+      }
     });
   }, []);
 

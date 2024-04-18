@@ -62,10 +62,10 @@ export const AllTask = ({ navigation: { navigate }, route }: any) => {
             load ?
               <View style={tw`flex justify-center items-center h-full`}>
                   <LottieView
-                      source={require('../../../assets/animations/load.json')}
-                      style={{width: "50%", height: "50%"}}
-                      autoPlay
-                      loop
+                    source={require('../../../assets/animations/load.json')}
+                    style={{width: "50%", height: "50%"}}
+                    autoPlay
+                    loop
                   />
               </View>
             :

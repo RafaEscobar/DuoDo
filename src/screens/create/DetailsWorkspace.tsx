@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   const [localData, setLocalData] = useState(
@@ -41,7 +42,13 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
 
   useEffect(() => {
     loadData();
-  }, [])
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+     loadData();
+    }, [])
+  )
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,

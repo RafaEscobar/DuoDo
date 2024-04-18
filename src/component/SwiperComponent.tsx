@@ -87,8 +87,6 @@ export const SwiperComponent = (props:any) => {
                     />
                     <Text style={styles.advance}>{item.advance}%</Text>
                   </View>
-
-
                 </Animated.View>
               </TouchableOpacity>
               <StatusBar style="auto" />
