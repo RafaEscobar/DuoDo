@@ -5,20 +5,25 @@ import { useFonts } from 'expo-font';
 import React, { useState } from "react";
 import tw from 'twrnc';
 
-const formatDate = (date:any) => {
-    const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric',   hour12: true});
+const formatDate = (date: any) => {
+    const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
     return newDate.charAt(0).toUpperCase() + newDate.slice(1);
 }
 
-export const Todo = (props:any) => {
+export const Todo = (props: any) => {
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_700Bold
     });
 
     const [localStatus, setLocalStatus] = useState(false);
-    
-    const {id, title, status, due_date} = props;
+
+    const { id, title, due_date } = props;
+    const [status, setSatus] = useState(props.status);
+
+    const toggleStatus = () => {
+        setSatus(!status);
+    }
 
     if (!fontsLoaded) {
         return null;
@@ -26,12 +31,13 @@ export const Todo = (props:any) => {
 
     return (
         <ScrollView>
-            <View style={tw`mb-4 flex flex-row`}>
+            <View style={tw`mb-4 flex flex-row items-center`}>
                 <Checkbox
                     id={id}
                     text={title}
                     isCompleted={status}
                     hours={due_date}
+                    onToggle={toggleStatus}
                 />
                 <View>
                     <Text style={

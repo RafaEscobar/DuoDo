@@ -14,7 +14,7 @@ import { View, Text, TouchableOpacity, Touchable } from 'react-native';
 import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { Nose } from '../Nose';
+import { TodoList } from '../../component/TodoList';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user, token, baseUrl }: any = useContext(AuthContext);
@@ -30,6 +30,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
         setLoad(true);
         const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
         if (workpaces_res.status == 200) {
+            // console.log(workpaces_res.body.data);
             setWorkspaces(WorkspaceListMapper(workpaces_res.body.data.reverse()));
             setTask(TasksListMapper(workpaces_res.body.data.reverse()));
         }
@@ -45,6 +46,10 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
          loadData();
         }, [])
     )
+
+    // useEffect(() => {
+    //     console.log(workspaces);
+    // }, [workspaces]);
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -73,7 +78,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                         />
                     </View>
                 </View>
-                <View style={tw`h-[30%] mb-6`}>
+                <View style={tw`h-[25%] mb-6`}>
                     <View>
                         <View style={tw`flex flex-row justify-between items-center w-90 ml-3`}>
                             <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Espacios de trabajo</Text>
@@ -128,7 +133,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
                             </View>
                         :
                             (tasks.length > 0) ?
-                                <TaskComponent tasks={tasks} />
+                                <TodoList tasks={tasks.slice(0, 3)} />
                                 :
                                 <View style={tw`mt-10 flex justify-center items-center`}>
                                     <Text style={tw`text-white text-center font-semibold`}>No tienes tareas para mostrar.</Text>
