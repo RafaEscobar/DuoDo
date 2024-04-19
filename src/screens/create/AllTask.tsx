@@ -56,7 +56,7 @@ export const AllTask = ({ navigation: { navigate }, route }: any) => {
 
   return (
     <View style={tw`bg-[#271C3A] h-full`}>
-      <View style={tw`flex pt-3 ml-2.5`}>
+      <View style={tw`flex pt-3 ml-2.5 w-90`}>
         <Text style={[tw`text-2xl text-white`, { fontFamily: "Poppins_700Bold" }]}>Tareas</Text>
         {
             load ?

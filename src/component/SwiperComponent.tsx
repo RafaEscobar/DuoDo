@@ -56,7 +56,7 @@ export const SwiperComponent = (props:any) => {
           });
 
           return (
-            <View style={{ width: 300 }}>
+            <View style={{ width: 250 }}>
               <TouchableOpacity
                 onPress={() => navigate('DetailsWorkspace', {workspace: item})}
               >
@@ -83,7 +83,7 @@ export const SwiperComponent = (props:any) => {
                     /> */}
                   </View>
                   <View style={tw`flex flex-row mt-3 gap-1`}>
-                    <Progress.Bar progress={(item.advance/100)} width={200} height={20} color='#0dac4a' borderRadius={20}
+                    <Progress.Bar progress={(item.advance/100)} width={160} height={20} color='#0dac4a' borderRadius={20}
                     />
                     <Text style={styles.advance}>{item.advance}%</Text>
                   </View>

@@ -100,8 +100,8 @@ export const Login = ({ navigation: {navigate} }: any) => {
 
   return (
     <AlertNotificationRoot>
-      <ScrollView style={tw`h-full`}>
-        <View style={[[styles.container, themeContainerStyle], tw`h-full py-10`]}>
+      <ScrollView style={tw`h-full bg-[#271C3A]`}>
+        <View style={[[styles.container]]}>
           <Button
             onPress={() => { navigate('Landing') }}
             style={tw`absolute top-0 left-0 mt-16 ml-6 bg-indigo-400 p-2 rounded-full hover:bg-orange-200 z-10`}

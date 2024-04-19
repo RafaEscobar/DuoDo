@@ -192,7 +192,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onEndEditing={validateName}
                   type='text'
                   placeholder="Ingresa tu nombre"
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black font-medium`}
                   maxLength={18}
                 />
                 {nameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{nameError}</Text> : null}
@@ -209,7 +209,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   onEndEditing={validateLastName}
                   type='text'
                   placeholder="Ingresa tus apellidos"
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black font-medium`}
                   maxLength={28}
                 />
                 {lastNameError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{lastNameError}</Text> : null}
@@ -229,7 +229,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                     onPress={toggleDatepicker}
                   >
                     <TextInput
-                      style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                      style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black font-medium`}
                       placeholder='Ingresa tu fecha de nacimiento'
                       value={birthdate}
                       editable={false}
@@ -252,7 +252,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   value={email}
                   keyboardType="email-address"
                   placeholder="micorreo@ejemplo.com"
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black font-medium`}
                   maxLength={34}
                 />
                 {emailError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{emailError}</Text> : null}
@@ -269,7 +269,7 @@ export const SignUp = ({ navigation: { navigate } }: any) => {
                   value={password}
                   placeholder="*********"
                   secureTextEntry
-                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-neutral-400`}
+                  style={tw`rounded-xl bg-indigo-50 rounded-md p-2 w-80 mt-3 text-base text-black font-medium`}
                   maxLength={16}
                 />
                 {passwordError ? <Text style={tw`text-red-500 text-sm mt-1 text-right font-bold`}>{passwordError}</Text> : null}

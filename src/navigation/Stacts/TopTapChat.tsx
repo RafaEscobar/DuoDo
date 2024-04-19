@@ -34,7 +34,7 @@ export const TopTapChat = () => {
             })}
         >
             <TopTap.Screen name="Task" component={AllTask} options={{ tabBarLabel: 'Tareas' }} />
-            <TopTap.Screen name="Wor<kspace" component={Workspace} options={{ tabBarLabel: 'Espacios de trabajo' }} />
+            <TopTap.Screen name="Workspace" component={Workspace} options={{ tabBarLabel: 'Espacios de trabajo' }} />
         </TopTap.Navigator>
     );
 }

@@ -10,6 +10,7 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc';
 import { useFocusEffect } from '@react-navigation/native';
+import { TodoList } from '../../component/TodoList';
 
 export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
   const [localData, setLocalData] = useState(
@@ -94,7 +95,7 @@ export const DetailsWorkspace = ({ navigation: { navigate }, route }: any) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <CheckList tasks={workspace.tasks} />
+        <TodoList tasks={workspace.tasks} />
       </View>
     </SafeAreaView>
   )
