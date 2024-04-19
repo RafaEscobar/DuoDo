@@ -15,6 +15,7 @@ import tw from 'twrnc';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { TodoList } from '../../component/TodoList';
+import { IndexTasks } from '../../modules/requests/Tasks/IndexTask';
 
 export const Dashboard = ({ navigation: { navigate } }: any) => {
     const { user, token, baseUrl }: any = useContext(AuthContext);
@@ -29,10 +30,10 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
     const loadData = async() => {
         setLoad(true);
         const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
+        const tasks_res = await IndexTasks(currentUser.external_identifier, token, baseUrl);
         if (workpaces_res.status == 200) {
-            // console.log(workpaces_res.body.data);
             setWorkspaces(WorkspaceListMapper(workpaces_res.body.data.reverse()));
-            setTask(TasksListMapper(workpaces_res.body.data.reverse()));
+            setTask(TasksListMapper(tasks_res.body.data));
         }
         setLoad(false);
     }

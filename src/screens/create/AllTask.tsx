@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { IndexWorkspace } from '../../modules/requests/workspaces/IndexWorkspace';
 import { TasksListMapper } from '../../mappers/Dashboard/TasksListMapper';
 import LottieView from 'lottie-react-native';
+import { IndexTasks } from '../../modules/requests/Tasks/IndexTask';
 
 export const AllTask = ({ navigation: { navigate }, route }: any) => {
   const { user, token, baseUrl }: any = useContext(AuthContext);
@@ -44,7 +45,7 @@ export const AllTask = ({ navigation: { navigate }, route }: any) => {
   }
 
   const loadData = async() => {
-    const workpaces_res = await IndexWorkspace(currentUser.external_identifier, token, baseUrl);
+    const workpaces_res = await IndexTasks(currentUser.external_identifier, token, baseUrl);
     if (workpaces_res.status == 200) {
         setTask(TasksListMapper(workpaces_res.body.data));
     }
