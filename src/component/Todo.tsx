@@ -1,11 +1,11 @@
+import { AuthContext } from "../context/AuthContext";
 import { Checkbox } from "./Checkbox";
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { ScrollView, Text, View } from 'react-native';
+import { UpdateTask } from "../modules/requests/Tasks/UpdateTask";
 import { useFonts } from 'expo-font';
 import React, { useContext, useState } from "react";
 import tw from 'twrnc';
-import { UpdateTask } from "../modules/requests/Tasks/UpdateTask";
-import { AuthContext } from "../context/AuthContext";
 
 const formatDate = (date: any) => {
     const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });

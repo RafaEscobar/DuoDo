@@ -33,7 +33,7 @@ export const Dashboard = ({ navigation: { navigate } }: any) => {
         const tasks_res = await IndexTasks(currentUser.external_identifier, token, baseUrl);
         if (workpaces_res.status == 200) {
             setWorkspaces(WorkspaceListMapper(workpaces_res.body.data.reverse()));
-            setTask(TasksListMapper(tasks_res.body.data));
+            setTask(TasksListMapper(tasks_res.body.data.reverse()));
         }
         setLoad(false);
     }
