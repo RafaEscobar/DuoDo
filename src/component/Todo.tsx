@@ -2,8 +2,10 @@ import { Checkbox } from "./Checkbox";
 import { Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import { ScrollView, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import tw from 'twrnc';
+import { UpdateTask } from "../modules/requests/Tasks/UpdateTask";
+import { AuthContext } from "../context/AuthContext";
 
 const formatDate = (date: any) => {
     const newDate = new Date(date).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
@@ -17,12 +19,25 @@ export const Todo = (props: any) => {
     });
 
     const [localStatus, setLocalStatus] = useState(false);
+    const { user, token, baseUrl }:any = useContext(AuthContext);
 
     const { id, title, due_date } = props;
-    const [status, setSatus] = useState(props.status);
+    const [status, setStatus] = useState(props.status);
 
-    const toggleStatus = () => {
-        setSatus(!status);
+    const toggleStatus = async() => {
+        setStatus(!status);
+        const response = await UpdateTask(
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            !status,
+            undefined,
+            token,
+            baseUrl,
+            id
+        );
     }
 
     if (!fontsLoaded) {
